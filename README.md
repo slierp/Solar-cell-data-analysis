@@ -5,7 +5,7 @@ Solar cell data analysis using python modules pandas, matplotlib and pyqt
 
 With this program you can perform analysis of production data of (silicon) solar cells. It provides a graphical user interface.
 
-<b>Features</>
+<b>Features</b>
 
 - Unlimited number of large data sets (e.g. 100k cells takes a few seconds)
 - Automatic data filtering, including the possibility of filtering data sets with different settings in one session
