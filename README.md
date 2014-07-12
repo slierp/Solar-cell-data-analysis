@@ -13,3 +13,11 @@ Features
 - All the graphs are interactive: You can select the data sets to show, set the scale, axis labels etcetera
 - Cross-platform - mainly tested on Windows; partially tested on linux; should also be compatible with Mac OS
 - Multiple language support (work in progress)
+
+Install
+To install you can choose between two methods:
+- download the source code and use it in combination with a python distribution installation
+- download the release file and run it direcly (Windows only)
+
+Useage
+Many of the features will be self-explanatory to solar cell engineers. To help you get started there are three CSV data files that you can load and process with the program. The CSV files also show what format your data has to be in, in order for the program to process the data.
