@@ -17,9 +17,10 @@ With this program you can perform analysis of production data of (silicon) solar
 
 <b>Install</b>
 
-To install you can choose between two methods:
+To install you can choose between these methods:
 - download the source code and use it in combination with a python distribution installation (e.g. Python(x,y), Anaconda, Enthought on Windows)
-- download the release file and run it direcly after unzipping (Windows only)
+- download the release zip file and run it direcly after unzipping
+- download the release setup file and install it (Windows only)
 
 <b>Using the program</b>
 
