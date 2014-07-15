@@ -17,7 +17,7 @@ With this program you can perform analysis of production data of (silicon) solar
 
 <b>Why not use a spreadsheet?</b>
 
-The main advantage of using a dedicated program instead of a spreadsheet program like Microsoft Excel is that it performs much faster for large data sets (>10k cells). A low-to-high plot distribution plot for example takes less than a second, while the same plot using Excel takes a few minutes on a i7-4800MQ/8 GB laptop (using Excel standard function SMALL). Furthermore, the pandas and matplotlib libraries used for data processing and plotting are more powerful and flexible, so it is much easier to implement new features.
+The main advantage of using a dedicated program instead of a spreadsheet program like Microsoft Excel is that it performs much faster for large data sets (>10k cells). A low-to-high distribution plot for example takes less than a second, while the same plot using Excel takes a few minutes (on a i7-4800MQ/8 GB laptop using Excel standard function SMALL). Furthermore, the pandas and matplotlib libraries used for data processing and plotting are more powerful and flexible, so it is much easier to implement new features.
 
 <b>Install</b>
 
