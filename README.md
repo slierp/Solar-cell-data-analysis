@@ -33,4 +33,5 @@ Many of the features will be self-explanatory to solar cell engineers. On the le
 <b>Acknowledgements</b>
 
 The following people helped with the development of this program:
-Polo Feng - Chinese translation
+
+Polo Feng Chinese translation
