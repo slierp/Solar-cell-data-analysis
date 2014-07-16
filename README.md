@@ -22,9 +22,9 @@ The main advantage of using a dedicated program instead of a spreadsheet program
 <b>Install</b>
 
 To install you can choose between these methods:
-- download the source code and use it in combination with a python distribution installation (e.g. Python(x,y), Anaconda, Enthought on Windows)
-- download the release zip file and run it direcly after unzipping
-- download the release setup file and install it (Windows only)
+- download the <a href="https://github.com/slierp/Solar-cell-data-analysis/archive/master.zip">source code</a> and use it in combination with a python distribution installation (e.g. Python(x,y), Anaconda, Enthought on Windows)
+- go to <a href="https://github.com/slierp/Solar-cell-data-analysis/releases">releases</a>, download the zip file and manually run the exe file after unzipping
+- go to <a href="https://github.com/slierp/Solar-cell-data-analysis/releases">releases</a>, download the setup file and install it (Windows only)
 
 <b>Using the program</b>
 
