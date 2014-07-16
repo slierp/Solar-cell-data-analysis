@@ -6,21 +6,21 @@
     <message>
         <location filename="IVMainGui.py" line="20"/>
         <source>Solar cell data analysis</source>
-        <translation>Solar cell data analysis</translation>
+        <translation>太阳能电池片数据分析</translation>
     </message>
     <message>
         <location filename="IVMainGui.py" line="547"/>
         <source>Load files</source>
-        <translation>Load files</translation>
+        <translation>加载文档</translation>
     </message>
     <message>
         <location filename="IVMainGui.py" line="83"/>
         <source>Empty data sets were found.
 
 The application only accepts data entries with a value for Voc, Isc, FF, Eta, Rser, Rsh and Irev. All values also need to be non-negative.</source>
-        <translation>Empty data sets were found.
+        <translation>发现空数据集.
 
-The application only accepts data entries with a value for Voc, Isc, FF, Eta, Rser, Rsh and Irev. All values also need to be non-negative.</translation>
+该应用仅接受Voc, Isc, FF, Eta, Rser, Rsh and Irev的数据输入值,所有数值均要求为非负数.</translation>
     </message>
     <message>
         <location filename="IVMainGui.py" line="88"/>
@@ -32,9 +32,9 @@ The application only accepts data entries with a value for Voc, Isc, FF, Eta, Rs
         <source>Filenames with non-ASCII characters were found.
 
 The application currently only supports ASCII filenames.</source>
-        <translation>Filenames with non-ASCII characters were found.
+        <translation>文件名包含非ASCII代码字符.
 
-The application currently only supports ASCII filenames.</translation>
+当前应用只支持ASCII代码文件名.</translation>
     </message>
     <message>
         <location filename="IVMainGui.py" line="363"/>
@@ -44,27 +44,27 @@ The application currently only supports ASCII filenames.</translation>
     <message>
         <location filename="IVMainGui.py" line="542"/>
         <source>Please load data files</source>
-        <translation>Please load data files</translation>
+        <translation>请加载数据文件</translation>
     </message>
     <message>
         <location filename="IVMainGui.py" line="98"/>
         <source>Combining data sets...</source>
-        <translation>Combining data sets...</translation>
+        <translation>合并数据集...</translation>
     </message>
     <message>
         <location filename="IVMainGui.py" line="131"/>
         <source>Filtering data...</source>
-        <translation>Filtering data...</translation>
+        <translation>过滤数据...</translation>
     </message>
     <message>
         <location filename="IVMainGui.py" line="183"/>
         <source>Save file</source>
-        <translation>Save file</translation>
+        <translation>保存文档</translation>
     </message>
     <message>
         <location filename="IVMainGui.py" line="185"/>
         <source>Making an Excel report...</source>
-        <translation>Making an Excel report...</translation>
+        <translation>生成Excel表格报告...</translation>
     </message>
     <message>
         <location filename="IVMainGui.py" line="267"/>
@@ -74,37 +74,37 @@ The application currently only supports ASCII filenames.</translation>
     <message>
         <location filename="IVMainGui.py" line="271"/>
         <source>Yield loss</source>
-        <translation>Yield loss</translation>
+        <translation>产量损失</translation>
     </message>
     <message>
         <location filename="IVMainGui.py" line="275"/>
         <source>Correlation</source>
-        <translation>Correlation</translation>
+        <translation>相关性</translation>
     </message>
     <message>
         <location filename="IVMainGui.py" line="284"/>
         <source>Opening report...</source>
-        <translation>Opening report...</translation>
+        <translation>打开报告...</translation>
     </message>
     <message>
         <location filename="IVMainGui.py" line="293"/>
         <source>Please make report</source>
-        <translation>Please make report</translation>
+        <translation>请生成报告</translation>
     </message>
     <message>
         <location filename="IVMainGui.py" line="303"/>
         <source>All data has been cleared</source>
-        <translation>All data has been cleared</translation>
+        <translation>所有数据已清除</translation>
     </message>
     <message>
         <location filename="IVMainGui.py" line="308"/>
         <source>Creating plot window...</source>
-        <translation>Creating plot window...</translation>
+        <translation>生成图表窗口...</translation>
     </message>
     <message>
         <location filename="IVMainGui.py" line="339"/>
         <source>Checking filters...</source>
-        <translation>Checking filters...</translation>
+        <translation>检查过滤...</translation>
     </message>
     <message>
         <location filename="IVMainGui.py" line="424"/>
@@ -112,35 +112,35 @@ The application currently only supports ASCII filenames.</translation>
 
 - Author: Ronald Naber (rnaber@tempress.nl)
 - License: Public domain</source>
-        <translation>Solar cell data analysis
+        <translation>太阳能电池片数据分析
 
-- Author: Ronald Naber (rnaber@tempress.nl)
-- License: Public domain</translation>
+-作者: Ronald Naber (rnaber@tempress.nl)
+-许可证:公共领域</translation>
     </message>
     <message>
         <location filename="IVMainGui.py" line="565"/>
         <source>About the application</source>
-        <translation>About the application</translation>
+        <translation>关于应用</translation>
     </message>
     <message>
         <location filename="IVMainGui.py" line="431"/>
         <source>Data series:</source>
-        <translation>Data series:</translation>
+        <translation>数据序列:</translation>
     </message>
     <message>
         <location filename="IVMainGui.py" line="439"/>
         <source>&amp;Load files</source>
-        <translation>&amp;Load files</translation>
+        <translation>&amp;加载文档</translation>
     </message>
     <message>
         <location filename="IVMainGui.py" line="442"/>
         <source>Combine data sets</source>
-        <translation>Combine data sets</translation>
+        <translation>合并数据集</translation>
     </message>
     <message>
         <location filename="IVMainGui.py" line="452"/>
         <source>Filter commands:</source>
-        <translation>Filter commands:</translation>
+        <translation>过滤命令:</translation>
     </message>
     <message>
         <location filename="IVMainGui.py" line="456"/>
@@ -150,57 +150,57 @@ The application currently only supports ASCII filenames.</translation>
     <message>
         <location filename="IVMainGui.py" line="456"/>
         <source>&lt; or &gt;</source>
-        <translation>&lt; or &gt;</translation>
+        <translation>&lt;或者&gt;</translation>
     </message>
     <message>
         <location filename="IVMainGui.py" line="456"/>
         <source>Number</source>
-        <translation>号码</translation>
+        <translation>数字</translation>
     </message>
     <message>
         <location filename="IVMainGui.py" line="460"/>
         <source>&amp;Check filters</source>
-        <translation>&amp;Check filters</translation>
+        <translation>&amp;检查过滤</translation>
     </message>
     <message>
         <location filename="IVMainGui.py" line="463"/>
         <source>&amp;Execute</source>
-        <translation>&amp;Execute</translation>
+        <translation>&amp;执行</translation>
     </message>
     <message>
         <location filename="IVMainGui.py" line="466"/>
         <source>&amp;Clear</source>
-        <translation>&amp;Clear</translation>
+        <translation>&amp;清除</translation>
     </message>
     <message>
         <location filename="IVMainGui.py" line="477"/>
         <source>Output commands:</source>
-        <translation>Output commands:</translation>
+        <translation>输出命令:</translation>
     </message>
     <message>
         <location filename="IVMainGui.py" line="478"/>
         <source>Boxplot Eta</source>
-        <translation>Boxplot Eta</translation>
+        <translation>Eta箱型图</translation>
     </message>
     <message>
         <location filename="IVMainGui.py" line="481"/>
         <source>Correlation:</source>
-        <translation>Correlation:</translation>
+        <translation>相关性:</translation>
     </message>
     <message>
         <location filename="IVMainGui.py" line="486"/>
         <source>Distribution Eta:</source>
-        <translation>Distribution Eta:</translation>
+        <translation>Eta分布图:</translation>
     </message>
     <message>
         <location filename="IVMainGui.py" line="487"/>
         <source>Low to high</source>
-        <translation>Low to high</translation>
+        <translation>由低到高</translation>
     </message>
     <message>
         <location filename="IVMainGui.py" line="488"/>
         <source>Histogram</source>
-        <translation>Histogram</translation>
+        <translation>柱状图</translation>
     </message>
     <message>
         <location filename="IVMainGui.py" line="489"/>
@@ -210,37 +210,37 @@ The application currently only supports ASCII filenames.</translation>
     <message>
         <location filename="IVMainGui.py" line="490"/>
         <source>Histogram + density</source>
-        <translation>Histogram + density</translation>
+        <translation>柱状图+密度</translation>
     </message>
     <message>
         <location filename="IVMainGui.py" line="492"/>
         <source>Stability Eta:</source>
-        <translation>Stability Eta:</translation>
+        <translation>Eta稳定性:</translation>
     </message>
     <message>
         <location filename="IVMainGui.py" line="493"/>
         <source>Walk-through</source>
-        <translation>Walk-through</translation>
+        <translation>场景漫游</translation>
     </message>
     <message>
         <location filename="IVMainGui.py" line="494"/>
         <source>Rolling mean</source>
-        <translation>Rolling mean</translation>
+        <translation>滚动平均值</translation>
     </message>
     <message>
         <location filename="IVMainGui.py" line="496"/>
         <source>&amp;Plot selection</source>
-        <translation>&amp;Plot selection</translation>
+        <translation>&amp;图表选择</translation>
     </message>
     <message>
         <location filename="IVMainGui.py" line="499"/>
         <source>&amp;Make report</source>
-        <translation>&amp;Make report</translation>
+        <translation>&amp;生成报告</translation>
     </message>
     <message>
         <location filename="IVMainGui.py" line="502"/>
         <source>&amp;Open report</source>
-        <translation>&amp;Open report</translation>
+        <translation>&amp;打开报告</translation>
     </message>
     <message>
         <location filename="IVMainGui.py" line="545"/>
@@ -255,7 +255,7 @@ The application currently only supports ASCII filenames.</translation>
     <message>
         <location filename="IVMainGui.py" line="549"/>
         <source>Close the application</source>
-        <translation>Close the application</translation>
+        <translation>关闭应用</translation>
     </message>
     <message>
         <location filename="IVMainGui.py" line="555"/>
@@ -270,7 +270,7 @@ The application currently only supports ASCII filenames.</translation>
     <message>
         <location filename="IVMainGui.py" line="557"/>
         <source>Switch to Dutch language</source>
-        <translation>Switch to Dutch language</translation>
+        <translation>切换至荷兰语</translation>
     </message>
     <message>
         <location filename="IVMainGui.py" line="559"/>
@@ -280,7 +280,7 @@ The application currently only supports ASCII filenames.</translation>
     <message>
         <location filename="IVMainGui.py" line="559"/>
         <source>Switch to English language</source>
-        <translation>Switch to English language</translation>
+        <translation>切换至英语</translation>
     </message>
     <message>
         <location filename="IVMainGui.py" line="564"/>
@@ -290,7 +290,7 @@ The application currently only supports ASCII filenames.</translation>
     <message>
         <location filename="IVMainGui.py" line="565"/>
         <source>About</source>
-        <translation>关于 </translation>
+        <translation>关于</translation>
     </message>
 </context>
 <context>
@@ -298,7 +298,7 @@ The application currently only supports ASCII filenames.</translation>
     <message>
         <location filename="IVMainPlot.py" line="30"/>
         <source>Solar cell data analysis - Matplotlib graph</source>
-        <translation>Solar cell data analysis - Matplotlib graph</translation>
+        <translation>太阳能电池片数据分析 - Matplotlib 图表</translation>
     </message>
     <message>
         <location filename="IVMainPlot.py" line="40"/>
@@ -306,15 +306,15 @@ The application currently only supports ASCII filenames.</translation>
 
 - Author: Ronald Naber (rnaber@tempress.nl)
 - License: Public domain</source>
-        <translation>Solar cell data analysis
+        <translation>太阳能电池片数据分析
 
-- Author: Ronald Naber (rnaber@tempress.nl)
-- License: Public domain</translation>
+-作者: Ronald Naber (rnaber@tempress.nl)
+-许可证:公共领域</translation>
     </message>
     <message>
         <location filename="IVMainPlot.py" line="58"/>
         <source>About the application</source>
-        <translation>About the application</translation>
+        <translation>关于应用</translation>
     </message>
 </context>
 </TS>
