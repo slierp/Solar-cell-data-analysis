@@ -32,5 +32,5 @@ Many of the features will be self-explanatory to solar cell engineers. On the le
 
 <b>Acknowledgements</b>
 
-Polo Feng performed the translation in Chinese
+Polo Feng performed the translation in Chinese<br>
 Michael Rhieu performed the tranlation in Korean
