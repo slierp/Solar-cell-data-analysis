@@ -60,7 +60,12 @@ class IVMainGui(QtGui.QMainWindow):
                 non_ascii_warning = True
                 continue
             
-            self.ad[num] = pd.read_csv(str(filename))[self.label_formats[self.label_format]].dropna()
+            try:
+                self.ad[num] = pd.read_csv(str(filename))[self.label_formats[self.label_format]].dropna()
+            except KeyError:
+                msg = self.tr("Error while reading data files.\n\nData labels were perhaps not recognized.")
+                QtGui.QMessageBox.about(self, self.tr("Warning"), msg)  
+                
             self.ad[num].columns = self.label_formats[0]
             self.ad[num] = self.ad[num].convert_objects(convert_numeric=True)
             self.ad[num] = self.ad[num][self.ad[num] > 0]
