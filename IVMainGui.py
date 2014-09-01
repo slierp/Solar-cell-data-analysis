@@ -24,6 +24,11 @@ class IVMainGui(QtGui.QMainWindow):
         self.user_filters = []
         self.ad = {} # all data
         self.adindex = ['Uoc','Isc','RserLfDfIEC','Rsh','FF','Eta','IRev1']
+        self.label_formats = {}
+        self.label_formats[0] = ['Uoc','Isc','RserLfDfIEC','Rsh','FF','Eta','IRev1']
+        self.label_formats[1] = ['Uoc0','Isc0','Rseries_multi_level','Rshunt_SC','Fill0','Eff0','Ireverse_1']
+        self.label_formats[2] = ['Uoc','Isc','RserIEC891','RshuntDfDr','FF','Eta','IRev1']        
+        self.label_format = 0
         self.yl = [] # yield loss
         self.smr = [] # summaries                     
         self.smrindex = ['Best cell','Median','Average','Standard deviation']
@@ -33,14 +38,15 @@ class IVMainGui(QtGui.QMainWindow):
         self.yloutput = []
         self.translator = None
         self.plot_selection_list = ['Uoc','Isc','Voc*Isc','FF','Eta']
+        self.prev_dir_path = ""              
         
         self.create_menu()
         self.create_main_frame()
-        self.set_default_filters()
+        self.set_default_filters()      
 
     def load_file(self, filename=None):   
 
-        fileNames = QtGui.QFileDialog.getOpenFileNames(self,self.tr("Load files"), "", "Excel Files (*.csv)")
+        fileNames = QtGui.QFileDialog.getOpenFileNames(self,self.tr("Load files"), self.prev_dir_path, "Excel Files (*.csv)")
         empty_data_warning = False
         non_ascii_warning = False
 
@@ -54,7 +60,8 @@ class IVMainGui(QtGui.QMainWindow):
                 non_ascii_warning = True
                 continue
             
-            self.ad[num] = pd.read_csv(str(filename))[self.adindex].dropna()
+            self.ad[num] = pd.read_csv(str(filename))[self.label_formats[self.label_format]].dropna()
+            self.ad[num].columns = self.label_formats[0]
             self.ad[num] = self.ad[num].convert_objects(convert_numeric=True)
             self.ad[num] = self.ad[num][self.ad[num] > 0]
             
@@ -62,9 +69,15 @@ class IVMainGui(QtGui.QMainWindow):
                 empty_data_warning = True
                 self.ad.pop(num)
                 continue                
+
+            if self.label_format == 1:
+                self.ad[num].loc[:,'Eta'] *= 100
+                self.ad[num].loc[:,'FF'] *= 100
+
+            self.prev_dir_path = ntpath.dirname(str(filename))
             
             ### add list view item ###
-            str_a = ntpath.basename(str(filename)[0:-4])
+            str_a = ntpath.basename(str(filename)[0:-4])            
             self.ad[num].index.name = str_a[0:19] # data set name limited to 20 characters
             item = QtGui.QStandardItem(str_a[0:19])
             font = item.font()
@@ -88,7 +101,7 @@ class IVMainGui(QtGui.QMainWindow):
 
     def combine_datasets(self):
 
-        if self.ad:
+        if len(self.ad) > 1:
             self.statusBar().showMessage(self.tr("Combining data sets..."))
         else:
             self.statusBar().showMessage(self.tr("Please load data files"))
@@ -174,7 +187,7 @@ class IVMainGui(QtGui.QMainWindow):
     def make_report(self):
 
         if self.ad:
-            self.reportname = QtGui.QFileDialog.getSaveFileName(self,self.tr("Save file"), "Solar cell data report", "Excel Files (*.xlsx)")
+            self.reportname = QtGui.QFileDialog.getSaveFileName(self,self.tr("Save file"), self.prev_dir_path, "Excel Files (*.xlsx)")
             if self.reportname:
                 self.statusBar().showMessage(self.tr("Making an Excel report..."))
             else:
@@ -393,6 +406,17 @@ class IVMainGui(QtGui.QMainWindow):
                     s = s[:-1] + "\n" #eliminate last '\t'
                 self.clip.setText(s)
 
+    def set_data_format0(self):
+    # defining one function with a numerical argument does not work, strangely
+    # it sets the parameter prematurely
+        self.label_format = 0
+
+    def set_data_format1(self):
+        self.label_format = 1
+
+    def set_data_format2(self):
+        self.label_format = 2
+
     def langKor(self):
         if self.translator:
             QtGui.QApplication.removeTranslator(self.translator)
@@ -581,6 +605,18 @@ class IVMainGui(QtGui.QMainWindow):
         self.add_actions(self.file_menu, 
             (load_action, None, quit_action))
 
+        self.edit_menu = self.menuBar().addMenu(self.tr("Data labels"))
+     
+        format_action1 = self.create_action(self.tr("Custom labels"),
+            slot=self.set_data_format1, tip="Uoc0,Isc0,Rseries_multi_level,Rshunt_SC,Fill0*100,Eff0*100,Ireverse_1")
+        format_action2 = self.create_action(self.tr("Custom labels"),
+            slot=self.set_data_format2, tip="Uoc,Isc,RserIEC891,RshuntDfDr,FF,Eta,IRev1")
+        format_action0 = self.create_action(self.tr("Default labels"),
+            slot=self.set_data_format0, tip="Uoc,Isc,RserLfDfIEC,Rsh,FF,Eta,IRev1")          
+
+        self.add_actions(self.edit_menu, 
+            (format_action1, format_action2, format_action0))
+            
         self.lang_menu = self.menuBar().addMenu(self.tr("Language"))
 
         cn_action = self.create_action(self.tr("Chinese"), 
