@@ -304,44 +304,46 @@ The application currently only supports ASCII filenames.</source>
     <message>
         <location filename="IVMainGui.py" line="627"/>
         <source>Chinese</source>
-        <translation type="unfinished"></translation>
+        <translation>중국어</translation>
     </message>
     <message>
         <location filename="IVMainGui.py" line="627"/>
         <source>Switch to Chinese language</source>
-        <translation type="unfinished"></translation>
+        <translation>중국어로 전환</translation>
     </message>
     <message>
         <location filename="IVMainGui.py" line="629"/>
         <source>Korean</source>
-        <translation type="unfinished"></translation>
+        <translation>한국어</translation>
     </message>
     <message>
         <location filename="IVMainGui.py" line="629"/>
         <source>Switch to Korean language</source>
-        <translation type="unfinished"></translation>
+        <translation>한국어로 전환</translation>
     </message>
     <message>
         <location filename="IVMainGui.py" line="613"/>
         <source>Data labels</source>
-        <translation type="unfinished"></translation>
+        <translation>데이터 표지</translation>
     </message>
     <message>
         <location filename="IVMainGui.py" line="617"/>
         <source>Custom labels</source>
-        <translation type="unfinished"></translation>
+        <translation>특별주문 표지</translation>
     </message>
     <message>
         <location filename="IVMainGui.py" line="619"/>
         <source>Default labels</source>
-        <translation type="unfinished"></translation>
+        <translation>디폴트 표지</translation>
     </message>
     <message>
         <location filename="IVMainGui.py" line="66"/>
         <source>Error while reading data files.
 
 Data labels were perhaps not recognized.</source>
-        <translation type="unfinished"></translation>
+        <translation>데이터 파일을 읽는 중 에러 발생.
+
+아마 데이터 표지 인식이 되지 않는 것 같습니다.</translation>
     </message>
 </context>
 <context>
