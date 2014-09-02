@@ -9,132 +9,132 @@
         <translation>Data analyse zonnecellen</translation>
     </message>
     <message>
-        <location filename="IVMainGui.py" line="600"/>
+        <location filename="IVMainGui.py" line="605"/>
         <source>Load files</source>
         <translation>Laad bestanden</translation>
     </message>
     <message>
-        <location filename="IVMainGui.py" line="370"/>
+        <location filename="IVMainGui.py" line="375"/>
         <source>Ready</source>
         <translation>Gereed</translation>
     </message>
     <message>
-        <location filename="IVMainGui.py" line="595"/>
+        <location filename="IVMainGui.py" line="600"/>
         <source>Please load data files</source>
         <translation>Laad gegevensbestanden</translation>
     </message>
     <message>
-        <location filename="IVMainGui.py" line="138"/>
+        <location filename="IVMainGui.py" line="143"/>
         <source>Filtering data...</source>
         <translation>Gegevens aan het filteren...</translation>
     </message>
     <message>
-        <location filename="IVMainGui.py" line="190"/>
+        <location filename="IVMainGui.py" line="195"/>
         <source>Save file</source>
         <translation>Bestand opslaan</translation>
     </message>
     <message>
-        <location filename="IVMainGui.py" line="192"/>
+        <location filename="IVMainGui.py" line="197"/>
         <source>Making an Excel report...</source>
         <translation>Een Excel rapport aan het maken...</translation>
     </message>
     <message>
-        <location filename="IVMainGui.py" line="274"/>
+        <location filename="IVMainGui.py" line="279"/>
         <source>Summary</source>
         <translation>Samenvatting</translation>
     </message>
     <message>
-        <location filename="IVMainGui.py" line="278"/>
+        <location filename="IVMainGui.py" line="283"/>
         <source>Yield loss</source>
         <translation>Opbrengstverlies</translation>
     </message>
     <message>
-        <location filename="IVMainGui.py" line="282"/>
+        <location filename="IVMainGui.py" line="287"/>
         <source>Correlation</source>
         <translation>Correlatie</translation>
     </message>
     <message>
-        <location filename="IVMainGui.py" line="291"/>
+        <location filename="IVMainGui.py" line="296"/>
         <source>Opening report...</source>
         <translation>Rapport aan het openen...</translation>
     </message>
     <message>
-        <location filename="IVMainGui.py" line="300"/>
+        <location filename="IVMainGui.py" line="305"/>
         <source>Please make report</source>
         <translation>Maak eerst een rapport</translation>
     </message>
     <message>
-        <location filename="IVMainGui.py" line="310"/>
+        <location filename="IVMainGui.py" line="315"/>
         <source>All data has been cleared</source>
         <translation>Alle gegevens zijn gewist</translation>
     </message>
     <message>
-        <location filename="IVMainGui.py" line="346"/>
+        <location filename="IVMainGui.py" line="351"/>
         <source>Checking filters...</source>
         <translation>Filters aan het controleren...</translation>
     </message>
     <message>
-        <location filename="IVMainGui.py" line="634"/>
+        <location filename="IVMainGui.py" line="639"/>
         <source>About the application</source>
         <translation>Over deze applicatie</translation>
     </message>
     <message>
-        <location filename="IVMainGui.py" line="476"/>
+        <location filename="IVMainGui.py" line="481"/>
         <source>Data series:</source>
         <translation>Gegevensreeksen:</translation>
     </message>
     <message>
-        <location filename="IVMainGui.py" line="484"/>
+        <location filename="IVMainGui.py" line="489"/>
         <source>&amp;Load files</source>
         <translation>&amp;Laad bestanden</translation>
     </message>
     <message>
-        <location filename="IVMainGui.py" line="497"/>
+        <location filename="IVMainGui.py" line="502"/>
         <source>Filter commands:</source>
         <translation>Filteropdrachten:</translation>
     </message>
     <message>
-        <location filename="IVMainGui.py" line="501"/>
+        <location filename="IVMainGui.py" line="506"/>
         <source>Parameter</source>
         <translation>Parameter</translation>
     </message>
     <message>
-        <location filename="IVMainGui.py" line="501"/>
+        <location filename="IVMainGui.py" line="506"/>
         <source>&lt; or &gt;</source>
         <translation>&lt; of &gt;</translation>
     </message>
     <message>
-        <location filename="IVMainGui.py" line="501"/>
+        <location filename="IVMainGui.py" line="506"/>
         <source>Number</source>
         <translation>Getal</translation>
     </message>
     <message>
-        <location filename="IVMainGui.py" line="505"/>
+        <location filename="IVMainGui.py" line="510"/>
         <source>&amp;Check filters</source>
         <translation>&amp;Controleer filters</translation>
     </message>
     <message>
-        <location filename="IVMainGui.py" line="508"/>
+        <location filename="IVMainGui.py" line="513"/>
         <source>&amp;Execute</source>
         <translation>&amp;Uitvoeren</translation>
     </message>
     <message>
-        <location filename="IVMainGui.py" line="511"/>
+        <location filename="IVMainGui.py" line="516"/>
         <source>&amp;Clear</source>
         <translation>&amp;Wissen</translation>
     </message>
     <message>
-        <location filename="IVMainGui.py" line="522"/>
+        <location filename="IVMainGui.py" line="527"/>
         <source>Output commands:</source>
         <translation>Uitvoeropdrachten:</translation>
     </message>
     <message>
-        <location filename="IVMainGui.py" line="524"/>
+        <location filename="IVMainGui.py" line="529"/>
         <source>Correlation:</source>
         <translation>Correlatie:</translation>
     </message>
     <message>
-        <location filename="IVMainGui.py" line="529"/>
+        <location filename="IVMainGui.py" line="534"/>
         <source>Distribution Eta:</source>
         <translation>Distributie Eta:</translation>
     </message>
@@ -144,12 +144,12 @@
         <translation type="obsolete">Stabiliteit Eta:</translation>
     </message>
     <message>
-        <location filename="IVMainGui.py" line="550"/>
+        <location filename="IVMainGui.py" line="555"/>
         <source>&amp;Make report</source>
         <translation>&amp;Maak een rapport</translation>
     </message>
     <message>
-        <location filename="IVMainGui.py" line="553"/>
+        <location filename="IVMainGui.py" line="558"/>
         <source>&amp;Open report</source>
         <translation>&amp;Open rapport</translation>
     </message>
@@ -159,7 +159,7 @@
         <translation type="obsolete">&amp;Programma afsluiten</translation>
     </message>
     <message>
-        <location filename="IVMainGui.py" line="602"/>
+        <location filename="IVMainGui.py" line="607"/>
         <source>Close the application</source>
         <translation>Programma afsluiten</translation>
     </message>
@@ -184,7 +184,7 @@
         <translation type="obsolete">Data analyse zonnecellen Auteur: Ronald Naber (rnaber@tempress.nl) Licentie: Publiek domein</translation>
     </message>
     <message>
-        <location filename="IVMainGui.py" line="547"/>
+        <location filename="IVMainGui.py" line="552"/>
         <source>&amp;Plot selection</source>
         <translation>&amp;Plot selectie</translation>
     </message>
@@ -194,7 +194,7 @@
         <translation type="obsolete">&amp;Bestand</translation>
     </message>
     <message>
-        <location filename="IVMainGui.py" line="469"/>
+        <location filename="IVMainGui.py" line="474"/>
         <source>Solar cell data analysis
 
 - Author: Ronald Naber (rnaber@tempress.nl)
@@ -210,97 +210,97 @@
         <translation type="obsolete">Boxplot Eta</translation>
     </message>
     <message>
-        <location filename="IVMainGui.py" line="530"/>
+        <location filename="IVMainGui.py" line="535"/>
         <source>Low to high</source>
         <translation>Laag naar hoog</translation>
     </message>
     <message>
-        <location filename="IVMainGui.py" line="531"/>
+        <location filename="IVMainGui.py" line="536"/>
         <source>Histogram</source>
         <translation>Histogram</translation>
     </message>
     <message>
-        <location filename="IVMainGui.py" line="532"/>
+        <location filename="IVMainGui.py" line="537"/>
         <source>Density</source>
         <translation>Dichtheid</translation>
     </message>
     <message>
-        <location filename="IVMainGui.py" line="533"/>
+        <location filename="IVMainGui.py" line="538"/>
         <source>Histogram + density</source>
         <translation>Histogram + dichtheid</translation>
     </message>
     <message>
-        <location filename="IVMainGui.py" line="544"/>
+        <location filename="IVMainGui.py" line="549"/>
         <source>Walk-through</source>
         <translation>Datareeks</translation>
     </message>
     <message>
-        <location filename="IVMainGui.py" line="545"/>
+        <location filename="IVMainGui.py" line="550"/>
         <source>Rolling mean</source>
         <translation>Doorlopend gemiddelde</translation>
     </message>
     <message>
-        <location filename="IVMainGui.py" line="315"/>
+        <location filename="IVMainGui.py" line="320"/>
         <source>Creating plot window...</source>
         <translation>Plot aan het creëren...</translation>
     </message>
     <message>
-        <location filename="IVMainGui.py" line="105"/>
+        <location filename="IVMainGui.py" line="110"/>
         <source>Combining data sets...</source>
         <translation>Gegevens aan het combineren...</translation>
     </message>
     <message>
-        <location filename="IVMainGui.py" line="487"/>
+        <location filename="IVMainGui.py" line="492"/>
         <source>Combine data sets</source>
         <translation>Combineer gegevens</translation>
     </message>
     <message>
-        <location filename="IVMainGui.py" line="620"/>
+        <location filename="IVMainGui.py" line="625"/>
         <source>Language</source>
         <translation>Taalkeuze</translation>
     </message>
     <message>
-        <location filename="IVMainGui.py" line="626"/>
+        <location filename="IVMainGui.py" line="631"/>
         <source>Dutch</source>
         <translation>Nederlands</translation>
     </message>
     <message>
-        <location filename="IVMainGui.py" line="626"/>
+        <location filename="IVMainGui.py" line="631"/>
         <source>Switch to Dutch language</source>
         <translation>Kies Nederlandse taal</translation>
     </message>
     <message>
-        <location filename="IVMainGui.py" line="628"/>
+        <location filename="IVMainGui.py" line="633"/>
         <source>English</source>
         <translation>Engels</translation>
     </message>
     <message>
-        <location filename="IVMainGui.py" line="628"/>
+        <location filename="IVMainGui.py" line="633"/>
         <source>Switch to English language</source>
         <translation>Kies Engelse taal</translation>
     </message>
     <message>
-        <location filename="IVMainGui.py" line="598"/>
+        <location filename="IVMainGui.py" line="603"/>
         <source>File</source>
         <translation>Bestand</translation>
     </message>
     <message>
-        <location filename="IVMainGui.py" line="602"/>
+        <location filename="IVMainGui.py" line="607"/>
         <source>Quit</source>
         <translation>Afsluiten</translation>
     </message>
     <message>
-        <location filename="IVMainGui.py" line="633"/>
+        <location filename="IVMainGui.py" line="638"/>
         <source>Help</source>
         <translation>Help</translation>
     </message>
     <message>
-        <location filename="IVMainGui.py" line="634"/>
+        <location filename="IVMainGui.py" line="639"/>
         <source>About</source>
         <translation>Informatie</translation>
     </message>
     <message>
-        <location filename="IVMainGui.py" line="90"/>
+        <location filename="IVMainGui.py" line="95"/>
         <source>Empty data sets were found.
 
 The application only accepts data entries with a value for Voc, Isc, FF, Eta, Rser, Rsh and Irev. All values also need to be non-negative.</source>
@@ -309,12 +309,12 @@ The application only accepts data entries with a value for Voc, Isc, FF, Eta, Rs
 Het programma accepteert alleen gegevenselementen die een waarde bevatten voor Voc, Isc, FF, Eta, Rser, Rsh en Irev. Alle waarden mogen ook niet negatief zijn.</translation>
     </message>
     <message>
-        <location filename="IVMainGui.py" line="95"/>
+        <location filename="IVMainGui.py" line="100"/>
         <source>Warning</source>
         <translation>Waarschuwing</translation>
     </message>
     <message>
-        <location filename="IVMainGui.py" line="94"/>
+        <location filename="IVMainGui.py" line="99"/>
         <source>Filenames with non-ASCII characters were found.
 
 The application currently only supports ASCII filenames.</source>
@@ -323,49 +323,58 @@ The application currently only supports ASCII filenames.</source>
 Het programma ondersteunt op dit moment alleen ASCII bestandsnamen.</translation>
     </message>
     <message>
-        <location filename="IVMainGui.py" line="540"/>
+        <location filename="IVMainGui.py" line="545"/>
         <source>Boxplot</source>
         <translation>Doosdiagram</translation>
     </message>
     <message>
-        <location filename="IVMainGui.py" line="543"/>
+        <location filename="IVMainGui.py" line="548"/>
         <source>Stability:</source>
         <translation>Stabiliteit:</translation>
     </message>
     <message>
-        <location filename="IVMainGui.py" line="622"/>
+        <location filename="IVMainGui.py" line="627"/>
         <source>Chinese</source>
         <translation>Chinees</translation>
     </message>
     <message>
-        <location filename="IVMainGui.py" line="622"/>
+        <location filename="IVMainGui.py" line="627"/>
         <source>Switch to Chinese language</source>
         <translation>Kies Chinese taal</translation>
     </message>
     <message>
-        <location filename="IVMainGui.py" line="624"/>
+        <location filename="IVMainGui.py" line="629"/>
         <source>Korean</source>
         <translation>Koreaans</translation>
     </message>
     <message>
-        <location filename="IVMainGui.py" line="624"/>
+        <location filename="IVMainGui.py" line="629"/>
         <source>Switch to Korean language</source>
         <translation>Kies Koreaanse taal</translation>
     </message>
     <message>
-        <location filename="IVMainGui.py" line="608"/>
+        <location filename="IVMainGui.py" line="613"/>
         <source>Data labels</source>
         <translation>Data labels</translation>
     </message>
     <message>
-        <location filename="IVMainGui.py" line="612"/>
+        <location filename="IVMainGui.py" line="617"/>
         <source>Custom labels</source>
         <translation>Aangepaste labels</translation>
     </message>
     <message>
-        <location filename="IVMainGui.py" line="614"/>
+        <location filename="IVMainGui.py" line="619"/>
         <source>Default labels</source>
         <translation>Standaard labels</translation>
+    </message>
+    <message>
+        <location filename="IVMainGui.py" line="66"/>
+        <source>Error while reading data files.
+
+Data labels were perhaps not recognized.</source>
+        <translation>Foutmelding tijdens het inladen van files.
+
+De data labels werden misschien niet herkend.</translation>
     </message>
 </context>
 <context>
