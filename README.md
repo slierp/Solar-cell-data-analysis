@@ -13,7 +13,7 @@ With this program you can perform analysis of production data of (silicon) solar
 - A selection of different graphs (the number of data sets is unlimited, but there are only 8 different colors)
 - All the graphs are interactive: You can select the data sets to show, set the scale, axis labels etcetera
 - Cross-platform - mainly tested on Windows; partially tested on linux; should also be compatible with Mac OS
-- Supports multiple languages (English, Chinese, Korean and Dutch)
+- Supports multiple languages (English, Chinese, Korean and Dutch currently)
 
 <b>Why not use a spreadsheet?</b>
 
