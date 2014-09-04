@@ -305,44 +305,45 @@ The application currently only supports ASCII filenames.</source>
     <message>
         <location filename="IVMainGui.py" line="627"/>
         <source>Chinese</source>
-        <translation type="unfinished"></translation>
+        <translation>中文</translation>
     </message>
     <message>
         <location filename="IVMainGui.py" line="627"/>
         <source>Switch to Chinese language</source>
-        <translation type="unfinished"></translation>
+        <translation>切换至中文</translation>
     </message>
     <message>
         <location filename="IVMainGui.py" line="629"/>
         <source>Korean</source>
-        <translation type="unfinished"></translation>
+        <translation>韩语</translation>
     </message>
     <message>
         <location filename="IVMainGui.py" line="629"/>
         <source>Switch to Korean language</source>
-        <translation type="unfinished"></translation>
+        <translation>切换至韩语</translation>
     </message>
     <message>
         <location filename="IVMainGui.py" line="613"/>
         <source>Data labels</source>
-        <translation type="unfinished"></translation>
+        <translation>数据标签</translation>
     </message>
     <message>
         <location filename="IVMainGui.py" line="617"/>
         <source>Custom labels</source>
-        <translation type="unfinished"></translation>
+        <translation>客户标签</translation>
     </message>
     <message>
         <location filename="IVMainGui.py" line="619"/>
         <source>Default labels</source>
-        <translation type="unfinished"></translation>
+        <translation>默认标签</translation>
     </message>
     <message>
         <location filename="IVMainGui.py" line="66"/>
         <source>Error while reading data files.
 
 Data labels were perhaps not recognized.</source>
-        <translation type="unfinished"></translation>
+        <translation>读取数据文件错误.
+可能数据标签无法识别.</translation>
     </message>
 </context>
 <context>
