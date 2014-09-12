@@ -1,18 +1,17 @@
+# -*- coding: utf-8 -*-
 from __future__ import division
 import numpy as np
 import pandas as pd
 import os, ntpath, sys
 from PyQt4 import QtCore, QtGui
-from IVMainPlot import *
-import Required_resources
-icon_name = ":Logo_Tempress.ico"      
+from IVMainPlot import *      
 
 class IVMainGui(QtGui.QMainWindow):
     def __init__(self, parent=None):
         super(IVMainGui, self).__init__(parent)
         self.setWindowTitle(self.tr("Solar cell data analysis"))
-        self.setWindowIcon(QtGui.QIcon(icon_name))
-        #self.setWindowFlags(QtCore.Qt.WindowStaysOnTopHint) # DISABLE BEFORE RELEASE
+        self.setWindowIcon(QtGui.QIcon(":Logo_Tempress.png"))
+        self.setWindowFlags(QtCore.Qt.WindowStaysOnTopHint) # DISABLE BEFORE RELEASE
 
         self.clip = QtGui.QApplication.clipboard()
         self.series_list_model = QtGui.QStandardItemModel()
@@ -499,19 +498,35 @@ class IVMainGui(QtGui.QMainWindow):
 
         open_files_button = QtGui.QPushButton()
         self.connect(open_files_button, QtCore.SIGNAL('clicked()'), self.load_file)
-        open_files_button.setIcon(open_files_button.style().standardIcon(QtGui.QStyle.SP_DialogOpenButton))
+        open_files_button.setIcon(QtGui.QIcon(":open.png"))
         open_files_button.setToolTip(self.tr("Load files"))
         open_files_button.setStatusTip(self.tr("Load files"))
+
+        save_files_button = QtGui.QPushButton()
+        #self.connect(save_files_button, QtCore.SIGNAL('clicked()'), self.load_file)
+        save_files_button.setIcon(QtGui.QIcon(":save.png"))
+        save_files_button.setToolTip(self.tr("Save files"))
+        save_files_button.setStatusTip(self.tr("Save files"))
         
         combine_data_button = QtGui.QPushButton()
         self.connect(combine_data_button, QtCore.SIGNAL('clicked()'), self.combine_datasets)
-        combine_data_button.setIcon(combine_data_button.style().standardIcon(QtGui.QStyle.SP_ArrowUp))
+        #combine_data_button.setIcon(combine_data_button.style().standardIcon(QtGui.QStyle.SP_ArrowUp))
+        combine_data_button.setIcon(QtGui.QIcon(":combine.png"))
         combine_data_button.setToolTip(self.tr("Combine data sets"))
         combine_data_button.setStatusTip(self.tr("Combine data sets"))        
 
+        clear_data_button = QtGui.QPushButton()
+        #self.connect(combine_data_button, QtCore.SIGNAL('clicked()'), self.combine_datasets)
+        #combine_data_button.setIcon(combine_data_button.style().standardIcon(QtGui.QStyle.SP_ArrowUp))
+        clear_data_button.setIcon(QtGui.QIcon(":erase.png"))
+        clear_data_button.setToolTip(self.tr("Remove all data sets"))
+        clear_data_button.setStatusTip(self.tr("Remove all data sets"))
+
         buttonbox0 = QtGui.QDialogButtonBox()
         buttonbox0.addButton(open_files_button, QtGui.QDialogButtonBox.ActionRole)
+        buttonbox0.addButton(save_files_button, QtGui.QDialogButtonBox.ActionRole)
         buttonbox0.addButton(combine_data_button, QtGui.QDialogButtonBox.ActionRole)
+        buttonbox0.addButton(clear_data_button, QtGui.QDialogButtonBox.ActionRole)
 
         left_vbox = QtGui.QVBoxLayout()
         #left_vbox.addWidget(log_label)
@@ -529,21 +544,45 @@ class IVMainGui(QtGui.QMainWindow):
         self.filter_table_widget.horizontalHeader().setResizeMode(QtGui.QHeaderView.Stretch)
         self.filter_table_widget.verticalHeader().setResizeMode(QtGui.QHeaderView.Stretch)       
         
-        self.check_filters_button = QtGui.QPushButton(self.tr("&Check filters"))
-        self.connect(self.check_filters_button, QtCore.SIGNAL('clicked()'), self.read_filter_table)       
+        #self.check_filters_button = QtGui.QPushButton(self.tr("&Check filters"))
+        #self.connect(self.check_filters_button, QtCore.SIGNAL('clicked()'), self.read_filter_table)       
         
-        self.execute_button = QtGui.QPushButton(self.tr("&Execute"))
-        self.connect(self.execute_button, QtCore.SIGNAL('clicked()'), self.filter_data)
+        #self.execute_button = QtGui.QPushButton(self.tr("&Execute"))
+        #self.connect(self.execute_button, QtCore.SIGNAL('clicked()'), self.filter_data)
 
-        self.clear_button = QtGui.QPushButton(self.tr("&Clear"))
-        self.connect(self.clear_button, QtCore.SIGNAL('clicked()'), self.clear_data)        
+        #self.clear_button = QtGui.QPushButton(self.tr("&Clear"))
+        #self.connect(self.clear_button, QtCore.SIGNAL('clicked()'), self.clear_data)        
+
+        check_filters_button = QtGui.QPushButton()
+        self.connect(check_filters_button, QtCore.SIGNAL('clicked()'), self.read_filter_table)
+        check_filters_button.setIcon(QtGui.QIcon(":check.png"))
+        check_filters_button.setToolTip(self.tr("&Check filters"))
+        check_filters_button.setStatusTip(self.tr("&Check filters"))
+        
+        execute_button = QtGui.QPushButton()
+        self.connect(execute_button, QtCore.SIGNAL('clicked()'), self.filter_data)
+        execute_button.setIcon(QtGui.QIcon(":filter.png"))
+        execute_button.setToolTip(self.tr("&Check filters"))
+        execute_button.setStatusTip(self.tr("&Check filters"))
+
+        clear_button = QtGui.QPushButton()
+        self.connect(clear_button, QtCore.SIGNAL('clicked()'), self.clear_data)
+        clear_button.setIcon(QtGui.QIcon(":erase.png"))
+        clear_button.setToolTip(self.tr("&Check filters"))
+        clear_button.setStatusTip(self.tr("&Check filters"))
+
+        buttonbox1 = QtGui.QDialogButtonBox()
+        buttonbox1.addButton(check_filters_button, QtGui.QDialogButtonBox.ActionRole)
+        buttonbox1.addButton(execute_button, QtGui.QDialogButtonBox.ActionRole)
+        buttonbox1.addButton(clear_button, QtGui.QDialogButtonBox.ActionRole)
 
         mid_vbox = QtGui.QVBoxLayout()
         #mid_vbox.addWidget(filter_label)
         mid_vbox.addWidget(self.filter_table_widget)                                                                                                                                                                                                           
-        mid_vbox.addWidget(self.check_filters_button)        
-        mid_vbox.addWidget(self.execute_button) 
-        mid_vbox.addWidget(self.clear_button)                                                                                                                                                                                                                          
+        mid_vbox.addWidget(buttonbox1) 
+        #mid_vbox.addWidget(self.check_filters_button)        
+        #mid_vbox.addWidget(self.execute_button) 
+        #mid_vbox.addWidget(self.clear_button)
         
         ##### right vbox ##### Plot only 1 graph at a time to avoid memory problems for large data sets
         #title_label = QtGui.QLabel(self.tr("Output commands:"))
@@ -621,86 +660,98 @@ class IVMainGui(QtGui.QMainWindow):
         self.statusBar().addWidget(self.status_text,1)
         self.statusBar().showMessage(self.tr("Please load data files"))
 
-    def create_menu(self):        
+    def create_menu(self):
         self.file_menu = self.menuBar().addMenu(self.tr("File"))
-        
-        load_action = self.create_action(self.tr("Load files"),
-            shortcut="Ctrl+L", slot=self.load_file, tip=self.tr("Load files"))
-        quit_action = self.create_action(self.tr("Quit"), slot=self.close, 
-            shortcut="Ctrl+Q", tip=self.tr("Close the application"))
-        
-        self.add_actions(self.file_menu, 
-            (load_action, None, quit_action))
+
+        tip = self.tr("Open file")        
+        load_action = QtGui.QAction(self.tr("&Open..."), self)
+        load_action.setIcon(QtGui.QIcon(":open.png"))
+        self.connect(load_action, QtCore.SIGNAL("triggered()"), self.load_file)
+        load_action.setToolTip(tip)
+        load_action.setStatusTip(tip)
+        load_action.setShortcut('Ctrl+O')    
+
+        tip = self.tr("Quit")        
+        quit_action = QtGui.QAction(self.tr("&Quit"), self)
+        quit_action.setIcon(QtGui.QIcon(":quit.png"))
+        self.connect(quit_action, QtCore.SIGNAL("triggered()"), self.close)
+        quit_action.setToolTip(tip)
+        quit_action.setStatusTip(tip)
+        quit_action.setShortcut('Ctrl+Q')
+
+        self.file_menu.addAction(load_action)       
+        self.file_menu.addAction(quit_action)
 
         self.edit_menu = self.menuBar().addMenu(self.tr("Data labels"))
-     
-        format_action1 = self.create_action(self.tr("Custom labels"),
-            slot=self.set_data_format1, tip="Uoc0,Isc0,Rseries_multi_level,Rshunt_SC,Fill0*100,Eff0*100,Ireverse_1")
-        format_action2 = self.create_action(self.tr("Custom labels"),
-            slot=self.set_data_format2, tip="Uoc,Isc,RserIEC891,RshuntDfDr,FF,Eta,IRev1")
-        format_action0 = self.create_action(self.tr("Default labels"),
-            slot=self.set_data_format0, tip="Uoc,Isc,RserLfDfIEC,Rsh,FF,Eta,IRev1")          
+        
+        tip = "Uoc0,Isc0,Rseries_multi_level,Rshunt_SC,Fill0*100,Eff0*100,Ireverse_1"
+        format_action1 = QtGui.QAction(self.tr("Custom labels"), self)
+        format_action1.setIcon(QtGui.QIcon(":label.png"))
+        self.connect(format_action1, QtCore.SIGNAL("triggered()"), self.set_data_format1)
+        format_action1.setToolTip(tip)
+        format_action1.setStatusTip(tip)
 
-        self.add_actions(self.edit_menu, 
-            (format_action1, format_action2, format_action0))
-            
+        tip = "Uoc,Isc,RserIEC891,RshuntDfDr,FF,Eta,IRev1"
+        format_action2 = QtGui.QAction(self.tr("Custom labels"), self)
+        format_action2.setIcon(QtGui.QIcon(":label.png"))
+        self.connect(format_action2, QtCore.SIGNAL("triggered()"), self.set_data_format2)
+        format_action2.setToolTip(tip)
+        format_action2.setStatusTip(tip)
+
+        tip = "Uoc,Isc,RserLfDfIEC,Rsh,FF,Eta,IRev1"
+        format_action0 = QtGui.QAction(self.tr("Custom labels"), self)
+        format_action0.setIcon(QtGui.QIcon(":label.png"))
+        self.connect(format_action0, QtCore.SIGNAL("triggered()"), self.set_data_format0)
+        format_action0.setToolTip(tip)
+        format_action0.setStatusTip(tip)
+        
+        self.edit_menu.addAction(format_action1)
+        self.edit_menu.addAction(format_action2)
+        self.edit_menu.addAction(format_action0)
+
         self.lang_menu = self.menuBar().addMenu(self.tr("Language"))
-
-        cn_action = self.create_action(self.tr("Chinese"), 
-            slot=self.langChin, tip=self.tr("Switch to Chinese language"))
-        kr_action = self.create_action(self.tr("Korean"), 
-            slot=self.langKor, tip=self.tr("Switch to Korean language"))       
-        nl_action = self.create_action(self.tr("Dutch"), 
-            slot=self.langDutch, tip=self.tr("Switch to Dutch language"))
-        en_action = self.create_action(self.tr("English"), 
-            slot=self.langEngl, tip=self.tr("Switch to English language"))            
         
-        self.add_actions(self.lang_menu, (cn_action, kr_action, nl_action, en_action))
-           
+        tip = self.tr("Switch to Chinese language")
+        cn_action = QtGui.QAction(self.tr("Chinese"), self)
+        cn_action.setIcon(QtGui.QIcon(":lang.png"))
+        self.connect(cn_action, QtCore.SIGNAL("triggered()"), self.langChin)
+        cn_action.setToolTip(tip)
+        cn_action.setStatusTip(tip)       
+
+        tip = self.tr("Switch to Korean language")
+        kr_action = QtGui.QAction(self.tr("Korean"), self)
+        kr_action.setIcon(QtGui.QIcon(":lang.png"))
+        self.connect(kr_action, QtCore.SIGNAL("triggered()"), self.langKor)
+        kr_action.setToolTip(tip)
+        kr_action.setStatusTip(tip) 
+
+        tip = self.tr("Switch to Dutch language")
+        nl_action = QtGui.QAction(self.tr("Dutch"), self)
+        nl_action.setIcon(QtGui.QIcon(":lang.png"))
+        self.connect(nl_action, QtCore.SIGNAL("triggered()"), self.langDutch)
+        nl_action.setToolTip(tip)
+        nl_action.setStatusTip(tip) 
+
+        tip = self.tr("Switch to English language")
+        en_action = QtGui.QAction(self.tr("English"), self)
+        en_action.setIcon(QtGui.QIcon(":lang.png"))
+        self.connect(en_action, QtCore.SIGNAL("triggered()"), self.langEngl)
+        en_action.setToolTip(tip)
+        en_action.setStatusTip(tip) 
+
+        self.lang_menu.addAction(cn_action)
+        self.lang_menu.addAction(kr_action)
+        self.lang_menu.addAction(nl_action)
+        self.lang_menu.addAction(en_action)
+
         self.help_menu = self.menuBar().addMenu(self.tr("Help"))
-        about_action = self.create_action(self.tr("About"), 
-            shortcut='F1', slot=self.on_about, 
-            tip=self.tr("About the application"))
-        
-        self.add_actions(self.help_menu, (about_action,))
 
-    def add_actions(self, target, actions):
-        for action in actions:
-            if action is None:
-                target.addSeparator()
-            else:
-                target.addAction(action)
+        tip = self.tr("About the application")
+        about_action = QtGui.QAction(self.tr("About..."), self)
+        about_action.setIcon(QtGui.QIcon(":info.png"))
+        self.connect(about_action, QtCore.SIGNAL("triggered()"), self.on_about)
+        about_action.setToolTip(tip)
+        about_action.setStatusTip(tip)
+        about_action.setShortcut('F1')
 
-    def create_action(  self, text, slot=None, shortcut=None, 
-                        icon=None, tip=None, checkable=False, 
-                        signal="triggered()"):
-        action = QtGui.QAction(text, self)
-        if icon is not None:
-            action.setIcon(QIcon(":/%s.png" % icon))
-        if shortcut is not None:
-            action.setShortcut(shortcut)
-        if tip is not None:
-            action.setToolTip(tip)
-            action.setStatusTip(tip)
-        if slot is not None:
-            self.connect(action, QtCore.SIGNAL(signal), slot)
-        if checkable:
-            action.setCheckable(True)
-        return action
-
-if __name__ == "__main__":
-    app = QtGui.QApplication.instance()
-    if not app:
-        # if no other PyQt program is running (such as the IDE) create a new instance
-        app = QtGui.QApplication(sys.argv)       
-    
-    if len(sys.argv) > 1:
-        if "--help" in sys.argv or "-h" in sys.argv:
-            print "Solar cell data analysis"
-            print "Options:"
-            print "--h, --help  : Help message"
-            exit()
-        
-    window = IVMainGui()
-    window.show()
-    app.exec_()
+        self.help_menu.addAction(about_action)
