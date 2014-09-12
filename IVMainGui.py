@@ -116,7 +116,8 @@ class IVMainGui(QtGui.QMainWindow):
         self.yl = []
         self.yloutput = []
         self.smr = [] 
-        self.series_list_model.clear() 
+        self.series_list_model.clear()
+        self.series_list_model.setHorizontalHeaderLabels(['Data series'])
 
         num = len(self.ad)
         if num > 1:
@@ -310,6 +311,7 @@ class IVMainGui(QtGui.QMainWindow):
         self.yloutput = []
         self.smr = [] 
         self.series_list_model.clear()
+        self.series_list_model.setHorizontalHeaderLabels(['Data series'])
         self.set_default_filters()
         self.reportname = ''
         self.statusBar().showMessage(self.tr("All data has been cleared"))           
@@ -478,31 +480,51 @@ class IVMainGui(QtGui.QMainWindow):
         self.main_frame = QtGui.QWidget()        
 
         ##### left vbox #####        
-        log_label = QtGui.QLabel(self.tr("Data series:"))
+        #log_label = QtGui.QLabel(self.tr("Data series:"))
         
-        self.series_list_view = QtGui.QListView()
+        #self.series_list_view = QtGui.QListView()        
+        self.series_list_view = QtGui.QTreeView()
         self.series_list_view.setModel(self.series_list_model)
+        self.series_list_model.setHorizontalHeaderLabels([self.tr('Data series')])
+        self.series_list_view.setRootIsDecorated(False)
         self.series_list_view.setDragDropMode(QtGui.QAbstractItemView.NoDragDrop)
         self.series_list_view.setEditTriggers(QtGui.QAbstractItemView.NoEditTriggers)
         self.series_list_view.setSelectionMode(QtGui.QAbstractItemView.NoSelection)
         
-        self.open_files_button = QtGui.QPushButton(self.tr("&Load files"))
-        self.connect(self.open_files_button, QtCore.SIGNAL('clicked()'), self.load_file)
+        #self.open_files_button = QtGui.QPushButton(self.tr("&Load files"))
+        #self.connect(self.open_files_button, QtCore.SIGNAL('clicked()'), self.load_file)
         
-        self.combine_data_button = QtGui.QPushButton(self.tr("Combine data sets"))
-        self.connect(self.combine_data_button, QtCore.SIGNAL('clicked()'), self.combine_datasets)        
+        #self.combine_data_button = QtGui.QPushButton(self.tr("Combine data sets"))
+        #self.connect(self.combine_data_button, QtCore.SIGNAL('clicked()'), self.combine_datasets)        
+
+        open_files_button = QtGui.QPushButton()
+        self.connect(open_files_button, QtCore.SIGNAL('clicked()'), self.load_file)
+        open_files_button.setIcon(open_files_button.style().standardIcon(QtGui.QStyle.SP_DialogOpenButton))
+        open_files_button.setToolTip(self.tr("Load files"))
+        open_files_button.setStatusTip(self.tr("Load files"))
+        
+        combine_data_button = QtGui.QPushButton()
+        self.connect(combine_data_button, QtCore.SIGNAL('clicked()'), self.combine_datasets)
+        combine_data_button.setIcon(combine_data_button.style().standardIcon(QtGui.QStyle.SP_ArrowUp))
+        combine_data_button.setToolTip(self.tr("Combine data sets"))
+        combine_data_button.setStatusTip(self.tr("Combine data sets"))        
+
+        buttonbox0 = QtGui.QDialogButtonBox()
+        buttonbox0.addButton(open_files_button, QtGui.QDialogButtonBox.ActionRole)
+        buttonbox0.addButton(combine_data_button, QtGui.QDialogButtonBox.ActionRole)
 
         left_vbox = QtGui.QVBoxLayout()
-        left_vbox.addWidget(log_label)
+        #left_vbox.addWidget(log_label)
         left_vbox.addWidget(self.series_list_view)
-        left_vbox.addWidget(self.open_files_button) 
-        left_vbox.addWidget(self.combine_data_button)
+        left_vbox.addWidget(buttonbox0)
+        #left_vbox.addWidget(self.open_files_button) 
+        #left_vbox.addWidget(self.combine_data_button)
 
         ##### middle vbox #####
-        filter_label = QtGui.QLabel(self.tr("Filter commands:"))
+        #filter_label = QtGui.QLabel(self.tr("Filter commands:"))
 
         self.filter_table_widget.setRowCount(12)
-        self.filter_table_widget.setColumnCount(3)               
+        self.filter_table_widget.setColumnCount(3)
         self.filter_table_widget.setHorizontalHeaderLabels((self.tr('Parameter'),self.tr('< or >'),self.tr('Number')))
         self.filter_table_widget.horizontalHeader().setResizeMode(QtGui.QHeaderView.Stretch)
         self.filter_table_widget.verticalHeader().setResizeMode(QtGui.QHeaderView.Stretch)       
@@ -517,14 +539,14 @@ class IVMainGui(QtGui.QMainWindow):
         self.connect(self.clear_button, QtCore.SIGNAL('clicked()'), self.clear_data)        
 
         mid_vbox = QtGui.QVBoxLayout()
-        mid_vbox.addWidget(filter_label)
+        #mid_vbox.addWidget(filter_label)
         mid_vbox.addWidget(self.filter_table_widget)                                                                                                                                                                                                           
         mid_vbox.addWidget(self.check_filters_button)        
         mid_vbox.addWidget(self.execute_button) 
         mid_vbox.addWidget(self.clear_button)                                                                                                                                                                                                                          
         
         ##### right vbox ##### Plot only 1 graph at a time to avoid memory problems for large data sets
-        title_label = QtGui.QLabel(self.tr("Output commands:"))
+        #title_label = QtGui.QLabel(self.tr("Output commands:"))
                 
         corr_label = QtGui.QLabel(self.tr("Correlation:"))
         self.corrvocisc_radio = QtGui.QRadioButton('Voc-Isc', self)
@@ -559,7 +581,7 @@ class IVMainGui(QtGui.QMainWindow):
         self.connect(self.openreport_button, QtCore.SIGNAL('clicked()'), self.open_report)
 
         right_vbox = QtGui.QVBoxLayout()                                                                                                                                                                                                            
-        right_vbox.addWidget(title_label)        
+        #right_vbox.addWidget(title_label)        
 
         right_vbox.addWidget(self.param_one_combo)
         right_vbox.addWidget(self.boxplot_radio)
