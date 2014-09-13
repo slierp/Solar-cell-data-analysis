@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS><TS version="2.0" language="zh" sourcelanguage="en">
+<!DOCTYPE TS>
+<TS version="2.0" language="zh" sourcelanguage="en">
 <context>
     <name>IVBoxPlot</name>
     <message>
         <location filename="../IVMainPlot.py" line="479"/>
         <source>Show</source>
-        <translation type="unfinished"></translation>
+        <translation>演出</translation>
     </message>
 </context>
 <context>
@@ -13,7 +14,7 @@
     <message>
         <location filename="../IVMainPlot.py" line="673"/>
         <source>Show</source>
-        <translation type="unfinished"></translation>
+        <translation>演出</translation>
     </message>
 </context>
 <context>
@@ -21,7 +22,7 @@
     <message>
         <location filename="../IVMainPlot.py" line="565"/>
         <source>Show</source>
-        <translation type="unfinished"></translation>
+        <translation>演出</translation>
     </message>
 </context>
 <context>
@@ -371,32 +372,32 @@ Data labels were perhaps not recognized.</source>
     <message>
         <location filename="../IVMainGui.py" line="563"/>
         <source>Data series</source>
-        <translation type="unfinished"></translation>
+        <translation>数据序列</translation>
     </message>
     <message>
         <location filename="../IVMainGui.py" line="593"/>
         <source>Remove all data sets</source>
-        <translation type="unfinished"></translation>
+        <translation>清除</translation>
     </message>
     <message>
         <location filename="../IVMainGui.py" line="711"/>
         <source>Open file</source>
-        <translation type="unfinished"></translation>
+        <translation>加载文档</translation>
     </message>
     <message>
         <location filename="../IVMainGui.py" line="712"/>
         <source>&amp;Open...</source>
-        <translation type="unfinished"></translation>
+        <translation>加载文档</translation>
     </message>
     <message>
         <location filename="../IVMainGui.py" line="720"/>
         <source>&amp;Quit</source>
-        <translation type="unfinished"></translation>
+        <translation>退出</translation>
     </message>
     <message>
         <location filename="../IVMainGui.py" line="795"/>
         <source>About...</source>
-        <translation type="unfinished"></translation>
+        <translation>关于</translation>
     </message>
     <message>
         <location filename="../IVMainGui.py" line="394"/>
@@ -421,12 +422,12 @@ Data labels were perhaps not recognized.</source>
     <message>
         <location filename="../IVMainGui.py" line="628"/>
         <source>Check filters</source>
-        <translation type="unfinished"></translation>
+        <translation>检查过滤</translation>
     </message>
     <message>
         <location filename="../IVMainGui.py" line="634"/>
         <source>Execute filters</source>
-        <translation type="unfinished"></translation>
+        <translation>执行</translation>
     </message>
     <message>
         <location filename="../IVMainGui.py" line="640"/>
@@ -436,17 +437,17 @@ Data labels were perhaps not recognized.</source>
     <message>
         <location filename="../IVMainGui.py" line="658"/>
         <source>Make report</source>
-        <translation type="unfinished"></translation>
+        <translation>生成报告</translation>
     </message>
     <message>
         <location filename="../IVMainGui.py" line="664"/>
         <source>Open report</source>
-        <translation type="unfinished"></translation>
+        <translation>打开报告</translation>
     </message>
     <message>
         <location filename="../IVMainGui.py" line="670"/>
         <source>Plot selection</source>
-        <translation type="unfinished"></translation>
+        <translation>图表选择</translation>
     </message>
 </context>
 <context>
@@ -475,12 +476,12 @@ Data labels were perhaps not recognized.</source>
     <message>
         <location filename="../IVMainPlot.py" line="56"/>
         <source>Quit</source>
-        <translation type="unfinished">退出</translation>
+        <translation>退出</translation>
     </message>
     <message>
         <location filename="../IVMainPlot.py" line="57"/>
         <source>&amp;Quit</source>
-        <translation type="unfinished"></translation>
+        <translation>退出</translation>
     </message>
 </context>
 <context>
@@ -488,7 +489,7 @@ Data labels were perhaps not recognized.</source>
     <message>
         <location filename="../IVMainPlot.py" line="112"/>
         <source>Show</source>
-        <translation type="unfinished"></translation>
+        <translation>演出</translation>
     </message>
 </context>
 </TS>

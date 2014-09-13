@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS><TS version="2.0" language="ko" sourcelanguage="en">
+<!DOCTYPE TS>
+<TS version="2.0" language="ko" sourcelanguage="en">
 <context>
     <name>IVBoxPlot</name>
     <message>
         <location filename="../IVMainPlot.py" line="479"/>
         <source>Show</source>
-        <translation type="unfinished"></translation>
+        <translation>쇼</translation>
     </message>
 </context>
 <context>
@@ -13,7 +14,7 @@
     <message>
         <location filename="../IVMainPlot.py" line="673"/>
         <source>Show</source>
-        <translation type="unfinished"></translation>
+        <translation>쇼</translation>
     </message>
 </context>
 <context>
@@ -21,7 +22,7 @@
     <message>
         <location filename="../IVMainPlot.py" line="565"/>
         <source>Show</source>
-        <translation type="unfinished"></translation>
+        <translation>쇼</translation>
     </message>
 </context>
 <context>
@@ -371,32 +372,32 @@ Data labels were perhaps not recognized.</source>
     <message>
         <location filename="../IVMainGui.py" line="563"/>
         <source>Data series</source>
-        <translation type="unfinished"></translation>
+        <translation>데이터 시리즈</translation>
     </message>
     <message>
         <location filename="../IVMainGui.py" line="593"/>
         <source>Remove all data sets</source>
-        <translation type="unfinished"></translation>
+        <translation>지우기</translation>
     </message>
     <message>
         <location filename="../IVMainGui.py" line="711"/>
         <source>Open file</source>
-        <translation type="unfinished"></translation>
+        <translation>파일 로드</translation>
     </message>
     <message>
         <location filename="../IVMainGui.py" line="712"/>
         <source>&amp;Open...</source>
-        <translation type="unfinished"></translation>
+        <translation>파일 로드...</translation>
     </message>
     <message>
         <location filename="../IVMainGui.py" line="720"/>
         <source>&amp;Quit</source>
-        <translation type="unfinished"></translation>
+        <translation>종료</translation>
     </message>
     <message>
         <location filename="../IVMainGui.py" line="795"/>
         <source>About...</source>
-        <translation type="unfinished"></translation>
+        <translation>정보...</translation>
     </message>
     <message>
         <location filename="../IVMainGui.py" line="394"/>
@@ -421,12 +422,12 @@ Data labels were perhaps not recognized.</source>
     <message>
         <location filename="../IVMainGui.py" line="628"/>
         <source>Check filters</source>
-        <translation type="unfinished"></translation>
+        <translation>필터 확인</translation>
     </message>
     <message>
         <location filename="../IVMainGui.py" line="634"/>
         <source>Execute filters</source>
-        <translation type="unfinished"></translation>
+        <translation>실행</translation>
     </message>
     <message>
         <location filename="../IVMainGui.py" line="640"/>
@@ -436,17 +437,17 @@ Data labels were perhaps not recognized.</source>
     <message>
         <location filename="../IVMainGui.py" line="658"/>
         <source>Make report</source>
-        <translation type="unfinished"></translation>
+        <translation>보고서 작성</translation>
     </message>
     <message>
         <location filename="../IVMainGui.py" line="664"/>
         <source>Open report</source>
-        <translation type="unfinished"></translation>
+        <translation>보고서 열기</translation>
     </message>
     <message>
         <location filename="../IVMainGui.py" line="670"/>
         <source>Plot selection</source>
-        <translation type="unfinished"></translation>
+        <translation>그래프 선택</translation>
     </message>
 </context>
 <context>
@@ -474,12 +475,12 @@ Data labels were perhaps not recognized.</source>
     <message>
         <location filename="../IVMainPlot.py" line="56"/>
         <source>Quit</source>
-        <translation type="unfinished">종료</translation>
+        <translation>종료</translation>
     </message>
     <message>
         <location filename="../IVMainPlot.py" line="57"/>
         <source>&amp;Quit</source>
-        <translation type="unfinished"></translation>
+        <translation>종료</translation>
     </message>
 </context>
 <context>
@@ -487,7 +488,7 @@ Data labels were perhaps not recognized.</source>
     <message>
         <location filename="../IVMainPlot.py" line="112"/>
         <source>Show</source>
-        <translation type="unfinished"></translation>
+        <translation>쇼</translation>
     </message>
 </context>
 </TS>
