@@ -42,11 +42,7 @@ class IVMainPlot(QtGui.QMainWindow):
         self.ad = ad
         self.create_menu()
         self.create_main_frame()
-        self.on_draw()           
-    
-    def on_about(self):
-        msg = self.tr("Solar cell data analysis\n\n- Author: Ronald Naber (rnaber@tempress.nl)\n- License: Public domain")
-        QtGui.QMessageBox.about(self, self.tr("About the application"), msg)      
+        self.on_draw()          
         
     def on_draw(self):
         pass
@@ -56,42 +52,16 @@ class IVMainPlot(QtGui.QMainWindow):
         
     def create_menu(self):        
         self.file_menu = self.menuBar().addMenu("&File")
-        
-        quit_action = self.create_action("&Quit", slot=self.close, 
-            shortcut="Ctrl+Q", tip="Close the application")
-        
-        self.add_actions(self.file_menu,(None,quit_action))
-        
-        self.help_menu = self.menuBar().addMenu("&Help")
-        about_action = self.create_action("&About", 
-            shortcut='F1', slot=self.on_about, 
-            tip=self.tr("About the application"))
-        
-        self.add_actions(self.help_menu, (about_action,))
 
-    def add_actions(self, target, actions):
-        for action in actions:
-            if action is None:
-                target.addSeparator()
-            else:
-                target.addAction(action)
-
-    def create_action(  self, text, slot=None, shortcut=None, 
-                        icon=None, tip=None, checkable=False, 
-                        signal="triggered()"):
-        action = QtGui.QAction(text, self)
-        if icon is not None:
-            action.setIcon(QtGui.QIcon(":/%s.png" % icon))
-        if shortcut is not None:
-            action.setShortcut(shortcut)
-        if tip is not None:
-            action.setToolTip(tip)
-            action.setStatusTip(tip)
-        if slot is not None:
-            self.connect(action, QtCore.SIGNAL(signal), slot)
-        if checkable:
-            action.setCheckable(True)
-        return action 
+        tip = self.tr("Quit")        
+        quit_action = QtGui.QAction(self.tr("&Quit"), self)
+        quit_action.setIcon(QtGui.QIcon(":quit.png"))
+        self.connect(quit_action, QtCore.SIGNAL("triggered()"), self.close)
+        quit_action.setToolTip(tip)
+        quit_action.setStatusTip(tip)
+        quit_action.setShortcut('Ctrl+Q')
+       
+        self.file_menu.addAction(quit_action)        
         
 ########## Main scatter plot class - only for inheriting ##########
 
@@ -135,18 +105,25 @@ class IVScatterPlot(IVMainPlot):
             self.dataset_cb[i] = QtGui.QCheckBox(self.ad[i].index.name)
             self.dataset_cb[i].setChecked(True)         
 
-        self.show_button = QtGui.QPushButton("&Show")
-        self.connect(self.show_button, QtCore.SIGNAL('clicked()'), self.on_draw)                
+        show_button = QtGui.QPushButton()
+        self.connect(show_button, QtCore.SIGNAL('clicked()'), self.on_draw)
+        show_button.setIcon(QtGui.QIcon(":eye.png"))
+        show_button.setToolTip(self.tr("Show"))
+        show_button.setStatusTip(self.tr("Show"))
+
+        buttonbox0 = QtGui.QDialogButtonBox()
+        buttonbox0.addButton(show_button, QtGui.QDialogButtonBox.ActionRole)               
             
         hbox = QtGui.QHBoxLayout()
         
         hbox.addWidget(self.grid_cb)
         hbox.addWidget(self.legend_cb)
         
-        for i in self.ad:
-            hbox.addWidget(self.dataset_cb[i])
+        if (len(self.ad) > 1):
+            for i in self.ad:
+                hbox.addWidget(self.dataset_cb[i])
 
-        hbox.addWidget(self.show_button)            
+        hbox.addWidget(show_button)            
                                 
         vbox = QtGui.QVBoxLayout()        
         vbox.addWidget(self.mpl_toolbar)
@@ -187,7 +164,7 @@ class CorrVocIsc(IVScatterPlot):
         #self.axes.yaxis.set_major_formatter(FuncFormatter(formatter))        
         
         for i in self.ad:
-            if(self.dataset_cb[i].isChecked()):
+            if(self.dataset_cb[i].isChecked() | (len(self.ad) == 1)):
                 self.axes.scatter(self.ad[i]['Uoc'],self.ad[i]['Isc'],c=cl[i % len(cl)],edgecolors='white',linewidths=0.3,s=20,label=self.ad[i].index.name)
         
         if self.legend_cb.isChecked():
@@ -218,7 +195,7 @@ class CorrEtaFF(IVScatterPlot):
         self.axes.tick_params(pad=8)               
         
         for i in self.ad:
-            if(self.dataset_cb[i].isChecked()):
+            if(self.dataset_cb[i].isChecked() | (len(self.ad) == 1)):
                 self.axes.scatter(self.ad[i]['FF'],self.ad[i]['Eta'],c=cl[i % len(cl)],edgecolors='white',linewidths=0.3,s=20,label=self.ad[i].index.name)
         
         if self.legend_cb.isChecked():
@@ -250,7 +227,7 @@ class CorrRshFF(IVScatterPlot):
         self.axes.tick_params(pad=8)              
         
         for i in self.ad:
-            if(self.dataset_cb[i].isChecked()):
+            if(self.dataset_cb[i].isChecked() | (len(self.ad) == 1)):
                 self.axes.scatter(self.ad[i]['FF'],self.ad[i]['Rsh'],c=cl[i % len(cl)],edgecolors='white',linewidths=0.3,s=20,label=self.ad[i].index.name)
         
         if self.legend_cb.isChecked():
@@ -285,7 +262,7 @@ class DistLtoH(IVScatterPlot):
         self.axes.tick_params(pad=8) 
         
         for i in self.ad:
-            if(self.dataset_cb[i].isChecked()):
+            if(self.dataset_cb[i].isChecked() | (len(self.ad) == 1)):
                 se = pd.DataFrame(np.sort(self.ad[i]['Eta'])) # Sorted Eta
                 if se.ix[:,0].min() <= xmin : xmin = se.ix[:,0].min()
                 if se.ix[:,0].max() >= xmax : xmax = se.ix[:,0].max()
@@ -326,7 +303,7 @@ class DensEta(IVScatterPlot):
         xmax = 0        
         
         for i in self.ad:
-            if(self.dataset_cb[i].isChecked()):
+            if(self.dataset_cb[i].isChecked() | (len(self.ad) == 1)):
                 se = self.ad[i]['Eta']
                 if se.min() <= xmin : xmin = se.min()
                 if se.max() >= xmax : xmax = se.max()
@@ -371,7 +348,7 @@ class DistWT(IVScatterPlot):
         self.axes.tick_params(pad=8) 
         
         for i in self.ad:
-            if(self.dataset_cb[i].isChecked()):                
+            if(self.dataset_cb[i].isChecked() | (len(self.ad) == 1)):                
                 if not self.plot_selection == 'Voc*Isc':
                     se = pd.DataFrame(self.ad[i][self.plot_selection])
                 else:
@@ -416,7 +393,7 @@ class DistRM(IVScatterPlot):
         self.axes.tick_params(pad=8) 
         
         for i in self.ad:
-            if(self.dataset_cb[i].isChecked()):
+            if(self.dataset_cb[i].isChecked() | (len(self.ad) == 1)):
 
                 if not self.plot_selection == 'Voc*Isc':
                     se = pd.DataFrame(self.ad[i][self.plot_selection])
@@ -461,7 +438,7 @@ class IVBoxPlot(IVMainPlot):
         data = []
         labels = []
         for i in self.ad:
-            if(self.dataset_cb[i].isChecked()):
+            if(self.dataset_cb[i].isChecked() | (len(self.ad) == 1)):
                 if not self.plot_selection == 'Voc*Isc':
                     data.append(self.ad[i][str(self.plot_selection)])
                 else:
@@ -495,16 +472,23 @@ class IVBoxPlot(IVMainPlot):
         for i in self.ad:
             self.dataset_cb[i] = QtGui.QCheckBox(self.ad[i].index.name)
             self.dataset_cb[i].setChecked(True)         
-
-        self.show_button = QtGui.QPushButton("&Show")
-        self.connect(self.show_button, QtCore.SIGNAL('clicked()'), self.on_draw)                
-            
-        hbox = QtGui.QHBoxLayout()        
         
-        for i in self.ad:
-            hbox.addWidget(self.dataset_cb[i])
+        show_button = QtGui.QPushButton()
+        self.connect(show_button, QtCore.SIGNAL('clicked()'), self.on_draw)
+        show_button.setIcon(QtGui.QIcon(":eye.png"))
+        show_button.setToolTip(self.tr("Show"))
+        show_button.setStatusTip(self.tr("Show"))
 
-        hbox.addWidget(self.show_button)            
+        buttonbox0 = QtGui.QDialogButtonBox()
+        buttonbox0.addButton(show_button, QtGui.QDialogButtonBox.ActionRole)
+            
+        hbox = QtGui.QHBoxLayout()    
+
+        if (len(self.ad) > 1):
+            for i in self.ad:
+                hbox.addWidget(self.dataset_cb[i])
+
+        hbox.addWidget(buttonbox0)            
                                 
         vbox = QtGui.QVBoxLayout()        
         vbox.addWidget(self.mpl_toolbar)
@@ -542,7 +526,7 @@ class IVHistPlot(IVMainPlot):
                 freq = freq.sort_index()
                 #freq = freq.drop(freq.index[[np.arange(0,len(freq)-bins)]]) # if bins < no_datapoints it does not drop anything
                 freq.plot(kind='bar',color=cl[i % len(cl)],ax=self.axes)
-                if self.title_cb.isChecked():
+                if(self.dataset_cb[i].isChecked() | (len(self.ad) == 1)):
                     self.axes.set_title(self.ad[i].index.name)
                 
         self.axes.set_xlabel(r'$\mathrm{\mathsf{Eta\ [\%]}}$', fontsize=24, weight='black')
@@ -576,17 +560,24 @@ class IVHistPlot(IVMainPlot):
             self.dataset_cb[i] = QtGui.QRadioButton(self.ad[i].index.name)
         self.dataset_cb[0].setChecked(True)         
 
-        self.show_button = QtGui.QPushButton("&Show")
-        self.connect(self.show_button, QtCore.SIGNAL('clicked()'), self.on_draw)                
+        show_button = QtGui.QPushButton()
+        self.connect(show_button, QtCore.SIGNAL('clicked()'), self.on_draw)
+        show_button.setIcon(QtGui.QIcon(":eye.png"))
+        show_button.setToolTip(self.tr("Show"))
+        show_button.setStatusTip(self.tr("Show"))
+
+        buttonbox0 = QtGui.QDialogButtonBox()
+        buttonbox0.addButton(show_button, QtGui.QDialogButtonBox.ActionRole)              
             
         hbox = QtGui.QHBoxLayout()        
         
         hbox.addWidget(self.title_cb)        
         
-        for i in self.ad:
-            hbox.addWidget(self.dataset_cb[i])
+        if (len(self.ad) > 1):
+            for i in self.ad:
+                hbox.addWidget(self.dataset_cb[i])
 
-        hbox.addWidget(self.show_button)            
+        hbox.addWidget(buttonbox0)            
                                 
         vbox = QtGui.QVBoxLayout()        
         vbox.addWidget(self.mpl_toolbar)
@@ -637,7 +628,7 @@ class IVHistDenPlot(IVMainPlot):
                 den.plot(kind='kde',c='white',lw=6,ax=self.axes2)
                 den.plot(kind='kde',c='black',lw=4,ax=self.axes2)
                 den.plot(kind='kde',c='r',lw=3,ax=self.axes2)
-                if self.title_cb.isChecked():
+                if(self.dataset_cb[i].isChecked() | (len(self.ad) == 1)):
                     self.axes.set_title(self.ad[i].index.name)
                 
         self.axes.set_xlim((np.floor(xmin), np.ceil(xmax)))
@@ -676,19 +667,26 @@ class IVHistDenPlot(IVMainPlot):
         self.dataset_cb = {}
         for i in self.ad:
             self.dataset_cb[i] = QtGui.QRadioButton(self.ad[i].index.name)
-        self.dataset_cb[0].setChecked(True)         
+        self.dataset_cb[0].setChecked(True)                        
 
-        self.show_button = QtGui.QPushButton("&Show")
-        self.connect(self.show_button, QtCore.SIGNAL('clicked()'), self.on_draw)                
+        show_button = QtGui.QPushButton()
+        self.connect(show_button, QtCore.SIGNAL('clicked()'), self.on_draw)
+        show_button.setIcon(QtGui.QIcon(":eye.png"))
+        show_button.setToolTip(self.tr("Show"))
+        show_button.setStatusTip(self.tr("Show"))
+
+        buttonbox0 = QtGui.QDialogButtonBox()
+        buttonbox0.addButton(show_button, QtGui.QDialogButtonBox.ActionRole)
             
         hbox = QtGui.QHBoxLayout()        
         
         hbox.addWidget(self.title_cb)        
         
-        for i in self.ad:
-            hbox.addWidget(self.dataset_cb[i])
+        if (len(self.ad) > 1):
+            for i in self.ad:
+                hbox.addWidget(self.dataset_cb[i])
 
-        hbox.addWidget(self.show_button)            
+        hbox.addWidget(buttonbox0)            
                                 
         vbox = QtGui.QVBoxLayout()        
         vbox.addWidget(self.mpl_toolbar)

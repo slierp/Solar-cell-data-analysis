@@ -2,16 +2,22 @@
 from __future__ import division
 import numpy as np
 import pandas as pd
-import os, ntpath, sys
+import os, ntpath, pickle
 from PyQt4 import QtCore, QtGui
-from IVMainPlot import *      
+from IVMainPlot import CorrVocIsc, CorrEtaFF, CorrRshFF, DistLtoH, DensEta, DistWT, DistRM, IVBoxPlot, IVHistPlot, IVHistDenPlot      
+
+        # To be implemented
+        #for i in self.ad:
+            # Export all filtered IV data to existing csv files - THIS WILL OVERWRITE YOUR EXISTING FILES
+        #    filename = self.ad[i].index.name + '.csv'
+        #    self.ad[i].to_csv(filename, index=False)
 
 class IVMainGui(QtGui.QMainWindow):
     def __init__(self, parent=None):
         super(IVMainGui, self).__init__(parent)
         self.setWindowTitle(self.tr("Solar cell data analysis"))
         self.setWindowIcon(QtGui.QIcon(":Logo_Tempress.png"))
-        self.setWindowFlags(QtCore.Qt.WindowStaysOnTopHint) # DISABLE BEFORE RELEASE
+        #self.setWindowFlags(QtCore.Qt.WindowStaysOnTopHint) # DISABLE BEFORE RELEASE
 
         self.clip = QtGui.QApplication.clipboard()
         self.series_list_model = QtGui.QStandardItemModel()
@@ -21,11 +27,12 @@ class IVMainGui(QtGui.QMainWindow):
             ["FF","<",75],["Rsh","<",20],["Eta","<",18]
             ]
         self.user_filters = []
+        self.user_filters_plain_format = []
         self.ad = {} # all data
         self.adindex = ['Uoc','Isc','RserLfDfIEC','Rsh','FF','Eta','IRev1']
         self.label_formats = {}
         self.label_formats[0] = ['Uoc','Isc','RserLfDfIEC','Rsh','FF','Eta','IRev1']
-        self.label_formats[1] = ['Uoc0','Isc0','Rseries_multi_level','Rshunt_SC','Fill0','Eff0','Ireverse_1']
+        self.label_formats[1] = ['Uoc0','Isc0','Rseries_multi_level','Rshunt_SC','Fill0','Eff0','Ireverse_2']
         self.label_formats[2] = ['Uoc','Isc','RserIEC891','RshuntDfDr','FF','Eta','IRev1']        
         self.label_format = 0
         self.yl = [] # yield loss
@@ -37,7 +44,11 @@ class IVMainGui(QtGui.QMainWindow):
         self.yloutput = []
         self.translator = None
         self.plot_selection_list = ['Uoc','Isc','Voc*Isc','FF','Eta']
-        self.prev_dir_path = ""              
+        self.plot_selection_combo_list = [self.tr('Boxplot'),self.tr('Walk-through'),self.tr('Rolling mean'),
+                                          self.tr('Low to high'),self.tr('Histogram'),self.tr('Density'),
+                                            self.tr('Histogram + density'),'Voc-Isc','Eta-FF','Rsh-FF']        
+        self.prev_dir_path = ""
+        self.wid = None
         
         self.create_menu()
         self.create_main_frame()
@@ -182,11 +193,6 @@ class IVMainGui(QtGui.QMainWindow):
             font.setBold(0)
             item.setFont(font)
 
-        #for i in self.ad:
-            # Export all filtered IV data to existing csv files - THIS WILL OVERWRITE YOUR EXISTING FILES
-        #    filename = self.ad[i].index.name + '.csv'
-        #    self.ad[i].to_csv(filename, index=False)
-
         self.statusBar().showMessage(self.tr("Ready"))                                    
 
     def make_report(self):
@@ -311,7 +317,6 @@ class IVMainGui(QtGui.QMainWindow):
         self.smr = [] 
         self.series_list_model.clear()
         self.series_list_model.setHorizontalHeaderLabels(['Data series'])
-        self.set_default_filters()
         self.reportname = ''
         self.statusBar().showMessage(self.tr("All data has been cleared"))           
 
@@ -323,16 +328,27 @@ class IVMainGui(QtGui.QMainWindow):
             self.statusBar().showMessage(self.tr("Please load data files"))
             return
         
-        if self.boxplot_radio.isChecked(): self.wid = IVBoxPlot(self.ad,self.param_one_combo.currentText())        
-        elif self.distltoh_radio.isChecked(): self.wid = DistLtoH(self.ad) 
-        elif self.disthist_radio.isChecked(): self.wid = IVHistPlot(self.ad) 
-        elif self.distden_radio.isChecked(): self.wid = DensEta(self.ad) 
-        elif self.disthistden_radio.isChecked(): self.wid = IVHistDenPlot(self.ad) 
-        elif self.stabwalk_radio.isChecked(): self.wid = DistWT(self.ad,self.param_one_combo.currentText())
-        elif self.stabroll_radio.isChecked(): self.wid = DistRM(self.ad,self.param_one_combo.currentText())
-        elif self.corrvocisc_radio.isChecked(): self.wid = CorrVocIsc(self.ad)
-        elif self.corretaff_radio.isChecked(): self.wid = CorrEtaFF(self.ad)
-        elif self.corrrshff_radio.isChecked(): self.wid = CorrRshFF(self.ad)
+        selected_plot_combo = 0
+        for i, value in enumerate(self.plot_selection_combo_list):
+            if (self.plot_selection_combo.currentText() == self.plot_selection_combo_list[i]):
+                selected_plot_combo = i        
+        
+        if (self.wid):
+            if (self.wid.isWindow()):
+                # close previous instances of child windows to save system memory                
+                self.wid.close()                
+
+        if (selected_plot_combo == 0): self.wid = IVBoxPlot(self.ad,self.param_one_combo.currentText(),self)
+        elif (selected_plot_combo == 1): self.wid = DistWT(self.ad,self.param_one_combo.currentText(),self)
+        elif (selected_plot_combo == 2): self.wid = DistRM(self.ad,self.param_one_combo.currentText(),self)
+        elif (selected_plot_combo == 3): self.wid = DistLtoH(self.ad,self)
+        elif (selected_plot_combo == 4): self.wid = IVHistPlot(self.ad,self) 
+        elif (selected_plot_combo == 5): self.wid = DensEta(self.ad,self) 
+        elif (selected_plot_combo == 6): self.wid = IVHistDenPlot(self.ad,self) 
+        elif (selected_plot_combo == 7): self.wid = CorrVocIsc(self.ad,self)
+        elif (selected_plot_combo == 8): self.wid = CorrEtaFF(self.ad,self)
+        elif (selected_plot_combo == 9): self.wid = CorrRshFF(self.ad,self)
+        else: return
                         
         self.wid.show() 
         
@@ -346,6 +362,55 @@ class IVMainGui(QtGui.QMainWindow):
             for j, column in enumerate(self.default_filters[i]):
                 item = QtGui.QTableWidgetItem(str(column))
                 self.filter_table_widget.setItem(i, j, item)
+
+    def set_user_filters(self):
+
+        self.filter_table_widget.clearContents()
+
+        for i, row in enumerate(self.user_filters_plain_format):
+            for j, column in enumerate(self.user_filters_plain_format[i]):
+                item = QtGui.QTableWidgetItem(str(column))
+                self.filter_table_widget.setItem(i, j, item)
+
+    def load_filter_settings(self):
+
+        filename = QtGui.QFileDialog.getOpenFileName(self,self.tr("Open file"), self.prev_dir_path, "Filter Settings Files (*.scda)")
+        
+        if (not filename):
+            return
+
+        if (not os.path.isfile(filename.toAscii())):
+            msg = self.tr("Filenames with non-ASCII characters were found.\n\nThe application currently only supports ASCII filenames.")
+            QtGui.QMessageBox.about(self, self.tr("Warning"), msg) 
+            return
+        
+        self.prev_dir_path = ntpath.dirname(str(filename))
+        
+        with open(str(filename)) as f:
+            self.user_filters_plain_format = pickle.load(f)
+
+        self.set_user_filters()
+            
+        self.statusBar().showMessage(self.tr("New filter settings loaded"))
+
+    def save_filter_settings(self):
+
+        self.read_filter_table()
+        self.convert_user_filters()
+
+        filename = QtGui.QFileDialog.getSaveFileName(self,self.tr("Save file"), self.prev_dir_path, "Description Files (*.scda)")
+        
+        if (not filename):
+            return
+
+        # Check for non-ASCII here does not seem to work
+        
+        self.prev_dir_path = ntpath.dirname(str(filename))
+        
+        with open(str(filename), 'w') as f:
+            pickle.dump(self.user_filters_plain_format, f)
+            
+        self.statusBar().showMessage(self.tr("File saved"))  
 
     def read_filter_table(self):
         
@@ -374,6 +439,20 @@ class IVMainGui(QtGui.QMainWindow):
                     self.filter_table_widget.setItem(i, j, item)
 
         self.statusBar().showMessage(self.tr("Ready"))
+
+    def convert_user_filters(self):
+        self.user_filters_plain_format = []
+        
+        for i, value in enumerate(self.user_filters):
+            filter_setting = []
+            filter_setting.append(str(self.user_filters[i][0]))
+            filter_setting.append(str(self.user_filters[i][1]))
+            if (float(self.user_filters[i][2]) % 1 == 0):
+                filter_setting.append(int(self.user_filters[i][2]))
+            else:                
+                filter_setting.append(float(self.user_filters[i][2]))
+        
+            self.user_filters_plain_format.append(filter_setting)        
 
     def is_number(self,s):
         try:
@@ -478,10 +557,7 @@ class IVMainGui(QtGui.QMainWindow):
     def create_main_frame(self):
         self.main_frame = QtGui.QWidget()        
 
-        ##### left vbox #####        
-        #log_label = QtGui.QLabel(self.tr("Data series:"))
-        
-        #self.series_list_view = QtGui.QListView()        
+        ##### left vbox #####     
         self.series_list_view = QtGui.QTreeView()
         self.series_list_view.setModel(self.series_list_model)
         self.series_list_model.setHorizontalHeaderLabels([self.tr('Data series')])
@@ -489,12 +565,6 @@ class IVMainGui(QtGui.QMainWindow):
         self.series_list_view.setDragDropMode(QtGui.QAbstractItemView.NoDragDrop)
         self.series_list_view.setEditTriggers(QtGui.QAbstractItemView.NoEditTriggers)
         self.series_list_view.setSelectionMode(QtGui.QAbstractItemView.NoSelection)
-        
-        #self.open_files_button = QtGui.QPushButton(self.tr("&Load files"))
-        #self.connect(self.open_files_button, QtCore.SIGNAL('clicked()'), self.load_file)
-        
-        #self.combine_data_button = QtGui.QPushButton(self.tr("Combine data sets"))
-        #self.connect(self.combine_data_button, QtCore.SIGNAL('clicked()'), self.combine_datasets)        
 
         open_files_button = QtGui.QPushButton()
         self.connect(open_files_button, QtCore.SIGNAL('clicked()'), self.load_file)
@@ -502,11 +572,12 @@ class IVMainGui(QtGui.QMainWindow):
         open_files_button.setToolTip(self.tr("Load files"))
         open_files_button.setStatusTip(self.tr("Load files"))
 
-        save_files_button = QtGui.QPushButton()
+        # To be implemented
+        #save_files_button = QtGui.QPushButton()
         #self.connect(save_files_button, QtCore.SIGNAL('clicked()'), self.load_file)
-        save_files_button.setIcon(QtGui.QIcon(":save.png"))
-        save_files_button.setToolTip(self.tr("Save files"))
-        save_files_button.setStatusTip(self.tr("Save files"))
+        #save_files_button.setIcon(QtGui.QIcon(":save.png"))
+        #save_files_button.setToolTip(self.tr("Save files"))
+        #save_files_button.setStatusTip(self.tr("Save files"))
         
         combine_data_button = QtGui.QPushButton()
         self.connect(combine_data_button, QtCore.SIGNAL('clicked()'), self.combine_datasets)
@@ -516,140 +587,114 @@ class IVMainGui(QtGui.QMainWindow):
         combine_data_button.setStatusTip(self.tr("Combine data sets"))        
 
         clear_data_button = QtGui.QPushButton()
-        #self.connect(combine_data_button, QtCore.SIGNAL('clicked()'), self.combine_datasets)
-        #combine_data_button.setIcon(combine_data_button.style().standardIcon(QtGui.QStyle.SP_ArrowUp))
+        self.connect(clear_data_button, QtCore.SIGNAL('clicked()'), self.clear_data)
         clear_data_button.setIcon(QtGui.QIcon(":erase.png"))
         clear_data_button.setToolTip(self.tr("Remove all data sets"))
         clear_data_button.setStatusTip(self.tr("Remove all data sets"))
 
         buttonbox0 = QtGui.QDialogButtonBox()
         buttonbox0.addButton(open_files_button, QtGui.QDialogButtonBox.ActionRole)
-        buttonbox0.addButton(save_files_button, QtGui.QDialogButtonBox.ActionRole)
+        #buttonbox0.addButton(save_files_button, QtGui.QDialogButtonBox.ActionRole)
         buttonbox0.addButton(combine_data_button, QtGui.QDialogButtonBox.ActionRole)
         buttonbox0.addButton(clear_data_button, QtGui.QDialogButtonBox.ActionRole)
 
         left_vbox = QtGui.QVBoxLayout()
-        #left_vbox.addWidget(log_label)
         left_vbox.addWidget(self.series_list_view)
         left_vbox.addWidget(buttonbox0)
-        #left_vbox.addWidget(self.open_files_button) 
-        #left_vbox.addWidget(self.combine_data_button)
 
         ##### middle vbox #####
-        #filter_label = QtGui.QLabel(self.tr("Filter commands:"))
-
         self.filter_table_widget.setRowCount(12)
         self.filter_table_widget.setColumnCount(3)
         self.filter_table_widget.setHorizontalHeaderLabels((self.tr('Parameter'),self.tr('< or >'),self.tr('Number')))
         self.filter_table_widget.horizontalHeader().setResizeMode(QtGui.QHeaderView.Stretch)
         self.filter_table_widget.verticalHeader().setResizeMode(QtGui.QHeaderView.Stretch)       
         
-        #self.check_filters_button = QtGui.QPushButton(self.tr("&Check filters"))
-        #self.connect(self.check_filters_button, QtCore.SIGNAL('clicked()'), self.read_filter_table)       
-        
-        #self.execute_button = QtGui.QPushButton(self.tr("&Execute"))
-        #self.connect(self.execute_button, QtCore.SIGNAL('clicked()'), self.filter_data)
+        open_filters_button = QtGui.QPushButton()
+        self.connect(open_filters_button, QtCore.SIGNAL('clicked()'), self.load_filter_settings)
+        open_filters_button.setIcon(QtGui.QIcon(":open.png"))
+        open_filters_button.setToolTip(self.tr("Load filter settings"))
+        open_filters_button.setStatusTip(self.tr("Load filter settings"))
 
-        #self.clear_button = QtGui.QPushButton(self.tr("&Clear"))
-        #self.connect(self.clear_button, QtCore.SIGNAL('clicked()'), self.clear_data)        
+        save_filters_button = QtGui.QPushButton()
+        self.connect(save_filters_button, QtCore.SIGNAL('clicked()'), self.save_filter_settings)
+        save_filters_button.setIcon(QtGui.QIcon(":save.png"))
+        save_filters_button.setToolTip(self.tr("Save filter settings"))
+        save_filters_button.setStatusTip(self.tr("Save filter settings"))        
 
         check_filters_button = QtGui.QPushButton()
         self.connect(check_filters_button, QtCore.SIGNAL('clicked()'), self.read_filter_table)
         check_filters_button.setIcon(QtGui.QIcon(":check.png"))
-        check_filters_button.setToolTip(self.tr("&Check filters"))
-        check_filters_button.setStatusTip(self.tr("&Check filters"))
+        check_filters_button.setToolTip(self.tr("Check filters"))
+        check_filters_button.setStatusTip(self.tr("Check filters"))
         
-        execute_button = QtGui.QPushButton()
-        self.connect(execute_button, QtCore.SIGNAL('clicked()'), self.filter_data)
-        execute_button.setIcon(QtGui.QIcon(":filter.png"))
-        execute_button.setToolTip(self.tr("&Check filters"))
-        execute_button.setStatusTip(self.tr("&Check filters"))
+        execute_filters_button = QtGui.QPushButton()
+        self.connect(execute_filters_button, QtCore.SIGNAL('clicked()'), self.filter_data)
+        execute_filters_button.setIcon(QtGui.QIcon(":filter.png"))
+        execute_filters_button.setToolTip(self.tr("Execute filters"))
+        execute_filters_button.setStatusTip(self.tr("Execute filters"))
 
-        clear_button = QtGui.QPushButton()
-        self.connect(clear_button, QtCore.SIGNAL('clicked()'), self.clear_data)
-        clear_button.setIcon(QtGui.QIcon(":erase.png"))
-        clear_button.setToolTip(self.tr("&Check filters"))
-        clear_button.setStatusTip(self.tr("&Check filters"))
+        clear_filters_button = QtGui.QPushButton()
+        self.connect(clear_filters_button, QtCore.SIGNAL('clicked()'), self.set_default_filters)
+        clear_filters_button.setIcon(QtGui.QIcon(":revert.png"))
+        clear_filters_button.setToolTip(self.tr("Reload default filters"))
+        clear_filters_button.setStatusTip(self.tr("Reload default filters"))
 
         buttonbox1 = QtGui.QDialogButtonBox()
+        buttonbox1.addButton(open_filters_button, QtGui.QDialogButtonBox.ActionRole)
+        buttonbox1.addButton(save_filters_button, QtGui.QDialogButtonBox.ActionRole)
         buttonbox1.addButton(check_filters_button, QtGui.QDialogButtonBox.ActionRole)
-        buttonbox1.addButton(execute_button, QtGui.QDialogButtonBox.ActionRole)
-        buttonbox1.addButton(clear_button, QtGui.QDialogButtonBox.ActionRole)
+        buttonbox1.addButton(execute_filters_button, QtGui.QDialogButtonBox.ActionRole)
+        buttonbox1.addButton(clear_filters_button, QtGui.QDialogButtonBox.ActionRole)
 
         mid_vbox = QtGui.QVBoxLayout()
-        #mid_vbox.addWidget(filter_label)
         mid_vbox.addWidget(self.filter_table_widget)                                                                                                                                                                                                           
         mid_vbox.addWidget(buttonbox1) 
-        #mid_vbox.addWidget(self.check_filters_button)        
-        #mid_vbox.addWidget(self.execute_button) 
-        #mid_vbox.addWidget(self.clear_button)
         
-        ##### right vbox ##### Plot only 1 graph at a time to avoid memory problems for large data sets
-        #title_label = QtGui.QLabel(self.tr("Output commands:"))
-                
-        corr_label = QtGui.QLabel(self.tr("Correlation:"))
-        self.corrvocisc_radio = QtGui.QRadioButton('Voc-Isc', self)
-        self.corretaff_radio = QtGui.QRadioButton('Eta-FF', self)
-        self.corrrshff_radio = QtGui.QRadioButton('Rsh-FF', self)
-                
-        dist_label = QtGui.QLabel(self.tr("Distribution Eta:"))
-        self.distltoh_radio = QtGui.QRadioButton(self.tr('Low to high'), self)
-        self.disthist_radio = QtGui.QRadioButton(self.tr('Histogram'), self)
-        self.distden_radio = QtGui.QRadioButton(self.tr('Density'), self)
-        self.disthistden_radio = QtGui.QRadioButton(self.tr('Histogram + density'), self)
+        ##### top buttonbox #####
+        report_button = QtGui.QPushButton()
+        self.connect(report_button, QtCore.SIGNAL('clicked()'), self.make_report)
+        report_button.setIcon(QtGui.QIcon(":report.png"))
+        report_button.setToolTip(self.tr("Make report"))
+        report_button.setStatusTip(self.tr("Make report"))
+
+        openreport_button = QtGui.QPushButton()
+        self.connect(openreport_button, QtCore.SIGNAL('clicked()'), self.open_report)
+        openreport_button.setIcon(QtGui.QIcon(":link.png"))
+        openreport_button.setToolTip(self.tr("Open report"))
+        openreport_button.setStatusTip(self.tr("Open report"))
+
+        plotselection_button = QtGui.QPushButton()
+        self.connect(plotselection_button, QtCore.SIGNAL('clicked()'), self.open_plot_selection)
+        plotselection_button.setIcon(QtGui.QIcon(":chart.png"))
+        plotselection_button.setToolTip(self.tr("Plot selection"))
+        plotselection_button.setStatusTip(self.tr("Plot selection"))
+
+        top_buttonbox = QtGui.QDialogButtonBox()
+        top_buttonbox.addButton(report_button, QtGui.QDialogButtonBox.ActionRole)
+        top_buttonbox.addButton(openreport_button, QtGui.QDialogButtonBox.ActionRole)
+        top_buttonbox.addButton(plotselection_button, QtGui.QDialogButtonBox.ActionRole)
 
         self.param_one_combo = QtGui.QComboBox(self)
         for i in self.plot_selection_list:
             self.param_one_combo.addItem(i)               
-        self.param_one_combo.setCurrentIndex(4)      
+        self.param_one_combo.setCurrentIndex(4)
+
+        self.plot_selection_combo = QtGui.QComboBox(self)
+        for i in self.plot_selection_combo_list:
+            self.plot_selection_combo.addItem(i)
         
-        self.boxplot_radio = QtGui.QRadioButton(self.tr('Boxplot'), self)
-        self.boxplot_radio.setChecked(True)
-        
-        stab_label = QtGui.QLabel(self.tr("Stability:"))
-        self.stabwalk_radio = QtGui.QRadioButton(self.tr('Walk-through'), self)
-        self.stabroll_radio = QtGui.QRadioButton(self.tr('Rolling mean'), self)        
+        toolbar_hbox = QtGui.QHBoxLayout()
+        toolbar_hbox.addWidget(top_buttonbox)
+        toolbar_hbox.addWidget(self.param_one_combo) 
+        toolbar_hbox.addWidget(self.plot_selection_combo)
 
-        self.plotselection_button = QtGui.QPushButton(self.tr("&Plot selection"))
-        self.connect(self.plotselection_button, QtCore.SIGNAL('clicked()'), self.open_plot_selection)
-
-        self.report_button = QtGui.QPushButton(self.tr("&Make report"))
-        self.connect(self.report_button, QtCore.SIGNAL('clicked()'), self.make_report)
-
-        self.openreport_button = QtGui.QPushButton(self.tr("&Open report"))
-        self.connect(self.openreport_button, QtCore.SIGNAL('clicked()'), self.open_report)
-
-        right_vbox = QtGui.QVBoxLayout()                                                                                                                                                                                                            
-        #right_vbox.addWidget(title_label)        
-
-        right_vbox.addWidget(self.param_one_combo)
-        right_vbox.addWidget(self.boxplot_radio)
-        
-        right_vbox.addWidget(stab_label)
-        right_vbox.addWidget(self.stabwalk_radio)       
-        right_vbox.addWidget(self.stabroll_radio)  
-
-        right_vbox.addWidget(dist_label)
-        right_vbox.addWidget(self.distltoh_radio)
-        right_vbox.addWidget(self.disthist_radio)
-        right_vbox.addWidget(self.distden_radio)       
-        right_vbox.addWidget(self.disthistden_radio)
-        
-        right_vbox.addWidget(corr_label)
-        right_vbox.addWidget(self.corrvocisc_radio)
-        right_vbox.addWidget(self.corretaff_radio)
-        right_vbox.addWidget(self.corrrshff_radio)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
-
-        right_vbox.addWidget(self.plotselection_button)                        
-        right_vbox.addWidget(self.report_button) 
-        right_vbox.addWidget(self.openreport_button)         
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
+        ##### main layout settings #####
         top_hbox = QtGui.QHBoxLayout()
         top_hbox.addLayout(left_vbox)
         top_hbox.addLayout(mid_vbox)
-        top_hbox.addLayout(right_vbox)
   
         vbox = QtGui.QVBoxLayout()
+        vbox.addLayout(toolbar_hbox) 
         vbox.addLayout(top_hbox)           
                                        
         self.main_frame.setLayout(vbox)
