@@ -1,0 +1,11 @@
+TODO
+---
+
+Remove ampersand from strings and update translations
+IVMainGui > Change tip for label to Ireverse2
+IVMainPlot > fix bug where the title does not remove
+IVMainPlot > replace self.ad for parent.ad to save memory
+Add data save feature
+Change barwidth
+Change dotsize
+Use scikitlearn to automatically separate groups
