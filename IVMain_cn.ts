@@ -2,27 +2,98 @@
 <!DOCTYPE TS>
 <TS version="2.0" language="zh" sourcelanguage="en">
 <context>
+    <name>CorrEtaFF</name>
+    <message>
+        <location filename="../IVMainPlot.py" line="172"/>
+        <source>Correlation</source>
+        <translation>相关性</translation>
+    </message>
+</context>
+<context>
+    <name>CorrRshFF</name>
+    <message>
+        <location filename="../IVMainPlot.py" line="203"/>
+        <source>Correlation</source>
+        <translation>相关性</translation>
+    </message>
+</context>
+<context>
+    <name>CorrVocIsc</name>
+    <message>
+        <location filename="../IVMainPlot.py" line="133"/>
+        <source>Correlation</source>
+        <translation>相关性</translation>
+    </message>
+</context>
+<context>
+    <name>DensEta</name>
+    <message>
+        <location filename="../IVMainPlot.py" line="281"/>
+        <source>Density</source>
+        <translation>密度</translation>
+    </message>
+</context>
+<context>
+    <name>DistLtoH</name>
+    <message>
+        <location filename="../IVMainPlot.py" line="235"/>
+        <source>Distribution</source>
+        <translation>分布图</translation>
+    </message>
+</context>
+<context>
+    <name>DistRM</name>
+    <message>
+        <location filename="../IVMainPlot.py" line="364"/>
+        <source>Rolling mean</source>
+        <translation>滚动平均值</translation>
+    </message>
+</context>
+<context>
+    <name>DistWT</name>
+    <message>
+        <location filename="../IVMainPlot.py" line="321"/>
+        <source>Walkthrough</source>
+        <translation>场景漫游</translation>
+    </message>
+</context>
+<context>
     <name>IVBoxPlot</name>
     <message>
-        <location filename="../IVMainPlot.py" line="480"/>
+        <location filename="../IVMainPlot.py" line="470"/>
         <source>Show</source>
         <translation>演出</translation>
+    </message>
+    <message>
+        <location filename="../IVMainPlot.py" line="408"/>
+        <source>Boxplot</source>
+        <translation>箱型图</translation>
     </message>
 </context>
 <context>
     <name>IVHistDenPlot</name>
     <message>
-        <location filename="../IVMainPlot.py" line="676"/>
+        <location filename="../IVMainPlot.py" line="666"/>
         <source>Show</source>
         <translation>演出</translation>
+    </message>
+    <message>
+        <location filename="../IVMainPlot.py" line="585"/>
+        <source>Histogram and density</source>
+        <translation>柱状图+密度</translation>
     </message>
 </context>
 <context>
     <name>IVHistPlot</name>
     <message>
-        <location filename="../IVMainPlot.py" line="567"/>
+        <location filename="../IVMainPlot.py" line="557"/>
         <source>Show</source>
         <translation>演出</translation>
+    </message>
+    <message>
+        <location filename="../IVMainPlot.py" line="496"/>
+        <source>Histogram</source>
+        <translation>柱状图</translation>
     </message>
 </context>
 <context>
@@ -475,7 +546,7 @@ Data labels were perhaps not recognized.</source>
     <message>
         <location filename="../IVMainPlot.py" line="38"/>
         <source>Solar cell data analysis - Matplotlib graph</source>
-        <translation>太阳能电池片数据分析 - Matplotlib 图表</translation>
+        <translation type="obsolete">太阳能电池片数据分析 - Matplotlib 图表</translation>
     </message>
     <message>
         <location filename="../IVMainPlot.py" line="48"/>
@@ -494,7 +565,7 @@ Data labels were perhaps not recognized.</source>
         <translation type="obsolete">关于应用</translation>
     </message>
     <message>
-        <location filename="../IVMainPlot.py" line="57"/>
+        <location filename="../IVMainPlot.py" line="53"/>
         <source>Quit</source>
         <translation>退出</translation>
     </message>
@@ -507,7 +578,7 @@ Data labels were perhaps not recognized.</source>
 <context>
     <name>IVScatterPlot</name>
     <message>
-        <location filename="../IVMainPlot.py" line="112"/>
+        <location filename="../IVMainPlot.py" line="104"/>
         <source>Show</source>
         <translation>演出</translation>
     </message>

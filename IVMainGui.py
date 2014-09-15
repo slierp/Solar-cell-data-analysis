@@ -336,16 +336,16 @@ class IVMainGui(QtGui.QMainWindow):
                 # close previous instances of child windows to save system memory                
                 self.wid.close()                
 
-        if (selected_plot_combo == 0): self.wid = IVBoxPlot(self.ad,self.param_one_combo.currentText(),self)
-        elif (selected_plot_combo == 1): self.wid = DistWT(self.ad,self.param_one_combo.currentText(),self)
-        elif (selected_plot_combo == 2): self.wid = DistRM(self.ad,self.param_one_combo.currentText(),self)
-        elif (selected_plot_combo == 3): self.wid = DistLtoH(self.ad,self)
-        elif (selected_plot_combo == 4): self.wid = IVHistPlot(self.ad,self) 
-        elif (selected_plot_combo == 5): self.wid = DensEta(self.ad,self) 
-        elif (selected_plot_combo == 6): self.wid = IVHistDenPlot(self.ad,self) 
-        elif (selected_plot_combo == 7): self.wid = CorrVocIsc(self.ad,self)
-        elif (selected_plot_combo == 8): self.wid = CorrEtaFF(self.ad,self)
-        elif (selected_plot_combo == 9): self.wid = CorrRshFF(self.ad,self)
+        if (selected_plot_combo == 0): self.wid = IVBoxPlot(self,self.param_one_combo.currentText())
+        elif (selected_plot_combo == 1): self.wid = DistWT(self,self.param_one_combo.currentText())
+        elif (selected_plot_combo == 2): self.wid = DistRM(self,self.param_one_combo.currentText())
+        elif (selected_plot_combo == 3): self.wid = DistLtoH(self)
+        elif (selected_plot_combo == 4): self.wid = IVHistPlot(self) 
+        elif (selected_plot_combo == 5): self.wid = DensEta(self) 
+        elif (selected_plot_combo == 6): self.wid = IVHistDenPlot(self) 
+        elif (selected_plot_combo == 7): self.wid = CorrVocIsc(self)
+        elif (selected_plot_combo == 8): self.wid = CorrEtaFF(self)
+        elif (selected_plot_combo == 9): self.wid = CorrRshFF(self)
         else: return
                         
         self.wid.show() 

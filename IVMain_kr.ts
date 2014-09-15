@@ -2,27 +2,98 @@
 <!DOCTYPE TS>
 <TS version="2.0" language="ko" sourcelanguage="en">
 <context>
+    <name>CorrEtaFF</name>
+    <message>
+        <location filename="../IVMainPlot.py" line="172"/>
+        <source>Correlation</source>
+        <translation>상관 관계</translation>
+    </message>
+</context>
+<context>
+    <name>CorrRshFF</name>
+    <message>
+        <location filename="../IVMainPlot.py" line="203"/>
+        <source>Correlation</source>
+        <translation>상관 관계</translation>
+    </message>
+</context>
+<context>
+    <name>CorrVocIsc</name>
+    <message>
+        <location filename="../IVMainPlot.py" line="133"/>
+        <source>Correlation</source>
+        <translation>상관 관계</translation>
+    </message>
+</context>
+<context>
+    <name>DensEta</name>
+    <message>
+        <location filename="../IVMainPlot.py" line="281"/>
+        <source>Density</source>
+        <translation>밀도</translation>
+    </message>
+</context>
+<context>
+    <name>DistLtoH</name>
+    <message>
+        <location filename="../IVMainPlot.py" line="235"/>
+        <source>Distribution</source>
+        <translation>배치</translation>
+    </message>
+</context>
+<context>
+    <name>DistRM</name>
+    <message>
+        <location filename="../IVMainPlot.py" line="364"/>
+        <source>Rolling mean</source>
+        <translation>변동 평균</translation>
+    </message>
+</context>
+<context>
+    <name>DistWT</name>
+    <message>
+        <location filename="../IVMainPlot.py" line="321"/>
+        <source>Walkthrough</source>
+        <translation>둘러보기</translation>
+    </message>
+</context>
+<context>
     <name>IVBoxPlot</name>
     <message>
-        <location filename="../IVMainPlot.py" line="480"/>
+        <location filename="../IVMainPlot.py" line="470"/>
         <source>Show</source>
         <translation>쇼</translation>
+    </message>
+    <message>
+        <location filename="../IVMainPlot.py" line="408"/>
+        <source>Boxplot</source>
+        <translation>상자 그래프</translation>
     </message>
 </context>
 <context>
     <name>IVHistDenPlot</name>
     <message>
-        <location filename="../IVMainPlot.py" line="676"/>
+        <location filename="../IVMainPlot.py" line="666"/>
         <source>Show</source>
         <translation>쇼</translation>
+    </message>
+    <message>
+        <location filename="../IVMainPlot.py" line="585"/>
+        <source>Histogram and density</source>
+        <translation>히스토그램 + 밀도</translation>
     </message>
 </context>
 <context>
     <name>IVHistPlot</name>
     <message>
-        <location filename="../IVMainPlot.py" line="567"/>
+        <location filename="../IVMainPlot.py" line="557"/>
         <source>Show</source>
         <translation>쇼</translation>
+    </message>
+    <message>
+        <location filename="../IVMainPlot.py" line="496"/>
+        <source>Histogram</source>
+        <translation>히스토그램</translation>
     </message>
 </context>
 <context>
@@ -475,7 +546,7 @@ Data labels were perhaps not recognized.</source>
     <message>
         <location filename="../IVMainPlot.py" line="38"/>
         <source>Solar cell data analysis - Matplotlib graph</source>
-        <translation>태양전지 데이터 분석 - Matplotlib 그래프</translation>
+        <translation type="obsolete">태양전지 데이터 분석 - Matplotlib 그래프</translation>
     </message>
     <message>
         <location filename="../IVMainPlot.py" line="48"/>
@@ -493,7 +564,7 @@ Data labels were perhaps not recognized.</source>
         <translation type="obsolete">응용 프로그램에 대한 정보</translation>
     </message>
     <message>
-        <location filename="../IVMainPlot.py" line="57"/>
+        <location filename="../IVMainPlot.py" line="53"/>
         <source>Quit</source>
         <translation>종료</translation>
     </message>
@@ -506,7 +577,7 @@ Data labels were perhaps not recognized.</source>
 <context>
     <name>IVScatterPlot</name>
     <message>
-        <location filename="../IVMainPlot.py" line="112"/>
+        <location filename="../IVMainPlot.py" line="104"/>
         <source>Show</source>
         <translation>쇼</translation>
     </message>

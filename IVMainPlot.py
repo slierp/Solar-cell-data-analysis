@@ -33,13 +33,9 @@ plot_label_list = [voc_axis_label, isc_axis_label, vocisc_axis_label, ff_axis_la
 
 class IVMainPlot(QtGui.QMainWindow):  
     
-    def __init__(self, ad, parent=None):
+    def __init__(self, parent=None):
         QtGui.QMainWindow.__init__(self, parent)
-        self.setWindowTitle(self.tr( "Solar cell data analysis - Matplotlib graph"))
-        self.setWindowIcon(QtGui.QIcon(icon_name))
-        self.translator = None 
 
-        self.ad = ad
         self.create_menu()
         self.create_main_frame()
         self.on_draw()          
@@ -66,18 +62,14 @@ class IVMainPlot(QtGui.QMainWindow):
 ########## Main scatter plot class - only for inheriting ##########
 
 class IVScatterPlot(IVMainPlot):
-    def __init__(self, ad, parent=None):
+    def __init__(self, parent):
         QtGui.QMainWindow.__init__(self, parent)
-        self.setWindowTitle("Solar cell data analysis - Matplotlib graph")
-        self.setWindowIcon(QIcon(icon_name))
 
-        self.ad = ad
+        self.ad = parent.ad
         self.fig = ''
         self.canvas = ''
         self.axes = ''
-        IVMainPlot.create_menu()
-        self.create_main_frame()
-        self.on_draw()  
+        super(IVMainPlot, self).__init__(parent)
 
     def create_main_frame(self):
         self.main_frame = QtGui.QWidget()
@@ -136,12 +128,12 @@ class IVScatterPlot(IVMainPlot):
 ########## Scatter plot sub class - Voc Isc ##########
 
 class CorrVocIsc(IVScatterPlot):
-    def __init__(self, ad, parent=None):
+    def __init__(self, parent):
         QtGui.QMainWindow.__init__(self, parent)
-        self.setWindowTitle("Solar cell data analysis - Voc-Isc correlation")
+        self.setWindowTitle(self.tr("Correlation"))
         self.setWindowIcon(QtGui.QIcon(icon_name))
         
-        self.ad = ad
+        self.ad = parent.ad
         IVMainPlot.create_menu(self)
         IVScatterPlot.create_main_frame(self)
         self.on_draw()
@@ -175,12 +167,12 @@ class CorrVocIsc(IVScatterPlot):
 ########## Scatter plot sub class - Eta FF ##########
 
 class CorrEtaFF(IVScatterPlot):
-    def __init__(self, ad, parent=None):
+    def __init__(self, parent):
         QtGui.QMainWindow.__init__(self, parent)
-        self.setWindowTitle("Solar cell data analysis - Eta-FF correlation")
+        self.setWindowTitle(self.tr("Correlation"))
         self.setWindowIcon(QtGui.QIcon(icon_name))
         
-        self.ad = ad
+        self.ad = parent.ad
         IVMainPlot.create_menu(self)
         IVScatterPlot.create_main_frame(self)
         self.on_draw()
@@ -206,12 +198,12 @@ class CorrEtaFF(IVScatterPlot):
 ########## Scatter plot sub class - Rsh FF ##########
 
 class CorrRshFF(IVScatterPlot):
-    def __init__(self, ad, parent=None):
+    def __init__(self, parent):
         QtGui.QMainWindow.__init__(self, parent)
-        self.setWindowTitle("Solar cell data analysis - Rsh-FF correlation")
+        self.setWindowTitle(self.tr("Correlation"))
         self.setWindowIcon(QtGui.QIcon(icon_name))
         
-        self.ad = ad
+        self.ad = parent.ad
         IVMainPlot.create_menu(self)
         IVScatterPlot.create_main_frame(self)
         self.on_draw()
@@ -238,12 +230,12 @@ class CorrRshFF(IVScatterPlot):
 ########## Scatter plot sub class - Distribution ##########
 
 class DistLtoH(IVScatterPlot):
-    def __init__(self, ad, parent=None):
+    def __init__(self, parent):
         QtGui.QMainWindow.__init__(self, parent)
-        self.setWindowTitle("Solar cell data analysis - Eta distribution")
+        self.setWindowTitle(self.tr("Distribution"))
         self.setWindowIcon(QtGui.QIcon(icon_name))
         
-        self.ad = ad
+        self.ad = parent.ad
         IVMainPlot.create_menu(self)
         IVScatterPlot.create_main_frame(self)
         self.on_draw()
@@ -284,12 +276,12 @@ class DistLtoH(IVScatterPlot):
 ########## Scatter plot sub class - Density ##########
 
 class DensEta(IVScatterPlot):
-    def __init__(self, ad, parent=None):
+    def __init__(self, parent):
         QtGui.QMainWindow.__init__(self, parent)
-        self.setWindowTitle("Solar cell data analysis - Density Eta")
+        self.setWindowTitle(self.tr("Density"))
         self.setWindowIcon(QtGui.QIcon(icon_name))
         
-        self.ad = ad
+        self.ad = parent.ad
         IVMainPlot.create_menu(self)
         IVScatterPlot.create_main_frame(self)
         self.on_draw()
@@ -324,12 +316,12 @@ class DensEta(IVScatterPlot):
 ########## Scatter plot sub class - Walk-through ##########
 
 class DistWT(IVScatterPlot):
-    def __init__(self, ad, plot_selection, parent=None):
+    def __init__(self, parent, plot_selection):
         QtGui.QMainWindow.__init__(self, parent)
-        self.setWindowTitle("Solar cell data analysis - Eta stability")
+        self.setWindowTitle(self.tr("Walkthrough"))
         self.setWindowIcon(QtGui.QIcon(icon_name))
         
-        self.ad = ad
+        self.ad = parent.ad
         if str(plot_selection) in plot_selection_list:
             self.plot_selection = str(plot_selection)        
         IVMainPlot.create_menu(self)
@@ -367,12 +359,12 @@ class DistWT(IVScatterPlot):
 ########## Scatter plot sub class - Rolling mean ##########
 
 class DistRM(IVScatterPlot):
-    def __init__(self, ad, plot_selection, parent=None):
+    def __init__(self, parent, plot_selection):
         QtGui.QMainWindow.__init__(self, parent)
-        self.setWindowTitle("Solar cell data analysis - Rolling mean")
+        self.setWindowTitle(self.tr("Rolling mean"))
         self.setWindowIcon(QtGui.QIcon(icon_name))
        
-        self.ad = ad
+        self.ad = parent.ad
         if str(plot_selection) in plot_selection_list:
             self.plot_selection = str(plot_selection)         
         IVMainPlot.create_menu(self)
@@ -382,9 +374,7 @@ class DistRM(IVScatterPlot):
     def on_draw(self):
         # Clear previous and re-draw everything
         self.axes.clear()   
-        self.axes.grid(self.grid_cb.isChecked())
-        
-        spot_size = 20 # number of pixels for each data point
+        self.axes.grid(self.grid_cb.isChecked())        
 
         self.axes.set_xlabel(r'$\mathrm{\mathsf{Normalized\ cell\ number\ [a.u.]}}$', fontsize=24, weight='black')        
         for i, value in enumerate(plot_selection_list):
@@ -413,12 +403,12 @@ class DistRM(IVScatterPlot):
 ########## IVMainPlot sub class - Boxplot ##########
        
 class IVBoxPlot(IVMainPlot):
-    def __init__(self, ad, plot_selection, parent=None):
+    def __init__(self, parent, plot_selection):
         QtGui.QMainWindow.__init__(self, parent)
-        self.setWindowTitle("Solar cell data analysis - Boxplot Eta")
+        self.setWindowTitle(self.tr("Boxplot"))
         self.setWindowIcon(QtGui.QIcon(icon_name))
 
-        self.ad = ad
+        self.ad = parent.ad
         if str(plot_selection) in plot_selection_list:
             self.plot_selection = str(plot_selection)
         IVMainPlot.create_menu(self)
@@ -501,12 +491,12 @@ class IVBoxPlot(IVMainPlot):
 ########## IVMainPlot sub class - Histogram ##########
        
 class IVHistPlot(IVMainPlot):
-    def __init__(self, ad, parent=None):
+    def __init__(self, parent):
         QtGui.QMainWindow.__init__(self, parent)
-        self.setWindowTitle("Solar cell data analysis - Histogram Eta")
+        self.setWindowTitle(self.tr("Histogram"))
         self.setWindowIcon(QtGui.QIcon(icon_name))
         
-        self.ad = ad
+        self.ad = parent.ad
         IVMainPlot.create_menu(self)
         self.create_main_frame()
         self.on_draw()                     
@@ -526,7 +516,7 @@ class IVHistPlot(IVMainPlot):
                 freq = freq.sort_index()
                 #freq = freq.drop(freq.index[[np.arange(0,len(freq)-bins)]]) # if bins < no_datapoints it does not drop anything
                 freq.plot(kind='bar',color=cl[i % len(cl)],ax=self.axes)
-                if(self.dataset_cb[i].isChecked() | (len(self.ad) == 1)):
+                if self.title_cb.isChecked():
                     self.axes.set_title(self.ad[i].index.name)
                 
         self.axes.set_xlabel(r'$\mathrm{\mathsf{Eta\ [\%]}}$', fontsize=24, weight='black')
@@ -590,12 +580,12 @@ class IVHistPlot(IVMainPlot):
 ########## IVMainPlot sub class - Histogram and density ##########
        
 class IVHistDenPlot(IVMainPlot):
-    def __init__(self, ad, parent=None):
+    def __init__(self, parent):
         QtGui.QMainWindow.__init__(self, parent)
-        self.setWindowTitle("Solar cell data analysis - Histogram and density Eta")
+        self.setWindowTitle(self.tr("Histogram and density"))
         self.setWindowIcon(QtGui.QIcon(icon_name))
         
-        self.ad = ad
+        self.ad = parent.ad
         IVMainPlot.create_menu(self)
         self.create_main_frame()
         self.on_draw()                     
@@ -628,7 +618,7 @@ class IVHistDenPlot(IVMainPlot):
                 den.plot(kind='kde',c='white',lw=6,ax=self.axes2)
                 den.plot(kind='kde',c='black',lw=4,ax=self.axes2)
                 den.plot(kind='kde',c='r',lw=3,ax=self.axes2)
-                if(self.dataset_cb[i].isChecked() | (len(self.ad) == 1)):
+                if self.title_cb.isChecked():
                     self.axes.set_title(self.ad[i].index.name)
                 
         self.axes.set_xlim((np.floor(xmin), np.ceil(xmax)))

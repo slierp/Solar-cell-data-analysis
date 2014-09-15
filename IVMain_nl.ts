@@ -2,27 +2,98 @@
 <!DOCTYPE TS>
 <TS version="2.0" language="nl" sourcelanguage="en">
 <context>
+    <name>CorrEtaFF</name>
+    <message>
+        <location filename="../IVMainPlot.py" line="172"/>
+        <source>Correlation</source>
+        <translation>Correlatie</translation>
+    </message>
+</context>
+<context>
+    <name>CorrRshFF</name>
+    <message>
+        <location filename="../IVMainPlot.py" line="203"/>
+        <source>Correlation</source>
+        <translation>Correlatie</translation>
+    </message>
+</context>
+<context>
+    <name>CorrVocIsc</name>
+    <message>
+        <location filename="../IVMainPlot.py" line="133"/>
+        <source>Correlation</source>
+        <translation>Correlatie</translation>
+    </message>
+</context>
+<context>
+    <name>DensEta</name>
+    <message>
+        <location filename="../IVMainPlot.py" line="281"/>
+        <source>Density</source>
+        <translation>Dichtheid</translation>
+    </message>
+</context>
+<context>
+    <name>DistLtoH</name>
+    <message>
+        <location filename="../IVMainPlot.py" line="235"/>
+        <source>Distribution</source>
+        <translation>Distributie</translation>
+    </message>
+</context>
+<context>
+    <name>DistRM</name>
+    <message>
+        <location filename="../IVMainPlot.py" line="364"/>
+        <source>Rolling mean</source>
+        <translation>Doorlopend gemiddelde</translation>
+    </message>
+</context>
+<context>
+    <name>DistWT</name>
+    <message>
+        <location filename="../IVMainPlot.py" line="321"/>
+        <source>Walkthrough</source>
+        <translation>Datareeks</translation>
+    </message>
+</context>
+<context>
     <name>IVBoxPlot</name>
     <message>
-        <location filename="../IVMainPlot.py" line="480"/>
+        <location filename="../IVMainPlot.py" line="470"/>
         <source>Show</source>
         <translation>Laat zien</translation>
+    </message>
+    <message>
+        <location filename="../IVMainPlot.py" line="408"/>
+        <source>Boxplot</source>
+        <translation>Doosdiagram</translation>
     </message>
 </context>
 <context>
     <name>IVHistDenPlot</name>
     <message>
-        <location filename="../IVMainPlot.py" line="676"/>
+        <location filename="../IVMainPlot.py" line="666"/>
         <source>Show</source>
         <translation>Laat zien</translation>
+    </message>
+    <message>
+        <location filename="../IVMainPlot.py" line="585"/>
+        <source>Histogram and density</source>
+        <translation>Histogram en dichtheid</translation>
     </message>
 </context>
 <context>
     <name>IVHistPlot</name>
     <message>
-        <location filename="../IVMainPlot.py" line="567"/>
+        <location filename="../IVMainPlot.py" line="557"/>
         <source>Show</source>
         <translation>Laat zien</translation>
+    </message>
+    <message>
+        <location filename="../IVMainPlot.py" line="496"/>
+        <source>Histogram</source>
+        <translation>Histogram</translation>
     </message>
 </context>
 <context>
@@ -560,10 +631,10 @@ Licentie: Publiek domein</translation>
     <message>
         <location filename="../IVMainPlot.py" line="38"/>
         <source>Solar cell data analysis - Matplotlib graph</source>
-        <translation>Data analyse zonnecellen - Matplotlib grafiek</translation>
+        <translation type="obsolete">Data analyse zonnecellen - Matplotlib grafiek</translation>
     </message>
     <message>
-        <location filename="../IVMainPlot.py" line="57"/>
+        <location filename="../IVMainPlot.py" line="53"/>
         <source>Quit</source>
         <translation>Afsluiten</translation>
     </message>
@@ -576,7 +647,7 @@ Licentie: Publiek domein</translation>
 <context>
     <name>IVScatterPlot</name>
     <message>
-        <location filename="../IVMainPlot.py" line="112"/>
+        <location filename="../IVMainPlot.py" line="104"/>
         <source>Show</source>
         <translation>Laat zien</translation>
     </message>
