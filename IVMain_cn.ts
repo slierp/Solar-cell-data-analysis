@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS>
-<TS version="2.0" language="zh" sourcelanguage="en">
+<!DOCTYPE TS><TS version="2.0" language="zh" sourcelanguage="en">
 <context>
     <name>CorrEtaFF</name>
     <message>
-        <location filename="../IVMainPlot.py" line="172"/>
+        <location filename="../IVMainPlot.py" line="167"/>
         <source>Correlation</source>
         <translation>相关性</translation>
     </message>
@@ -12,7 +11,7 @@
 <context>
     <name>CorrRshFF</name>
     <message>
-        <location filename="../IVMainPlot.py" line="203"/>
+        <location filename="../IVMainPlot.py" line="197"/>
         <source>Correlation</source>
         <translation>相关性</translation>
     </message>
@@ -20,7 +19,7 @@
 <context>
     <name>CorrVocIsc</name>
     <message>
-        <location filename="../IVMainPlot.py" line="133"/>
+        <location filename="../IVMainPlot.py" line="129"/>
         <source>Correlation</source>
         <translation>相关性</translation>
     </message>
@@ -28,7 +27,7 @@
 <context>
     <name>DensEta</name>
     <message>
-        <location filename="../IVMainPlot.py" line="281"/>
+        <location filename="../IVMainPlot.py" line="273"/>
         <source>Density</source>
         <translation>密度</translation>
     </message>
@@ -36,7 +35,7 @@
 <context>
     <name>DistLtoH</name>
     <message>
-        <location filename="../IVMainPlot.py" line="235"/>
+        <location filename="../IVMainPlot.py" line="228"/>
         <source>Distribution</source>
         <translation>分布图</translation>
     </message>
@@ -44,7 +43,7 @@
 <context>
     <name>DistRM</name>
     <message>
-        <location filename="../IVMainPlot.py" line="364"/>
+        <location filename="../IVMainPlot.py" line="354"/>
         <source>Rolling mean</source>
         <translation>滚动平均值</translation>
     </message>
@@ -52,7 +51,7 @@
 <context>
     <name>DistWT</name>
     <message>
-        <location filename="../IVMainPlot.py" line="321"/>
+        <location filename="../IVMainPlot.py" line="312"/>
         <source>Walkthrough</source>
         <translation>场景漫游</translation>
     </message>
@@ -60,12 +59,12 @@
 <context>
     <name>IVBoxPlot</name>
     <message>
-        <location filename="../IVMainPlot.py" line="470"/>
+        <location filename="../IVMainPlot.py" line="458"/>
         <source>Show</source>
         <translation>演出</translation>
     </message>
     <message>
-        <location filename="../IVMainPlot.py" line="408"/>
+        <location filename="../IVMainPlot.py" line="397"/>
         <source>Boxplot</source>
         <translation>箱型图</translation>
     </message>
@@ -73,17 +72,17 @@
 <context>
     <name>IVHistDenPlot</name>
     <message>
-        <location filename="../IVMainPlot.py" line="666"/>
+        <location filename="../IVMainPlot.py" line="650"/>
         <source>Show</source>
         <translation>演出</translation>
     </message>
     <message>
-        <location filename="../IVMainPlot.py" line="585"/>
+        <location filename="../IVMainPlot.py" line="570"/>
         <source>Histogram and density</source>
         <translation>柱状图+密度</translation>
     </message>
     <message>
-        <location filename="../IVMainPlot.py" line="654"/>
+        <location filename="../IVMainPlot.py" line="638"/>
         <source>Title</source>
         <translation type="unfinished"></translation>
     </message>
@@ -91,17 +90,17 @@
 <context>
     <name>IVHistPlot</name>
     <message>
-        <location filename="../IVMainPlot.py" line="557"/>
+        <location filename="../IVMainPlot.py" line="543"/>
         <source>Show</source>
         <translation>演出</translation>
     </message>
     <message>
-        <location filename="../IVMainPlot.py" line="496"/>
+        <location filename="../IVMainPlot.py" line="483"/>
         <source>Histogram</source>
         <translation>柱状图</translation>
     </message>
     <message>
-        <location filename="../IVMainPlot.py" line="545"/>
+        <location filename="../IVMainPlot.py" line="531"/>
         <source>Title</source>
         <translation type="unfinished"></translation>
     </message>
@@ -575,7 +574,7 @@ Data labels were perhaps not recognized.</source>
         <translation type="obsolete">关于应用</translation>
     </message>
     <message>
-        <location filename="../IVMainPlot.py" line="53"/>
+        <location filename="../IVMainPlot.py" line="50"/>
         <source>Quit</source>
         <translation>退出</translation>
     </message>
@@ -585,7 +584,7 @@ Data labels were perhaps not recognized.</source>
         <translation type="obsolete">退出</translation>
     </message>
     <message>
-        <location filename="../IVMainPlot.py" line="50"/>
+        <location filename="../IVMainPlot.py" line="47"/>
         <source>File</source>
         <translation>文档</translation>
     </message>
@@ -593,17 +592,17 @@ Data labels were perhaps not recognized.</source>
 <context>
     <name>IVScatterPlot</name>
     <message>
-        <location filename="../IVMainPlot.py" line="104"/>
+        <location filename="../IVMainPlot.py" line="101"/>
         <source>Show</source>
         <translation>演出</translation>
     </message>
     <message>
-        <location filename="../IVMainPlot.py" line="89"/>
+        <location filename="../IVMainPlot.py" line="86"/>
         <source>Grid</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../IVMainPlot.py" line="92"/>
+        <location filename="../IVMainPlot.py" line="89"/>
         <source>Legend</source>
         <translation type="unfinished"></translation>
     </message>
