@@ -18,9 +18,6 @@ matplotlib.rc('font', **font)
 
 cl = ['#4F81BD', '#C0504D', '#9BBB59','#F79646','#8064A2','#4BACC6','0','0.5'] # colour
 
-import Required_resources
-icon_name = ":Logo_Tempress.ico"
-
 plot_selection_list = ['Uoc','Isc','Voc*Isc','FF','Eta']
 eta_axis_label = r'$\mathrm{\mathsf{Eta\ [\%]}}$'
 voc_axis_label = r'$\mathrm{\mathsf{V_{OC}\ [V]}}$'
@@ -87,7 +84,7 @@ class IVScatterPlot(IVMainPlot):
         
         # Other GUI controls        
         self.grid_cb = QtGui.QCheckBox(self.tr("Grid"))
-        self.grid_cb.setChecked(True)
+        self.grid_cb.setChecked(True)       
 
         self.legend_cb = QtGui.QCheckBox(self.tr("Legend"))
         self.legend_cb.setChecked(True)               
@@ -105,25 +102,24 @@ class IVScatterPlot(IVMainPlot):
 
         buttonbox0 = QtGui.QDialogButtonBox()
         buttonbox0.addButton(show_button, QtGui.QDialogButtonBox.ActionRole)               
-            
-        hbox = QtGui.QHBoxLayout()
-        
-        hbox.addWidget(self.grid_cb)
-        hbox.addWidget(self.legend_cb)
-        
+
         if (len(self.ad) > 1):
             for i in self.ad:
-                hbox.addWidget(self.dataset_cb[i])
+                self.mpl_toolbar.addWidget(self.dataset_cb[i])
 
-        hbox.addWidget(show_button)            
+        self.mpl_toolbar.addWidget(self.grid_cb)
+        self.mpl_toolbar.addWidget(self.legend_cb)
+        self.mpl_toolbar.addWidget(show_button)                      
                                 
         vbox = QtGui.QVBoxLayout()        
         vbox.addWidget(self.mpl_toolbar)
         vbox.addWidget(self.canvas)
-        vbox.addLayout(hbox)
         
         self.main_frame.setLayout(vbox)
         self.setCentralWidget(self.main_frame)
+        
+        self.status_text = QtGui.QLabel("")        
+        self.statusBar().addWidget(self.status_text,1)        
 
 ########## Scatter plot sub class - Voc Isc ##########
 
@@ -131,7 +127,6 @@ class CorrVocIsc(IVScatterPlot):
     def __init__(self, parent):
         QtGui.QMainWindow.__init__(self, parent)
         self.setWindowTitle(self.tr("Correlation"))
-        self.setWindowIcon(QtGui.QIcon(icon_name))
         
         self.ad = parent.ad
         IVMainPlot.create_menu(self)
@@ -170,7 +165,6 @@ class CorrEtaFF(IVScatterPlot):
     def __init__(self, parent):
         QtGui.QMainWindow.__init__(self, parent)
         self.setWindowTitle(self.tr("Correlation"))
-        self.setWindowIcon(QtGui.QIcon(icon_name))
         
         self.ad = parent.ad
         IVMainPlot.create_menu(self)
@@ -201,7 +195,6 @@ class CorrRshFF(IVScatterPlot):
     def __init__(self, parent):
         QtGui.QMainWindow.__init__(self, parent)
         self.setWindowTitle(self.tr("Correlation"))
-        self.setWindowIcon(QtGui.QIcon(icon_name))
         
         self.ad = parent.ad
         IVMainPlot.create_menu(self)
@@ -233,7 +226,6 @@ class DistLtoH(IVScatterPlot):
     def __init__(self, parent):
         QtGui.QMainWindow.__init__(self, parent)
         self.setWindowTitle(self.tr("Distribution"))
-        self.setWindowIcon(QtGui.QIcon(icon_name))
         
         self.ad = parent.ad
         IVMainPlot.create_menu(self)
@@ -279,7 +271,6 @@ class DensEta(IVScatterPlot):
     def __init__(self, parent):
         QtGui.QMainWindow.__init__(self, parent)
         self.setWindowTitle(self.tr("Density"))
-        self.setWindowIcon(QtGui.QIcon(icon_name))
         
         self.ad = parent.ad
         IVMainPlot.create_menu(self)
@@ -319,7 +310,6 @@ class DistWT(IVScatterPlot):
     def __init__(self, parent, plot_selection):
         QtGui.QMainWindow.__init__(self, parent)
         self.setWindowTitle(self.tr("Walkthrough"))
-        self.setWindowIcon(QtGui.QIcon(icon_name))
         
         self.ad = parent.ad
         if str(plot_selection) in plot_selection_list:
@@ -362,7 +352,6 @@ class DistRM(IVScatterPlot):
     def __init__(self, parent, plot_selection):
         QtGui.QMainWindow.__init__(self, parent)
         self.setWindowTitle(self.tr("Rolling mean"))
-        self.setWindowIcon(QtGui.QIcon(icon_name))
        
         self.ad = parent.ad
         if str(plot_selection) in plot_selection_list:
@@ -406,7 +395,6 @@ class IVBoxPlot(IVMainPlot):
     def __init__(self, parent, plot_selection):
         QtGui.QMainWindow.__init__(self, parent)
         self.setWindowTitle(self.tr("Boxplot"))
-        self.setWindowIcon(QtGui.QIcon(icon_name))
 
         self.ad = parent.ad
         if str(plot_selection) in plot_selection_list:
@@ -471,22 +459,21 @@ class IVBoxPlot(IVMainPlot):
 
         buttonbox0 = QtGui.QDialogButtonBox()
         buttonbox0.addButton(show_button, QtGui.QDialogButtonBox.ActionRole)
-            
-        hbox = QtGui.QHBoxLayout()    
 
         if (len(self.ad) > 1):
             for i in self.ad:
-                hbox.addWidget(self.dataset_cb[i])
-
-        hbox.addWidget(buttonbox0)            
+                self.mpl_toolbar.addWidget(self.dataset_cb[i])
+            self.mpl_toolbar.addWidget(show_button)
                                 
         vbox = QtGui.QVBoxLayout()        
         vbox.addWidget(self.mpl_toolbar)
         vbox.addWidget(self.canvas)
-        vbox.addLayout(hbox)
         
         self.main_frame.setLayout(vbox)
         self.setCentralWidget(self.main_frame)
+
+        self.status_text = QtGui.QLabel("")        
+        self.statusBar().addWidget(self.status_text,1) 
         
 ########## IVMainPlot sub class - Histogram ##########
        
@@ -494,7 +481,6 @@ class IVHistPlot(IVMainPlot):
     def __init__(self, parent):
         QtGui.QMainWindow.__init__(self, parent)
         self.setWindowTitle(self.tr("Histogram"))
-        self.setWindowIcon(QtGui.QIcon(icon_name))
         
         self.ad = parent.ad
         IVMainPlot.create_menu(self)
@@ -559,23 +545,22 @@ class IVHistPlot(IVMainPlot):
         buttonbox0 = QtGui.QDialogButtonBox()
         buttonbox0.addButton(show_button, QtGui.QDialogButtonBox.ActionRole)              
             
-        hbox = QtGui.QHBoxLayout()        
-        
-        hbox.addWidget(self.title_cb)        
-        
         if (len(self.ad) > 1):
             for i in self.ad:
-                hbox.addWidget(self.dataset_cb[i])
+                self.mpl_toolbar.addWidget(self.dataset_cb[i])
 
-        hbox.addWidget(buttonbox0)            
+        self.mpl_toolbar.addWidget(self.title_cb)
+        self.mpl_toolbar.addWidget(show_button)            
                                 
         vbox = QtGui.QVBoxLayout()        
         vbox.addWidget(self.mpl_toolbar)
         vbox.addWidget(self.canvas)
-        vbox.addLayout(hbox)
         
         self.main_frame.setLayout(vbox)
         self.setCentralWidget(self.main_frame)
+        
+        self.status_text = QtGui.QLabel("")        
+        self.statusBar().addWidget(self.status_text,1)        
         
 ########## IVMainPlot sub class - Histogram and density ##########
        
@@ -583,7 +568,6 @@ class IVHistDenPlot(IVMainPlot):
     def __init__(self, parent):
         QtGui.QMainWindow.__init__(self, parent)
         self.setWindowTitle(self.tr("Histogram and density"))
-        self.setWindowIcon(QtGui.QIcon(icon_name))
         
         self.ad = parent.ad
         IVMainPlot.create_menu(self)
@@ -668,20 +652,19 @@ class IVHistDenPlot(IVMainPlot):
         buttonbox0 = QtGui.QDialogButtonBox()
         buttonbox0.addButton(show_button, QtGui.QDialogButtonBox.ActionRole)
             
-        hbox = QtGui.QHBoxLayout()        
-        
-        hbox.addWidget(self.title_cb)        
-        
         if (len(self.ad) > 1):
             for i in self.ad:
-                hbox.addWidget(self.dataset_cb[i])
+                self.mpl_toolbar.addWidget(self.dataset_cb[i])
 
-        hbox.addWidget(buttonbox0)            
+        self.mpl_toolbar.addWidget(self.title_cb)
+        self.mpl_toolbar.addWidget(show_button)            
                                 
         vbox = QtGui.QVBoxLayout()        
         vbox.addWidget(self.mpl_toolbar)
         vbox.addWidget(self.canvas)
-        vbox.addLayout(hbox)
         
         self.main_frame.setLayout(vbox)
-        self.setCentralWidget(self.main_frame)        
+        self.setCentralWidget(self.main_frame)
+        
+        self.status_text = QtGui.QLabel("")        
+        self.statusBar().addWidget(self.status_text,1)          
