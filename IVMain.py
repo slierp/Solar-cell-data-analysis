@@ -4,10 +4,6 @@ Created on Fri Sep 12 20:16:51 2014
 
 @author: rnaber
 
-TODO
-Add save function for data files
-Update all translations
-
 """
 
 from __future__ import division

@@ -82,6 +82,11 @@
         <source>Histogram and density</source>
         <translation>히스토그램 + 밀도</translation>
     </message>
+    <message>
+        <location filename="../IVMainPlot.py" line="654"/>
+        <source>Title</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>IVHistPlot</name>
@@ -94,6 +99,11 @@
         <location filename="../IVMainPlot.py" line="496"/>
         <source>Histogram</source>
         <translation>히스토그램</translation>
+    </message>
+    <message>
+        <location filename="../IVMainPlot.py" line="545"/>
+        <source>Title</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -573,6 +583,11 @@ Data labels were perhaps not recognized.</source>
         <source>&amp;Quit</source>
         <translation type="obsolete">종료</translation>
     </message>
+    <message>
+        <location filename="../IVMainPlot.py" line="50"/>
+        <source>File</source>
+        <translation>파일</translation>
+    </message>
 </context>
 <context>
     <name>IVScatterPlot</name>
@@ -580,6 +595,16 @@ Data labels were perhaps not recognized.</source>
         <location filename="../IVMainPlot.py" line="104"/>
         <source>Show</source>
         <translation>쇼</translation>
+    </message>
+    <message>
+        <location filename="../IVMainPlot.py" line="89"/>
+        <source>Grid</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../IVMainPlot.py" line="92"/>
+        <source>Legend</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>

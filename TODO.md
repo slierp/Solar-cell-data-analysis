@@ -2,6 +2,9 @@ TODO
 ====
 
 - Add Chinese and Korean translations:
+  - Title
+  - Grid
+  - Legend
   - New filter settings loaded
   - File saved
   - Load filter settings

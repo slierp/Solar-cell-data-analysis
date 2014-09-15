@@ -82,6 +82,11 @@
         <source>Histogram and density</source>
         <translation>Histogram en dichtheid</translation>
     </message>
+    <message>
+        <location filename="../IVMainPlot.py" line="654"/>
+        <source>Title</source>
+        <translation>Titel</translation>
+    </message>
 </context>
 <context>
     <name>IVHistPlot</name>
@@ -94,6 +99,11 @@
         <location filename="../IVMainPlot.py" line="496"/>
         <source>Histogram</source>
         <translation>Histogram</translation>
+    </message>
+    <message>
+        <location filename="../IVMainPlot.py" line="545"/>
+        <source>Title</source>
+        <translation>Titel</translation>
     </message>
 </context>
 <context>
@@ -643,6 +653,11 @@ Licentie: Publiek domein</translation>
         <source>&amp;Quit</source>
         <translation type="obsolete">Afsluiten</translation>
     </message>
+    <message>
+        <location filename="../IVMainPlot.py" line="50"/>
+        <source>File</source>
+        <translation>Bestand</translation>
+    </message>
 </context>
 <context>
     <name>IVScatterPlot</name>
@@ -650,6 +665,16 @@ Licentie: Publiek domein</translation>
         <location filename="../IVMainPlot.py" line="104"/>
         <source>Show</source>
         <translation>Laat zien</translation>
+    </message>
+    <message>
+        <location filename="../IVMainPlot.py" line="89"/>
+        <source>Grid</source>
+        <translation>Grid</translation>
+    </message>
+    <message>
+        <location filename="../IVMainPlot.py" line="92"/>
+        <source>Legend</source>
+        <translation>Legenda</translation>
     </message>
 </context>
 </TS>
