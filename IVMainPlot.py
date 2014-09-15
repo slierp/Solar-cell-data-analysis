@@ -51,10 +51,10 @@ class IVMainPlot(QtGui.QMainWindow):
         pass
         
     def create_menu(self):        
-        self.file_menu = self.menuBar().addMenu("&File")
+        self.file_menu = self.menuBar().addMenu("File")
 
         tip = self.tr("Quit")        
-        quit_action = QtGui.QAction(self.tr("&Quit"), self)
+        quit_action = QtGui.QAction(self.tr("Quit"), self)
         quit_action.setIcon(QtGui.QIcon(":quit.png"))
         self.connect(quit_action, QtCore.SIGNAL("triggered()"), self.close)
         quit_action.setToolTip(tip)
@@ -94,10 +94,10 @@ class IVScatterPlot(IVMainPlot):
         self.mpl_toolbar = NavigationToolbar(self.canvas, self.main_frame)
         
         # Other GUI controls        
-        self.grid_cb = QtGui.QCheckBox("&Grid")
+        self.grid_cb = QtGui.QCheckBox("Grid")
         self.grid_cb.setChecked(True)
 
-        self.legend_cb = QtGui.QCheckBox("L&egend")
+        self.legend_cb = QtGui.QCheckBox("Legend")
         self.legend_cb.setChecked(True)               
         
         self.dataset_cb = {}
@@ -552,7 +552,7 @@ class IVHistPlot(IVMainPlot):
         
         # Other GUI controls                      
 
-        self.title_cb = QtGui.QCheckBox("&Title")
+        self.title_cb = QtGui.QCheckBox("Title")
         self.title_cb.setChecked(True)
         
         self.dataset_cb = {}
@@ -661,7 +661,7 @@ class IVHistDenPlot(IVMainPlot):
         
         # Other GUI controls                      
 
-        self.title_cb = QtGui.QCheckBox("&Title")
+        self.title_cb = QtGui.QCheckBox("Title")
         self.title_cb.setChecked(True)
         
         self.dataset_cb = {}

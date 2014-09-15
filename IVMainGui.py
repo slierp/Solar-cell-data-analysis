@@ -44,9 +44,7 @@ class IVMainGui(QtGui.QMainWindow):
         self.yloutput = []
         self.translator = None
         self.plot_selection_list = ['Uoc','Isc','Voc*Isc','FF','Eta']
-        self.plot_selection_combo_list = [self.tr('Boxplot'),self.tr('Walk-through'),self.tr('Rolling mean'),
-                                          self.tr('Low to high'),self.tr('Histogram'),self.tr('Density'),
-                                            self.tr('Histogram + density'),'Voc-Isc','Eta-FF','Rsh-FF']        
+        self.plot_selection_combo_list = []       
         self.prev_dir_path = ""
         self.wid = None
         
@@ -555,6 +553,7 @@ class IVMainGui(QtGui.QMainWindow):
         QtGui.QMessageBox.about(self, self.tr("About the application"), msg)
     
     def create_main_frame(self):
+        self.setWindowTitle(self.tr("Solar cell data analysis")) # do this again so that translator can catch it
         self.main_frame = QtGui.QWidget()        
 
         ##### left vbox #####     
@@ -674,6 +673,18 @@ class IVMainGui(QtGui.QMainWindow):
         top_buttonbox.addButton(openreport_button, QtGui.QDialogButtonBox.ActionRole)
         top_buttonbox.addButton(plotselection_button, QtGui.QDialogButtonBox.ActionRole)
 
+        self.plot_selection_combo_list = []
+        self.plot_selection_combo_list.append(self.tr('Boxplot'))
+        self.plot_selection_combo_list.append(self.tr('Walk-through'))
+        self.plot_selection_combo_list.append(self.tr('Rolling mean'))
+        self.plot_selection_combo_list.append(self.tr('Low to high'))
+        self.plot_selection_combo_list.append(self.tr('Histogram'))
+        self.plot_selection_combo_list.append(self.tr('Density'))
+        self.plot_selection_combo_list.append(self.tr('Histogram + density'))
+        self.plot_selection_combo_list.append(self.tr('Voc-Isc'))
+        self.plot_selection_combo_list.append(self.tr('Eta-FF'))
+        self.plot_selection_combo_list.append(self.tr('Rsh-FF'))
+
         self.param_one_combo = QtGui.QComboBox(self)
         for i in self.plot_selection_list:
             self.param_one_combo.addItem(i)               
@@ -709,7 +720,7 @@ class IVMainGui(QtGui.QMainWindow):
         self.file_menu = self.menuBar().addMenu(self.tr("File"))
 
         tip = self.tr("Open file")        
-        load_action = QtGui.QAction(self.tr("&Open..."), self)
+        load_action = QtGui.QAction(self.tr("Open..."), self)
         load_action.setIcon(QtGui.QIcon(":open.png"))
         self.connect(load_action, QtCore.SIGNAL("triggered()"), self.load_file)
         load_action.setToolTip(tip)
@@ -717,7 +728,7 @@ class IVMainGui(QtGui.QMainWindow):
         load_action.setShortcut('Ctrl+O')    
 
         tip = self.tr("Quit")        
-        quit_action = QtGui.QAction(self.tr("&Quit"), self)
+        quit_action = QtGui.QAction(self.tr("Quit"), self)
         quit_action.setIcon(QtGui.QIcon(":quit.png"))
         self.connect(quit_action, QtCore.SIGNAL("triggered()"), self.close)
         quit_action.setToolTip(tip)
@@ -729,7 +740,7 @@ class IVMainGui(QtGui.QMainWindow):
 
         self.edit_menu = self.menuBar().addMenu(self.tr("Data labels"))
         
-        tip = "Uoc0,Isc0,Rseries_multi_level,Rshunt_SC,Fill0*100,Eff0*100,Ireverse_1"
+        tip = "Uoc0,Isc0,Rseries_multi_level,Rshunt_SC,Fill0*100,Eff0*100,Ireverse_2"
         format_action1 = QtGui.QAction(self.tr("Custom labels"), self)
         format_action1.setIcon(QtGui.QIcon(":label.png"))
         self.connect(format_action1, QtCore.SIGNAL("triggered()"), self.set_data_format1)
