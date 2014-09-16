@@ -31,7 +31,7 @@
     <message>
         <location filename="../IVMainPlot.py" line="172"/>
         <source>Show</source>
-        <translation>쇼</translation>
+        <translation>보여주기</translation>
     </message>
 </context>
 <context>
@@ -64,7 +64,7 @@
     <message>
         <location filename="../IVMainPlot.py" line="202"/>
         <source>Show</source>
-        <translation>쇼</translation>
+        <translation>보여주기</translation>
     </message>
 </context>
 <context>
@@ -97,7 +97,7 @@
     <message>
         <location filename="../IVMainPlot.py" line="134"/>
         <source>Show</source>
-        <translation>쇼</translation>
+        <translation>보여주기</translation>
     </message>
 </context>
 <context>
@@ -130,7 +130,7 @@
     <message>
         <location filename="../IVMainPlot.py" line="278"/>
         <source>Show</source>
-        <translation>쇼</translation>
+        <translation>보여주기</translation>
     </message>
 </context>
 <context>
@@ -163,7 +163,7 @@
     <message>
         <location filename="../IVMainPlot.py" line="233"/>
         <source>Show</source>
-        <translation>쇼</translation>
+        <translation>보여주기</translation>
     </message>
 </context>
 <context>
@@ -196,7 +196,7 @@
     <message>
         <location filename="../IVMainPlot.py" line="361"/>
         <source>Show</source>
-        <translation>쇼</translation>
+        <translation>보여주기</translation>
     </message>
 </context>
 <context>
@@ -229,7 +229,7 @@
     <message>
         <location filename="../IVMainPlot.py" line="319"/>
         <source>Show</source>
-        <translation>쇼</translation>
+        <translation>보여주기</translation>
     </message>
 </context>
 <context>
@@ -237,7 +237,7 @@
     <message>
         <location filename="../IVMainPlot.py" line="459"/>
         <source>Show</source>
-        <translation>쇼</translation>
+        <translation>보여주기</translation>
     </message>
     <message>
         <location filename="../IVMainPlot.py" line="398"/>
@@ -260,7 +260,7 @@
     <message>
         <location filename="../IVMainPlot.py" line="651"/>
         <source>Show</source>
-        <translation>쇼</translation>
+        <translation>보여주기</translation>
     </message>
     <message>
         <location filename="../IVMainPlot.py" line="571"/>
@@ -288,7 +288,7 @@
     <message>
         <location filename="../IVMainPlot.py" line="544"/>
         <source>Show</source>
-        <translation>쇼</translation>
+        <translation>보여주기</translation>
     </message>
     <message>
         <location filename="../IVMainPlot.py" line="484"/>
@@ -799,7 +799,7 @@ Data labels were perhaps not recognized.</source>
     <message>
         <location filename="../IVMainPlot.py" line="70"/>
         <source>Show</source>
-        <translation>쇼</translation>
+        <translation>보여주기</translation>
     </message>
     <message>
         <location filename="../IVMainPlot.py" line="70"/>
