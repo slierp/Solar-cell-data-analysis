@@ -1,108 +1,314 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS><TS version="2.0" language="ko" sourcelanguage="en">
+<!DOCTYPE TS>
+<TS version="2.0" language="ko" sourcelanguage="en">
 <context>
     <name>CorrEtaFF</name>
     <message>
-        <location filename="../IVMainPlot.py" line="167"/>
+        <location filename="../IVMainPlot.py" line="168"/>
         <source>Correlation</source>
         <translation>상관 관계</translation>
+    </message>
+    <message>
+        <location filename="../IVMainPlot.py" line="171"/>
+        <source>File</source>
+        <translation>파일</translation>
+    </message>
+    <message>
+        <location filename="../IVMainPlot.py" line="171"/>
+        <source>Quit</source>
+        <translation>종료</translation>
+    </message>
+    <message>
+        <location filename="../IVMainPlot.py" line="172"/>
+        <source>Grid</source>
+        <translation>격자</translation>
+    </message>
+    <message>
+        <location filename="../IVMainPlot.py" line="172"/>
+        <source>Legend</source>
+        <translation>그래프 설명</translation>
+    </message>
+    <message>
+        <location filename="../IVMainPlot.py" line="172"/>
+        <source>Show</source>
+        <translation>쇼</translation>
     </message>
 </context>
 <context>
     <name>CorrRshFF</name>
     <message>
-        <location filename="../IVMainPlot.py" line="197"/>
+        <location filename="../IVMainPlot.py" line="198"/>
         <source>Correlation</source>
         <translation>상관 관계</translation>
+    </message>
+    <message>
+        <location filename="../IVMainPlot.py" line="201"/>
+        <source>File</source>
+        <translation>파일</translation>
+    </message>
+    <message>
+        <location filename="../IVMainPlot.py" line="201"/>
+        <source>Quit</source>
+        <translation>종료</translation>
+    </message>
+    <message>
+        <location filename="../IVMainPlot.py" line="202"/>
+        <source>Grid</source>
+        <translation>격자</translation>
+    </message>
+    <message>
+        <location filename="../IVMainPlot.py" line="202"/>
+        <source>Legend</source>
+        <translation>그래프 설명</translation>
+    </message>
+    <message>
+        <location filename="../IVMainPlot.py" line="202"/>
+        <source>Show</source>
+        <translation>쇼</translation>
     </message>
 </context>
 <context>
     <name>CorrVocIsc</name>
     <message>
-        <location filename="../IVMainPlot.py" line="129"/>
+        <location filename="../IVMainPlot.py" line="130"/>
         <source>Correlation</source>
         <translation>상관 관계</translation>
+    </message>
+    <message>
+        <location filename="../IVMainPlot.py" line="133"/>
+        <source>File</source>
+        <translation>파일</translation>
+    </message>
+    <message>
+        <location filename="../IVMainPlot.py" line="133"/>
+        <source>Quit</source>
+        <translation>종료</translation>
+    </message>
+    <message>
+        <location filename="../IVMainPlot.py" line="134"/>
+        <source>Grid</source>
+        <translation>격자</translation>
+    </message>
+    <message>
+        <location filename="../IVMainPlot.py" line="134"/>
+        <source>Legend</source>
+        <translation>그래프 설명</translation>
+    </message>
+    <message>
+        <location filename="../IVMainPlot.py" line="134"/>
+        <source>Show</source>
+        <translation>쇼</translation>
     </message>
 </context>
 <context>
     <name>DensEta</name>
     <message>
-        <location filename="../IVMainPlot.py" line="273"/>
+        <location filename="../IVMainPlot.py" line="274"/>
         <source>Density</source>
         <translation>밀도</translation>
+    </message>
+    <message>
+        <location filename="../IVMainPlot.py" line="277"/>
+        <source>File</source>
+        <translation>파일</translation>
+    </message>
+    <message>
+        <location filename="../IVMainPlot.py" line="277"/>
+        <source>Quit</source>
+        <translation>종료</translation>
+    </message>
+    <message>
+        <location filename="../IVMainPlot.py" line="278"/>
+        <source>Grid</source>
+        <translation>격자</translation>
+    </message>
+    <message>
+        <location filename="../IVMainPlot.py" line="278"/>
+        <source>Legend</source>
+        <translation>그래프 설명</translation>
+    </message>
+    <message>
+        <location filename="../IVMainPlot.py" line="278"/>
+        <source>Show</source>
+        <translation>쇼</translation>
     </message>
 </context>
 <context>
     <name>DistLtoH</name>
     <message>
-        <location filename="../IVMainPlot.py" line="228"/>
+        <location filename="../IVMainPlot.py" line="229"/>
         <source>Distribution</source>
         <translation>배치</translation>
+    </message>
+    <message>
+        <location filename="../IVMainPlot.py" line="232"/>
+        <source>File</source>
+        <translation>파일</translation>
+    </message>
+    <message>
+        <location filename="../IVMainPlot.py" line="232"/>
+        <source>Quit</source>
+        <translation>종료</translation>
+    </message>
+    <message>
+        <location filename="../IVMainPlot.py" line="233"/>
+        <source>Grid</source>
+        <translation>격자</translation>
+    </message>
+    <message>
+        <location filename="../IVMainPlot.py" line="233"/>
+        <source>Legend</source>
+        <translation>그래프 설명</translation>
+    </message>
+    <message>
+        <location filename="../IVMainPlot.py" line="233"/>
+        <source>Show</source>
+        <translation>쇼</translation>
     </message>
 </context>
 <context>
     <name>DistRM</name>
     <message>
-        <location filename="../IVMainPlot.py" line="354"/>
+        <location filename="../IVMainPlot.py" line="355"/>
         <source>Rolling mean</source>
         <translation>변동 평균</translation>
+    </message>
+    <message>
+        <location filename="../IVMainPlot.py" line="360"/>
+        <source>File</source>
+        <translation>파일</translation>
+    </message>
+    <message>
+        <location filename="../IVMainPlot.py" line="360"/>
+        <source>Quit</source>
+        <translation>종료</translation>
+    </message>
+    <message>
+        <location filename="../IVMainPlot.py" line="361"/>
+        <source>Grid</source>
+        <translation>격자</translation>
+    </message>
+    <message>
+        <location filename="../IVMainPlot.py" line="361"/>
+        <source>Legend</source>
+        <translation>그래프 설명</translation>
+    </message>
+    <message>
+        <location filename="../IVMainPlot.py" line="361"/>
+        <source>Show</source>
+        <translation>쇼</translation>
     </message>
 </context>
 <context>
     <name>DistWT</name>
     <message>
-        <location filename="../IVMainPlot.py" line="312"/>
+        <location filename="../IVMainPlot.py" line="313"/>
         <source>Walkthrough</source>
         <translation>둘러보기</translation>
+    </message>
+    <message>
+        <location filename="../IVMainPlot.py" line="318"/>
+        <source>File</source>
+        <translation>파일</translation>
+    </message>
+    <message>
+        <location filename="../IVMainPlot.py" line="318"/>
+        <source>Quit</source>
+        <translation>종료</translation>
+    </message>
+    <message>
+        <location filename="../IVMainPlot.py" line="319"/>
+        <source>Grid</source>
+        <translation>격자</translation>
+    </message>
+    <message>
+        <location filename="../IVMainPlot.py" line="319"/>
+        <source>Legend</source>
+        <translation>그래프 설명</translation>
+    </message>
+    <message>
+        <location filename="../IVMainPlot.py" line="319"/>
+        <source>Show</source>
+        <translation>쇼</translation>
     </message>
 </context>
 <context>
     <name>IVBoxPlot</name>
     <message>
-        <location filename="../IVMainPlot.py" line="458"/>
+        <location filename="../IVMainPlot.py" line="459"/>
         <source>Show</source>
         <translation>쇼</translation>
     </message>
     <message>
-        <location filename="../IVMainPlot.py" line="397"/>
+        <location filename="../IVMainPlot.py" line="398"/>
         <source>Boxplot</source>
         <translation>상자 그래프</translation>
+    </message>
+    <message>
+        <location filename="../IVMainPlot.py" line="403"/>
+        <source>File</source>
+        <translation>파일</translation>
+    </message>
+    <message>
+        <location filename="../IVMainPlot.py" line="403"/>
+        <source>Quit</source>
+        <translation>종료</translation>
     </message>
 </context>
 <context>
     <name>IVHistDenPlot</name>
     <message>
-        <location filename="../IVMainPlot.py" line="650"/>
+        <location filename="../IVMainPlot.py" line="651"/>
         <source>Show</source>
         <translation>쇼</translation>
     </message>
     <message>
-        <location filename="../IVMainPlot.py" line="570"/>
+        <location filename="../IVMainPlot.py" line="571"/>
         <source>Histogram and density</source>
         <translation>히스토그램 + 밀도</translation>
     </message>
     <message>
-        <location filename="../IVMainPlot.py" line="638"/>
+        <location filename="../IVMainPlot.py" line="639"/>
         <source>Title</source>
-        <translation type="unfinished"></translation>
+        <translation>제목</translation>
+    </message>
+    <message>
+        <location filename="../IVMainPlot.py" line="574"/>
+        <source>File</source>
+        <translation>파일</translation>
+    </message>
+    <message>
+        <location filename="../IVMainPlot.py" line="574"/>
+        <source>Quit</source>
+        <translation>종료</translation>
     </message>
 </context>
 <context>
     <name>IVHistPlot</name>
     <message>
-        <location filename="../IVMainPlot.py" line="543"/>
+        <location filename="../IVMainPlot.py" line="544"/>
         <source>Show</source>
         <translation>쇼</translation>
     </message>
     <message>
-        <location filename="../IVMainPlot.py" line="483"/>
+        <location filename="../IVMainPlot.py" line="484"/>
         <source>Histogram</source>
         <translation>히스토그램</translation>
     </message>
     <message>
-        <location filename="../IVMainPlot.py" line="531"/>
+        <location filename="../IVMainPlot.py" line="532"/>
         <source>Title</source>
-        <translation type="unfinished"></translation>
+        <translation>제목</translation>
+    </message>
+    <message>
+        <location filename="../IVMainPlot.py" line="487"/>
+        <source>File</source>
+        <translation>파일</translation>
+    </message>
+    <message>
+        <location filename="../IVMainPlot.py" line="487"/>
+        <source>Quit</source>
+        <translation>종료</translation>
     </message>
 </context>
 <context>
@@ -482,22 +688,22 @@ Data labels were perhaps not recognized.</source>
     <message>
         <location filename="../IVMainGui.py" line="392"/>
         <source>New filter settings loaded</source>
-        <translation type="unfinished"></translation>
+        <translation>새 필터 설정 로드됨</translation>
     </message>
     <message>
         <location filename="../IVMainGui.py" line="411"/>
         <source>File saved</source>
-        <translation type="unfinished"></translation>
+        <translation>파일 저장됨</translation>
     </message>
     <message>
         <location filename="../IVMainGui.py" line="615"/>
         <source>Load filter settings</source>
-        <translation type="unfinished"></translation>
+        <translation>필터 설정 로드</translation>
     </message>
     <message>
         <location filename="../IVMainGui.py" line="621"/>
         <source>Save filter settings</source>
-        <translation type="unfinished"></translation>
+        <translation>필터 설정 저장</translation>
     </message>
     <message>
         <location filename="../IVMainGui.py" line="627"/>
@@ -512,7 +718,7 @@ Data labels were perhaps not recognized.</source>
     <message>
         <location filename="../IVMainGui.py" line="639"/>
         <source>Reload default filters</source>
-        <translation type="unfinished"></translation>
+        <translation>내정 필터 재로드</translation>
     </message>
     <message>
         <location filename="../IVMainGui.py" line="657"/>
@@ -573,9 +779,9 @@ Data labels were perhaps not recognized.</source>
         <translation type="obsolete">응용 프로그램에 대한 정보</translation>
     </message>
     <message>
-        <location filename="../IVMainPlot.py" line="50"/>
+        <location filename="../IVMainPlot.py" line="56"/>
         <source>Quit</source>
-        <translation>종료</translation>
+        <translation type="obsolete">종료</translation>
     </message>
     <message>
         <location filename="../IVMainPlot.py" line="57"/>
@@ -583,27 +789,37 @@ Data labels were perhaps not recognized.</source>
         <translation type="obsolete">종료</translation>
     </message>
     <message>
-        <location filename="../IVMainPlot.py" line="47"/>
+        <location filename="../IVMainPlot.py" line="51"/>
         <source>File</source>
-        <translation>파일</translation>
+        <translation type="obsolete">파일</translation>
     </message>
 </context>
 <context>
     <name>IVScatterPlot</name>
     <message>
-        <location filename="../IVMainPlot.py" line="101"/>
+        <location filename="../IVMainPlot.py" line="70"/>
         <source>Show</source>
         <translation>쇼</translation>
     </message>
     <message>
-        <location filename="../IVMainPlot.py" line="86"/>
+        <location filename="../IVMainPlot.py" line="70"/>
         <source>Grid</source>
-        <translation type="unfinished"></translation>
+        <translation>격자</translation>
     </message>
     <message>
-        <location filename="../IVMainPlot.py" line="89"/>
+        <location filename="../IVMainPlot.py" line="70"/>
         <source>Legend</source>
-        <translation type="unfinished"></translation>
+        <translation>그래프 설명</translation>
+    </message>
+    <message>
+        <location filename="../IVMainPlot.py" line="69"/>
+        <source>File</source>
+        <translation>파일</translation>
+    </message>
+    <message>
+        <location filename="../IVMainPlot.py" line="69"/>
+        <source>Quit</source>
+        <translation>종료</translation>
     </message>
 </context>
 </TS>

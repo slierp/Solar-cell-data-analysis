@@ -1,7 +1,7 @@
 TODO
 ====
 
-- Add Chinese and Korean translations:
+- Add Chinese translations:
   - Title
   - Grid
   - Legend
@@ -15,4 +15,5 @@ TODO
 - Implement other IV parameters for plots
 - Change barwidth
 - Change dotsize
-- Use scikitlearn to automatically separate groups
+- Add Excel file read function?
+- Use scikitlearn to automatically separate groups?

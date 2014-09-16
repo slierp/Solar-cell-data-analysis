@@ -3,8 +3,7 @@ import numpy as np
 import pandas as pd
 import matplotlib
 import matplotlib.pyplot as plt
-#from matplotlib.ticker import FuncFormatter
-from PyQt4 import QtCore, QtGui
+from PyQt4 import QtGui
 from matplotlib.backends.backend_qt4agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.backends.backend_qt4agg import NavigationToolbar2QTAgg as NavigationToolbar
 from matplotlib.figure import Figure
@@ -43,13 +42,13 @@ class IVMainPlot(QtGui.QMainWindow):
     def create_main_frame(self):
         pass
         
-    def create_menu(self):        
-        self.file_menu = self.menuBar().addMenu(self.tr("File"))
+    def create_menu(self, string0, string1):
 
-        tip = self.tr("Quit")        
-        quit_action = QtGui.QAction(self.tr("Quit"), self)
+        self.file_menu = self.menuBar().addMenu(string0)
+        tip = string1
+        quit_action = QtGui.QAction(tip, self)
         quit_action.setIcon(QtGui.QIcon(":quit.png"))
-        self.connect(quit_action, QtCore.SIGNAL("triggered()"), self.close)
+        quit_action.triggered.connect(self.close) 
         quit_action.setToolTip(tip)
         quit_action.setStatusTip(tip)
         quit_action.setShortcut('Ctrl+Q')
@@ -66,9 +65,10 @@ class IVScatterPlot(IVMainPlot):
         self.fig = ''
         self.canvas = ''
         self.axes = ''
-        super(IVMainPlot, self).__init__(parent)
+        IVMainPlot.create_menu(self.tr("File"),self.tr("Quit"))
+        self.create_main_frame(self.tr("Grid"),self.tr("Legend"),self.tr("Show"))        
 
-    def create_main_frame(self):
+    def create_main_frame(self, string0, string1, string2):
         self.main_frame = QtGui.QWidget()
         
         # Create the mpl Figure and FigCanvas objects
@@ -83,10 +83,10 @@ class IVScatterPlot(IVMainPlot):
         self.mpl_toolbar = NavigationToolbar(self.canvas, self.main_frame)
         
         # Other GUI controls        
-        self.grid_cb = QtGui.QCheckBox(self.tr("Grid"))
+        self.grid_cb = QtGui.QCheckBox(string0)
         self.grid_cb.setChecked(True)       
 
-        self.legend_cb = QtGui.QCheckBox(self.tr("Legend"))
+        self.legend_cb = QtGui.QCheckBox(string1)
         self.legend_cb.setChecked(True)               
         
         self.dataset_cb = {}
@@ -95,10 +95,10 @@ class IVScatterPlot(IVMainPlot):
             self.dataset_cb[i].setChecked(True)         
 
         show_button = QtGui.QPushButton()
-        self.connect(show_button, QtCore.SIGNAL('clicked()'), self.on_draw)
+        show_button.clicked.connect(self.on_draw)
         show_button.setIcon(QtGui.QIcon(":eye.png"))
-        show_button.setToolTip(self.tr("Show"))
-        show_button.setStatusTip(self.tr("Show"))
+        show_button.setToolTip(string2)
+        show_button.setStatusTip(string2)
 
         buttonbox0 = QtGui.QDialogButtonBox()
         buttonbox0.addButton(show_button, QtGui.QDialogButtonBox.ActionRole)               
@@ -129,8 +129,8 @@ class CorrVocIsc(IVScatterPlot):
         self.setWindowTitle(self.tr("Correlation"))
         
         self.ad = parent.ad
-        IVMainPlot.create_menu(self)
-        IVScatterPlot.create_main_frame(self)
+        IVMainPlot.create_menu(self,self.tr("File"),self.tr("Quit"))
+        IVScatterPlot.create_main_frame(self,self.tr("Grid"),self.tr("Legend"),self.tr("Show"))          
         self.on_draw()
         
     def on_draw(self):
@@ -167,8 +167,8 @@ class CorrEtaFF(IVScatterPlot):
         self.setWindowTitle(self.tr("Correlation"))
         
         self.ad = parent.ad
-        IVMainPlot.create_menu(self)
-        IVScatterPlot.create_main_frame(self)
+        IVMainPlot.create_menu(self,self.tr("File"),self.tr("Quit"))
+        IVScatterPlot.create_main_frame(self,self.tr("Grid"),self.tr("Legend"),self.tr("Show")) 
         self.on_draw()
         
     def on_draw(self):
@@ -197,8 +197,8 @@ class CorrRshFF(IVScatterPlot):
         self.setWindowTitle(self.tr("Correlation"))
         
         self.ad = parent.ad
-        IVMainPlot.create_menu(self)
-        IVScatterPlot.create_main_frame(self)
+        IVMainPlot.create_menu(self,self.tr("File"),self.tr("Quit"))
+        IVScatterPlot.create_main_frame(self,self.tr("Grid"),self.tr("Legend"),self.tr("Show")) 
         self.on_draw()
         
     def on_draw(self):
@@ -228,8 +228,8 @@ class DistLtoH(IVScatterPlot):
         self.setWindowTitle(self.tr("Distribution"))
         
         self.ad = parent.ad
-        IVMainPlot.create_menu(self)
-        IVScatterPlot.create_main_frame(self)
+        IVMainPlot.create_menu(self,self.tr("File"),self.tr("Quit"))
+        IVScatterPlot.create_main_frame(self,self.tr("Grid"),self.tr("Legend"),self.tr("Show")) 
         self.on_draw()
         
     def on_draw(self):
@@ -273,8 +273,8 @@ class DensEta(IVScatterPlot):
         self.setWindowTitle(self.tr("Density"))
         
         self.ad = parent.ad
-        IVMainPlot.create_menu(self)
-        IVScatterPlot.create_main_frame(self)
+        IVMainPlot.create_menu(self,self.tr("File"),self.tr("Quit"))
+        IVScatterPlot.create_main_frame(self,self.tr("Grid"),self.tr("Legend"),self.tr("Show")) 
         self.on_draw()
         
     def on_draw(self):
@@ -314,8 +314,8 @@ class DistWT(IVScatterPlot):
         self.ad = parent.ad
         if str(plot_selection) in plot_selection_list:
             self.plot_selection = str(plot_selection)        
-        IVMainPlot.create_menu(self)
-        IVScatterPlot.create_main_frame(self)
+        IVMainPlot.create_menu(self,self.tr("File"),self.tr("Quit"))
+        IVScatterPlot.create_main_frame(self,self.tr("Grid"),self.tr("Legend"),self.tr("Show")) 
         self.on_draw()
         
     def on_draw(self):
@@ -356,8 +356,8 @@ class DistRM(IVScatterPlot):
         self.ad = parent.ad
         if str(plot_selection) in plot_selection_list:
             self.plot_selection = str(plot_selection)         
-        IVMainPlot.create_menu(self)
-        IVScatterPlot.create_main_frame(self)
+        IVMainPlot.create_menu(self,self.tr("File"),self.tr("Quit"))
+        IVScatterPlot.create_main_frame(self,self.tr("Grid"),self.tr("Legend"),self.tr("Show")) 
         self.on_draw()
         
     def on_draw(self):
@@ -399,7 +399,7 @@ class IVBoxPlot(IVMainPlot):
         self.ad = parent.ad
         if str(plot_selection) in plot_selection_list:
             self.plot_selection = str(plot_selection)
-        IVMainPlot.create_menu(self)
+        IVMainPlot.create_menu(self,self.tr("File"),self.tr("Quit"))      
         self.create_main_frame()
         self.on_draw()                     
         
@@ -452,7 +452,7 @@ class IVBoxPlot(IVMainPlot):
             self.dataset_cb[i].setChecked(True)         
         
         show_button = QtGui.QPushButton()
-        self.connect(show_button, QtCore.SIGNAL('clicked()'), self.on_draw)
+        show_button.clicked.connect(self.on_draw)
         show_button.setIcon(QtGui.QIcon(":eye.png"))
         show_button.setToolTip(self.tr("Show"))
         show_button.setStatusTip(self.tr("Show"))
@@ -483,7 +483,7 @@ class IVHistPlot(IVMainPlot):
         self.setWindowTitle(self.tr("Histogram"))
         
         self.ad = parent.ad
-        IVMainPlot.create_menu(self)
+        IVMainPlot.create_menu(self,self.tr("File"),self.tr("Quit"))       
         self.create_main_frame()
         self.on_draw()                     
         
@@ -537,7 +537,7 @@ class IVHistPlot(IVMainPlot):
         self.dataset_cb[0].setChecked(True)         
 
         show_button = QtGui.QPushButton()
-        self.connect(show_button, QtCore.SIGNAL('clicked()'), self.on_draw)
+        show_button.clicked.connect(self.on_draw)
         show_button.setIcon(QtGui.QIcon(":eye.png"))
         show_button.setToolTip(self.tr("Show"))
         show_button.setStatusTip(self.tr("Show"))
@@ -570,7 +570,7 @@ class IVHistDenPlot(IVMainPlot):
         self.setWindowTitle(self.tr("Histogram and density"))
         
         self.ad = parent.ad
-        IVMainPlot.create_menu(self)
+        IVMainPlot.create_menu(self,self.tr("File"),self.tr("Quit"))      
         self.create_main_frame()
         self.on_draw()                     
         
@@ -644,7 +644,7 @@ class IVHistDenPlot(IVMainPlot):
         self.dataset_cb[0].setChecked(True)                        
 
         show_button = QtGui.QPushButton()
-        self.connect(show_button, QtCore.SIGNAL('clicked()'), self.on_draw)
+        show_button.clicked.connect(self.on_draw)
         show_button.setIcon(QtGui.QIcon(":eye.png"))
         show_button.setToolTip(self.tr("Show"))
         show_button.setStatusTip(self.tr("Show"))
