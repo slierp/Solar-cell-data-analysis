@@ -1,35 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS>
-<TS version="2.0" language="nl" sourcelanguage="en">
+<!DOCTYPE TS><TS version="2.0" language="nl" sourcelanguage="en">
 <context>
     <name>CorrEtaFF</name>
     <message>
-        <location filename="../IVMainPlot.py" line="168"/>
+        <location filename="../IVMainPlot.py" line="167"/>
         <source>Correlation</source>
         <translation>Correlatie</translation>
     </message>
     <message>
-        <location filename="../IVMainPlot.py" line="171"/>
+        <location filename="../IVMainPlot.py" line="170"/>
         <source>File</source>
         <translation>Bestand</translation>
     </message>
     <message>
-        <location filename="../IVMainPlot.py" line="171"/>
+        <location filename="../IVMainPlot.py" line="170"/>
         <source>Quit</source>
         <translation>Afsluiten</translation>
     </message>
     <message>
-        <location filename="../IVMainPlot.py" line="172"/>
+        <location filename="../IVMainPlot.py" line="171"/>
         <source>Grid</source>
         <translation>Grid</translation>
     </message>
     <message>
-        <location filename="../IVMainPlot.py" line="172"/>
+        <location filename="../IVMainPlot.py" line="171"/>
         <source>Legend</source>
         <translation>Legenda</translation>
     </message>
     <message>
-        <location filename="../IVMainPlot.py" line="172"/>
+        <location filename="../IVMainPlot.py" line="171"/>
         <source>Show</source>
         <translation>Laat zien</translation>
     </message>
@@ -37,32 +36,32 @@
 <context>
     <name>CorrRshFF</name>
     <message>
-        <location filename="../IVMainPlot.py" line="198"/>
+        <location filename="../IVMainPlot.py" line="197"/>
         <source>Correlation</source>
         <translation>Correlatie</translation>
     </message>
     <message>
-        <location filename="../IVMainPlot.py" line="201"/>
+        <location filename="../IVMainPlot.py" line="200"/>
         <source>File</source>
         <translation>Bestand</translation>
     </message>
     <message>
-        <location filename="../IVMainPlot.py" line="201"/>
+        <location filename="../IVMainPlot.py" line="200"/>
         <source>Quit</source>
         <translation>Afsluiten</translation>
     </message>
     <message>
-        <location filename="../IVMainPlot.py" line="202"/>
+        <location filename="../IVMainPlot.py" line="201"/>
         <source>Grid</source>
         <translation>Grid</translation>
     </message>
     <message>
-        <location filename="../IVMainPlot.py" line="202"/>
+        <location filename="../IVMainPlot.py" line="201"/>
         <source>Legend</source>
         <translation>Legenda</translation>
     </message>
     <message>
-        <location filename="../IVMainPlot.py" line="202"/>
+        <location filename="../IVMainPlot.py" line="201"/>
         <source>Show</source>
         <translation>Laat zien</translation>
     </message>
@@ -70,32 +69,32 @@
 <context>
     <name>CorrVocIsc</name>
     <message>
-        <location filename="../IVMainPlot.py" line="130"/>
+        <location filename="../IVMainPlot.py" line="129"/>
         <source>Correlation</source>
         <translation>Correlatie</translation>
     </message>
     <message>
-        <location filename="../IVMainPlot.py" line="133"/>
+        <location filename="../IVMainPlot.py" line="132"/>
         <source>File</source>
         <translation>Bestand</translation>
     </message>
     <message>
-        <location filename="../IVMainPlot.py" line="133"/>
+        <location filename="../IVMainPlot.py" line="132"/>
         <source>Quit</source>
         <translation>Afsluiten</translation>
     </message>
     <message>
-        <location filename="../IVMainPlot.py" line="134"/>
+        <location filename="../IVMainPlot.py" line="133"/>
         <source>Grid</source>
         <translation>Grid</translation>
     </message>
     <message>
-        <location filename="../IVMainPlot.py" line="134"/>
+        <location filename="../IVMainPlot.py" line="133"/>
         <source>Legend</source>
         <translation>Legenda</translation>
     </message>
     <message>
-        <location filename="../IVMainPlot.py" line="134"/>
+        <location filename="../IVMainPlot.py" line="133"/>
         <source>Show</source>
         <translation>Laat zien</translation>
     </message>
@@ -103,32 +102,32 @@
 <context>
     <name>DensEta</name>
     <message>
-        <location filename="../IVMainPlot.py" line="274"/>
+        <location filename="../IVMainPlot.py" line="273"/>
         <source>Density</source>
         <translation>Dichtheid</translation>
     </message>
     <message>
-        <location filename="../IVMainPlot.py" line="277"/>
+        <location filename="../IVMainPlot.py" line="276"/>
         <source>File</source>
         <translation>Bestand</translation>
     </message>
     <message>
-        <location filename="../IVMainPlot.py" line="277"/>
+        <location filename="../IVMainPlot.py" line="276"/>
         <source>Quit</source>
         <translation>Afsluiten</translation>
     </message>
     <message>
-        <location filename="../IVMainPlot.py" line="278"/>
+        <location filename="../IVMainPlot.py" line="277"/>
         <source>Grid</source>
         <translation>Grid</translation>
     </message>
     <message>
-        <location filename="../IVMainPlot.py" line="278"/>
+        <location filename="../IVMainPlot.py" line="277"/>
         <source>Legend</source>
         <translation>Legenda</translation>
     </message>
     <message>
-        <location filename="../IVMainPlot.py" line="278"/>
+        <location filename="../IVMainPlot.py" line="277"/>
         <source>Show</source>
         <translation>Laat zien</translation>
     </message>
@@ -136,32 +135,32 @@
 <context>
     <name>DistLtoH</name>
     <message>
-        <location filename="../IVMainPlot.py" line="229"/>
+        <location filename="../IVMainPlot.py" line="228"/>
         <source>Distribution</source>
         <translation>Distributie</translation>
     </message>
     <message>
-        <location filename="../IVMainPlot.py" line="232"/>
+        <location filename="../IVMainPlot.py" line="231"/>
         <source>File</source>
         <translation>Bestand</translation>
     </message>
     <message>
-        <location filename="../IVMainPlot.py" line="232"/>
+        <location filename="../IVMainPlot.py" line="231"/>
         <source>Quit</source>
         <translation>Afsluiten</translation>
     </message>
     <message>
-        <location filename="../IVMainPlot.py" line="233"/>
+        <location filename="../IVMainPlot.py" line="232"/>
         <source>Grid</source>
         <translation>Grid</translation>
     </message>
     <message>
-        <location filename="../IVMainPlot.py" line="233"/>
+        <location filename="../IVMainPlot.py" line="232"/>
         <source>Legend</source>
         <translation>Legenda</translation>
     </message>
     <message>
-        <location filename="../IVMainPlot.py" line="233"/>
+        <location filename="../IVMainPlot.py" line="232"/>
         <source>Show</source>
         <translation>Laat zien</translation>
     </message>
@@ -169,32 +168,32 @@
 <context>
     <name>DistRM</name>
     <message>
-        <location filename="../IVMainPlot.py" line="355"/>
+        <location filename="../IVMainPlot.py" line="354"/>
         <source>Rolling mean</source>
         <translation>Doorlopend gemiddelde</translation>
     </message>
     <message>
-        <location filename="../IVMainPlot.py" line="360"/>
+        <location filename="../IVMainPlot.py" line="359"/>
         <source>File</source>
         <translation>Bestand</translation>
     </message>
     <message>
-        <location filename="../IVMainPlot.py" line="360"/>
+        <location filename="../IVMainPlot.py" line="359"/>
         <source>Quit</source>
         <translation>Afsluiten</translation>
     </message>
     <message>
-        <location filename="../IVMainPlot.py" line="361"/>
+        <location filename="../IVMainPlot.py" line="360"/>
         <source>Grid</source>
         <translation>Grid</translation>
     </message>
     <message>
-        <location filename="../IVMainPlot.py" line="361"/>
+        <location filename="../IVMainPlot.py" line="360"/>
         <source>Legend</source>
         <translation>Legenda</translation>
     </message>
     <message>
-        <location filename="../IVMainPlot.py" line="361"/>
+        <location filename="../IVMainPlot.py" line="360"/>
         <source>Show</source>
         <translation>Laat zien</translation>
     </message>
@@ -202,32 +201,32 @@
 <context>
     <name>DistWT</name>
     <message>
-        <location filename="../IVMainPlot.py" line="313"/>
+        <location filename="../IVMainPlot.py" line="312"/>
         <source>Walkthrough</source>
         <translation>Datareeks</translation>
     </message>
     <message>
-        <location filename="../IVMainPlot.py" line="318"/>
+        <location filename="../IVMainPlot.py" line="317"/>
         <source>File</source>
         <translation>Bestand</translation>
     </message>
     <message>
-        <location filename="../IVMainPlot.py" line="318"/>
+        <location filename="../IVMainPlot.py" line="317"/>
         <source>Quit</source>
         <translation>Afsluiten</translation>
     </message>
     <message>
-        <location filename="../IVMainPlot.py" line="319"/>
+        <location filename="../IVMainPlot.py" line="318"/>
         <source>Grid</source>
         <translation>Grid</translation>
     </message>
     <message>
-        <location filename="../IVMainPlot.py" line="319"/>
+        <location filename="../IVMainPlot.py" line="318"/>
         <source>Legend</source>
         <translation>Legenda</translation>
     </message>
     <message>
-        <location filename="../IVMainPlot.py" line="319"/>
+        <location filename="../IVMainPlot.py" line="318"/>
         <source>Show</source>
         <translation>Laat zien</translation>
     </message>
@@ -235,22 +234,22 @@
 <context>
     <name>IVBoxPlot</name>
     <message>
-        <location filename="../IVMainPlot.py" line="459"/>
+        <location filename="../IVMainPlot.py" line="458"/>
         <source>Show</source>
         <translation>Laat zien</translation>
     </message>
     <message>
-        <location filename="../IVMainPlot.py" line="398"/>
+        <location filename="../IVMainPlot.py" line="397"/>
         <source>Boxplot</source>
         <translation>Doosdiagram</translation>
     </message>
     <message>
-        <location filename="../IVMainPlot.py" line="403"/>
+        <location filename="../IVMainPlot.py" line="402"/>
         <source>File</source>
         <translation>Bestand</translation>
     </message>
     <message>
-        <location filename="../IVMainPlot.py" line="403"/>
+        <location filename="../IVMainPlot.py" line="402"/>
         <source>Quit</source>
         <translation>Afsluiten</translation>
     </message>
@@ -258,27 +257,27 @@
 <context>
     <name>IVHistDenPlot</name>
     <message>
-        <location filename="../IVMainPlot.py" line="651"/>
+        <location filename="../IVMainPlot.py" line="650"/>
         <source>Show</source>
         <translation>Laat zien</translation>
     </message>
     <message>
-        <location filename="../IVMainPlot.py" line="571"/>
+        <location filename="../IVMainPlot.py" line="570"/>
         <source>Histogram and density</source>
         <translation>Histogram en dichtheid</translation>
     </message>
     <message>
-        <location filename="../IVMainPlot.py" line="639"/>
+        <location filename="../IVMainPlot.py" line="638"/>
         <source>Title</source>
         <translation>Titel</translation>
     </message>
     <message>
-        <location filename="../IVMainPlot.py" line="574"/>
+        <location filename="../IVMainPlot.py" line="573"/>
         <source>File</source>
         <translation>Bestand</translation>
     </message>
     <message>
-        <location filename="../IVMainPlot.py" line="574"/>
+        <location filename="../IVMainPlot.py" line="573"/>
         <source>Quit</source>
         <translation>Afsluiten</translation>
     </message>
@@ -286,27 +285,27 @@
 <context>
     <name>IVHistPlot</name>
     <message>
-        <location filename="../IVMainPlot.py" line="544"/>
+        <location filename="../IVMainPlot.py" line="543"/>
         <source>Show</source>
         <translation>Laat zien</translation>
     </message>
     <message>
-        <location filename="../IVMainPlot.py" line="484"/>
+        <location filename="../IVMainPlot.py" line="483"/>
         <source>Histogram</source>
         <translation>Histogram</translation>
     </message>
     <message>
-        <location filename="../IVMainPlot.py" line="532"/>
+        <location filename="../IVMainPlot.py" line="531"/>
         <source>Title</source>
         <translation>Titel</translation>
     </message>
     <message>
-        <location filename="../IVMainPlot.py" line="487"/>
+        <location filename="../IVMainPlot.py" line="486"/>
         <source>File</source>
         <translation>Bestand</translation>
     </message>
     <message>
-        <location filename="../IVMainPlot.py" line="487"/>
+        <location filename="../IVMainPlot.py" line="486"/>
         <source>Quit</source>
         <translation>Afsluiten</translation>
     </message>
@@ -867,27 +866,27 @@ Licentie: Publiek domein</translation>
 <context>
     <name>IVScatterPlot</name>
     <message>
-        <location filename="../IVMainPlot.py" line="70"/>
+        <location filename="../IVMainPlot.py" line="69"/>
         <source>Show</source>
         <translation>Laat zien</translation>
     </message>
     <message>
-        <location filename="../IVMainPlot.py" line="70"/>
+        <location filename="../IVMainPlot.py" line="69"/>
         <source>Grid</source>
         <translation>Grid</translation>
     </message>
     <message>
-        <location filename="../IVMainPlot.py" line="70"/>
+        <location filename="../IVMainPlot.py" line="69"/>
         <source>Legend</source>
         <translation>Legenda</translation>
     </message>
     <message>
-        <location filename="../IVMainPlot.py" line="69"/>
+        <location filename="../IVMainPlot.py" line="68"/>
         <source>File</source>
         <translation>Bestand</translation>
     </message>
     <message>
-        <location filename="../IVMainPlot.py" line="69"/>
+        <location filename="../IVMainPlot.py" line="68"/>
         <source>Quit</source>
         <translation>Afsluiten</translation>
     </message>

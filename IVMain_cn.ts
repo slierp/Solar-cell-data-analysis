@@ -4,253 +4,253 @@
 <context>
     <name>CorrEtaFF</name>
     <message>
-        <location filename="../IVMainPlot.py" line="168"/>
+        <location filename="../IVMainPlot.py" line="167"/>
         <source>Correlation</source>
         <translation>相关性</translation>
     </message>
     <message>
-        <location filename="../IVMainPlot.py" line="171"/>
+        <location filename="../IVMainPlot.py" line="170"/>
         <source>File</source>
         <translation>文档</translation>
     </message>
     <message>
-        <location filename="../IVMainPlot.py" line="171"/>
+        <location filename="../IVMainPlot.py" line="170"/>
         <source>Quit</source>
         <translation>退出</translation>
     </message>
     <message>
-        <location filename="../IVMainPlot.py" line="172"/>
+        <location filename="../IVMainPlot.py" line="171"/>
         <source>Grid</source>
-        <translation type="unfinished"></translation>
+        <translation>网格</translation>
     </message>
     <message>
-        <location filename="../IVMainPlot.py" line="172"/>
+        <location filename="../IVMainPlot.py" line="171"/>
         <source>Legend</source>
-        <translation type="unfinished"></translation>
+        <translation>图例</translation>
     </message>
     <message>
-        <location filename="../IVMainPlot.py" line="172"/>
+        <location filename="../IVMainPlot.py" line="171"/>
         <source>Show</source>
-        <translation>演出</translation>
+        <translation>显示</translation>
     </message>
 </context>
 <context>
     <name>CorrRshFF</name>
     <message>
-        <location filename="../IVMainPlot.py" line="198"/>
+        <location filename="../IVMainPlot.py" line="197"/>
         <source>Correlation</source>
         <translation>相关性</translation>
     </message>
     <message>
-        <location filename="../IVMainPlot.py" line="201"/>
+        <location filename="../IVMainPlot.py" line="200"/>
         <source>File</source>
         <translation>文档</translation>
     </message>
     <message>
-        <location filename="../IVMainPlot.py" line="201"/>
+        <location filename="../IVMainPlot.py" line="200"/>
         <source>Quit</source>
         <translation>退出</translation>
     </message>
     <message>
-        <location filename="../IVMainPlot.py" line="202"/>
+        <location filename="../IVMainPlot.py" line="201"/>
         <source>Grid</source>
-        <translation type="unfinished"></translation>
+        <translation>网格</translation>
     </message>
     <message>
-        <location filename="../IVMainPlot.py" line="202"/>
+        <location filename="../IVMainPlot.py" line="201"/>
         <source>Legend</source>
-        <translation type="unfinished"></translation>
+        <translation>图例</translation>
     </message>
     <message>
-        <location filename="../IVMainPlot.py" line="202"/>
+        <location filename="../IVMainPlot.py" line="201"/>
         <source>Show</source>
-        <translation>演出</translation>
+        <translation>显示</translation>
     </message>
 </context>
 <context>
     <name>CorrVocIsc</name>
     <message>
-        <location filename="../IVMainPlot.py" line="130"/>
+        <location filename="../IVMainPlot.py" line="129"/>
         <source>Correlation</source>
         <translation>相关性</translation>
     </message>
     <message>
-        <location filename="../IVMainPlot.py" line="133"/>
+        <location filename="../IVMainPlot.py" line="132"/>
         <source>File</source>
         <translation>文档</translation>
     </message>
     <message>
-        <location filename="../IVMainPlot.py" line="133"/>
+        <location filename="../IVMainPlot.py" line="132"/>
         <source>Quit</source>
         <translation>退出</translation>
     </message>
     <message>
-        <location filename="../IVMainPlot.py" line="134"/>
+        <location filename="../IVMainPlot.py" line="133"/>
         <source>Grid</source>
-        <translation type="unfinished"></translation>
+        <translation>网格</translation>
     </message>
     <message>
-        <location filename="../IVMainPlot.py" line="134"/>
+        <location filename="../IVMainPlot.py" line="133"/>
         <source>Legend</source>
-        <translation type="unfinished"></translation>
+        <translation>图例</translation>
     </message>
     <message>
-        <location filename="../IVMainPlot.py" line="134"/>
+        <location filename="../IVMainPlot.py" line="133"/>
         <source>Show</source>
-        <translation>演出</translation>
+        <translation>显示</translation>
     </message>
 </context>
 <context>
     <name>DensEta</name>
     <message>
-        <location filename="../IVMainPlot.py" line="274"/>
+        <location filename="../IVMainPlot.py" line="273"/>
         <source>Density</source>
         <translation>密度</translation>
     </message>
     <message>
-        <location filename="../IVMainPlot.py" line="277"/>
+        <location filename="../IVMainPlot.py" line="276"/>
         <source>File</source>
         <translation>文档</translation>
     </message>
     <message>
-        <location filename="../IVMainPlot.py" line="277"/>
+        <location filename="../IVMainPlot.py" line="276"/>
         <source>Quit</source>
         <translation>退出</translation>
     </message>
     <message>
-        <location filename="../IVMainPlot.py" line="278"/>
+        <location filename="../IVMainPlot.py" line="277"/>
         <source>Grid</source>
-        <translation type="unfinished"></translation>
+        <translation>网格</translation>
     </message>
     <message>
-        <location filename="../IVMainPlot.py" line="278"/>
+        <location filename="../IVMainPlot.py" line="277"/>
         <source>Legend</source>
-        <translation type="unfinished"></translation>
+        <translation>图例</translation>
     </message>
     <message>
-        <location filename="../IVMainPlot.py" line="278"/>
+        <location filename="../IVMainPlot.py" line="277"/>
         <source>Show</source>
-        <translation>演出</translation>
+        <translation>显示</translation>
     </message>
 </context>
 <context>
     <name>DistLtoH</name>
     <message>
-        <location filename="../IVMainPlot.py" line="229"/>
+        <location filename="../IVMainPlot.py" line="228"/>
         <source>Distribution</source>
         <translation>分布图</translation>
     </message>
     <message>
-        <location filename="../IVMainPlot.py" line="232"/>
+        <location filename="../IVMainPlot.py" line="231"/>
         <source>File</source>
         <translation>文档</translation>
     </message>
     <message>
-        <location filename="../IVMainPlot.py" line="232"/>
+        <location filename="../IVMainPlot.py" line="231"/>
         <source>Quit</source>
         <translation>退出</translation>
     </message>
     <message>
-        <location filename="../IVMainPlot.py" line="233"/>
+        <location filename="../IVMainPlot.py" line="232"/>
         <source>Grid</source>
-        <translation type="unfinished"></translation>
+        <translation>网格</translation>
     </message>
     <message>
-        <location filename="../IVMainPlot.py" line="233"/>
+        <location filename="../IVMainPlot.py" line="232"/>
         <source>Legend</source>
-        <translation type="unfinished"></translation>
+        <translation>图例</translation>
     </message>
     <message>
-        <location filename="../IVMainPlot.py" line="233"/>
+        <location filename="../IVMainPlot.py" line="232"/>
         <source>Show</source>
-        <translation>演出</translation>
+        <translation>显示</translation>
     </message>
 </context>
 <context>
     <name>DistRM</name>
     <message>
-        <location filename="../IVMainPlot.py" line="355"/>
+        <location filename="../IVMainPlot.py" line="354"/>
         <source>Rolling mean</source>
         <translation>滚动平均值</translation>
     </message>
     <message>
-        <location filename="../IVMainPlot.py" line="360"/>
+        <location filename="../IVMainPlot.py" line="359"/>
         <source>File</source>
         <translation>文档</translation>
     </message>
     <message>
-        <location filename="../IVMainPlot.py" line="360"/>
+        <location filename="../IVMainPlot.py" line="359"/>
         <source>Quit</source>
         <translation>退出</translation>
     </message>
     <message>
-        <location filename="../IVMainPlot.py" line="361"/>
+        <location filename="../IVMainPlot.py" line="360"/>
         <source>Grid</source>
-        <translation type="unfinished"></translation>
+        <translation>网格</translation>
     </message>
     <message>
-        <location filename="../IVMainPlot.py" line="361"/>
+        <location filename="../IVMainPlot.py" line="360"/>
         <source>Legend</source>
-        <translation type="unfinished"></translation>
+        <translation>图例</translation>
     </message>
     <message>
-        <location filename="../IVMainPlot.py" line="361"/>
+        <location filename="../IVMainPlot.py" line="360"/>
         <source>Show</source>
-        <translation>演出</translation>
+        <translation>显示</translation>
     </message>
 </context>
 <context>
     <name>DistWT</name>
     <message>
-        <location filename="../IVMainPlot.py" line="313"/>
+        <location filename="../IVMainPlot.py" line="312"/>
         <source>Walkthrough</source>
         <translation>场景漫游</translation>
     </message>
     <message>
-        <location filename="../IVMainPlot.py" line="318"/>
+        <location filename="../IVMainPlot.py" line="317"/>
         <source>File</source>
         <translation>文档</translation>
     </message>
     <message>
-        <location filename="../IVMainPlot.py" line="318"/>
+        <location filename="../IVMainPlot.py" line="317"/>
         <source>Quit</source>
         <translation>退出</translation>
     </message>
     <message>
-        <location filename="../IVMainPlot.py" line="319"/>
+        <location filename="../IVMainPlot.py" line="318"/>
         <source>Grid</source>
-        <translation type="unfinished"></translation>
+        <translation>网格</translation>
     </message>
     <message>
-        <location filename="../IVMainPlot.py" line="319"/>
+        <location filename="../IVMainPlot.py" line="318"/>
         <source>Legend</source>
-        <translation type="unfinished"></translation>
+        <translation>图例</translation>
     </message>
     <message>
-        <location filename="../IVMainPlot.py" line="319"/>
+        <location filename="../IVMainPlot.py" line="318"/>
         <source>Show</source>
-        <translation>演出</translation>
+        <translation>显示</translation>
     </message>
 </context>
 <context>
     <name>IVBoxPlot</name>
     <message>
-        <location filename="../IVMainPlot.py" line="459"/>
+        <location filename="../IVMainPlot.py" line="458"/>
         <source>Show</source>
-        <translation>演出</translation>
+        <translation>显示</translation>
     </message>
     <message>
-        <location filename="../IVMainPlot.py" line="398"/>
+        <location filename="../IVMainPlot.py" line="397"/>
         <source>Boxplot</source>
         <translation>箱型图</translation>
     </message>
     <message>
-        <location filename="../IVMainPlot.py" line="403"/>
+        <location filename="../IVMainPlot.py" line="402"/>
         <source>File</source>
         <translation>文档</translation>
     </message>
     <message>
-        <location filename="../IVMainPlot.py" line="403"/>
+        <location filename="../IVMainPlot.py" line="402"/>
         <source>Quit</source>
         <translation>退出</translation>
     </message>
@@ -258,27 +258,27 @@
 <context>
     <name>IVHistDenPlot</name>
     <message>
-        <location filename="../IVMainPlot.py" line="651"/>
+        <location filename="../IVMainPlot.py" line="650"/>
         <source>Show</source>
-        <translation>演出</translation>
+        <translation>显示</translation>
     </message>
     <message>
-        <location filename="../IVMainPlot.py" line="571"/>
+        <location filename="../IVMainPlot.py" line="570"/>
         <source>Histogram and density</source>
         <translation>柱状图+密度</translation>
     </message>
     <message>
-        <location filename="../IVMainPlot.py" line="639"/>
+        <location filename="../IVMainPlot.py" line="638"/>
         <source>Title</source>
-        <translation type="unfinished"></translation>
+        <translation>主题</translation>
     </message>
     <message>
-        <location filename="../IVMainPlot.py" line="574"/>
+        <location filename="../IVMainPlot.py" line="573"/>
         <source>File</source>
         <translation>文档</translation>
     </message>
     <message>
-        <location filename="../IVMainPlot.py" line="574"/>
+        <location filename="../IVMainPlot.py" line="573"/>
         <source>Quit</source>
         <translation>退出</translation>
     </message>
@@ -286,27 +286,27 @@
 <context>
     <name>IVHistPlot</name>
     <message>
-        <location filename="../IVMainPlot.py" line="544"/>
+        <location filename="../IVMainPlot.py" line="543"/>
         <source>Show</source>
-        <translation>演出</translation>
+        <translation>显示</translation>
     </message>
     <message>
-        <location filename="../IVMainPlot.py" line="484"/>
+        <location filename="../IVMainPlot.py" line="483"/>
         <source>Histogram</source>
         <translation>柱状图</translation>
     </message>
     <message>
-        <location filename="../IVMainPlot.py" line="532"/>
+        <location filename="../IVMainPlot.py" line="531"/>
         <source>Title</source>
-        <translation type="unfinished"></translation>
+        <translation>主题</translation>
     </message>
     <message>
-        <location filename="../IVMainPlot.py" line="487"/>
+        <location filename="../IVMainPlot.py" line="486"/>
         <source>File</source>
         <translation>文档</translation>
     </message>
     <message>
-        <location filename="../IVMainPlot.py" line="487"/>
+        <location filename="../IVMainPlot.py" line="486"/>
         <source>Quit</source>
         <translation>退出</translation>
     </message>
@@ -688,22 +688,22 @@ Data labels were perhaps not recognized.</source>
     <message>
         <location filename="../IVMainGui.py" line="392"/>
         <source>New filter settings loaded</source>
-        <translation type="unfinished"></translation>
+        <translation>新过滤器设定已加载</translation>
     </message>
     <message>
         <location filename="../IVMainGui.py" line="411"/>
         <source>File saved</source>
-        <translation type="unfinished"></translation>
+        <translation>文件已保存</translation>
     </message>
     <message>
         <location filename="../IVMainGui.py" line="615"/>
         <source>Load filter settings</source>
-        <translation type="unfinished"></translation>
+        <translation>加载过滤器设定</translation>
     </message>
     <message>
         <location filename="../IVMainGui.py" line="621"/>
         <source>Save filter settings</source>
-        <translation type="unfinished"></translation>
+        <translation>保存过滤器设定</translation>
     </message>
     <message>
         <location filename="../IVMainGui.py" line="627"/>
@@ -718,7 +718,7 @@ Data labels were perhaps not recognized.</source>
     <message>
         <location filename="../IVMainGui.py" line="639"/>
         <source>Reload default filters</source>
-        <translation type="unfinished"></translation>
+        <translation>重新加载默认过滤器</translation>
     </message>
     <message>
         <location filename="../IVMainGui.py" line="657"/>
@@ -798,29 +798,29 @@ Data labels were perhaps not recognized.</source>
 <context>
     <name>IVScatterPlot</name>
     <message>
-        <location filename="../IVMainPlot.py" line="70"/>
+        <location filename="../IVMainPlot.py" line="69"/>
         <source>Show</source>
-        <translation>演出</translation>
+        <translation>显示</translation>
     </message>
     <message>
-        <location filename="../IVMainPlot.py" line="70"/>
+        <location filename="../IVMainPlot.py" line="69"/>
         <source>Grid</source>
-        <translation type="unfinished"></translation>
+        <translation>网格</translation>
     </message>
     <message>
-        <location filename="../IVMainPlot.py" line="70"/>
+        <location filename="../IVMainPlot.py" line="69"/>
         <source>Legend</source>
-        <translation type="unfinished"></translation>
+        <translation>图例</translation>
     </message>
     <message>
-        <location filename="../IVMainPlot.py" line="69"/>
+        <location filename="../IVMainPlot.py" line="68"/>
         <source>File</source>
-        <translation type="unfinished">文档</translation>
+        <translation>文档</translation>
     </message>
     <message>
-        <location filename="../IVMainPlot.py" line="69"/>
+        <location filename="../IVMainPlot.py" line="68"/>
         <source>Quit</source>
-        <translation type="unfinished">退出</translation>
+        <translation>退出</translation>
     </message>
 </context>
 </TS>
