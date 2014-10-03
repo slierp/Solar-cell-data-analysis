@@ -43,7 +43,7 @@ class IVMainGui(QtGui.QMainWindow):
         self.reportname = ''
         self.yloutput = []
         self.translator = None
-        self.plot_selection_list = ['Uoc','Isc','Voc*Isc','FF','Eta']
+        self.plot_selection_list = ['Uoc','Isc','Voc*Isc','FF','Eta','RserLfDfIEC','Rsh','IRev1']
         self.plot_selection_combo_list = []       
         self.prev_dir_path = ""
         self.wid = None

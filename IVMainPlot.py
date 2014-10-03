@@ -17,13 +17,16 @@ matplotlib.rc('font', **font)
 
 cl = ['#4F81BD', '#C0504D', '#9BBB59','#F79646','#8064A2','#4BACC6','0','0.5'] # colour
 
-plot_selection_list = ['Uoc','Isc','Voc*Isc','FF','Eta']
+plot_selection_list = ['Uoc','Isc','Voc*Isc','FF','Eta','RserLfDfIEC','Rsh','IRev1']
+irev_axis_label = r'$\mathrm{\mathsf{I_{REV}\ [A]}}$'
+rser_axis_label = r'$\mathrm{\mathsf{R_{SERIES}\ [Ohm \cdot cm^{2}]}}$'
+rshunt_axis_label = r'$\mathrm{\mathsf{R_{SHUNT}\ [Ohm]}}$'
 eta_axis_label = r'$\mathrm{\mathsf{Eta\ [\%]}}$'
 voc_axis_label = r'$\mathrm{\mathsf{V_{OC}\ [V]}}$'
 isc_axis_label = r'$\mathrm{\mathsf{I_{SC}\ [A]}}$'
 ff_axis_label = r'$\mathrm{\mathsf{FF\ [\%]}}$'
 vocisc_axis_label = r'$\mathrm{\mathsf{V_{OC}\ *\ I_{SC}\ [V*A]}}$'
-plot_label_list = [voc_axis_label, isc_axis_label, vocisc_axis_label, ff_axis_label, eta_axis_label]
+plot_label_list = [voc_axis_label, isc_axis_label, vocisc_axis_label, ff_axis_label, eta_axis_label, rser_axis_label, rshunt_axis_label, irev_axis_label]
 
 ########## Main class - only for inheriting ##########
 
