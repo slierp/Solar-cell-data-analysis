@@ -19,8 +19,8 @@ cl = ['#4F81BD', '#C0504D', '#9BBB59','#F79646','#8064A2','#4BACC6','0','0.5'] #
 
 plot_selection_list = ['Uoc','Isc','Voc*Isc','FF','Eta','RserLfDfIEC','Rsh','IRev1']
 irev_axis_label = r'$\mathrm{\mathsf{I_{REV}\ [A]}}$'
-rser_axis_label = r'$\mathrm{\mathsf{R_{SERIES}\ [Ohm \cdot cm^{2}]}}$'
-rshunt_axis_label = r'$\mathrm{\mathsf{R_{SHUNT}\ [Ohm]}}$'
+rser_axis_label = r'$\mathrm{\mathsf{R_{SERIES}\ [mOhm \cdot cm^{2}]}}$'
+rshunt_axis_label = r'$\mathrm{\mathsf{R_{SHUNT}\ [kOhm]}}$'
 eta_axis_label = r'$\mathrm{\mathsf{Eta\ [\%]}}$'
 voc_axis_label = r'$\mathrm{\mathsf{V_{OC}\ [V]}}$'
 isc_axis_label = r'$\mathrm{\mathsf{I_{SC}\ [A]}}$'
@@ -334,10 +334,14 @@ class DistWT(IVScatterPlot):
         
         for i in self.ad:
             if(self.dataset_cb[i].isChecked() | (len(self.ad) == 1)):                
-                if not self.plot_selection == 'Voc*Isc':
-                    se = pd.DataFrame(self.ad[i][self.plot_selection])
+                if (self.plot_selection == 'Voc*Isc'):
+                    se = pd.DataFrame(self.ad[i]['Uoc'] * self.ad[i]['Isc'])
+                elif (self.plot_selection == 'RserLfDfIEC'):
+                    se = pd.DataFrame(1000*self.ad[i][self.plot_selection])
+                elif (self.plot_selection == 'Rsh'):
+                    se = pd.DataFrame(0.001*self.ad[i][self.plot_selection])
                 else:
-                    se = pd.DataFrame(self.ad[i]['Uoc'] * self.ad[i]['Isc'])                
+                    se = pd.DataFrame(self.ad[i][self.plot_selection])
                 
                 se.index = (se.index+1)/len(se)
                 self.axes.scatter(se.index,se,c=cl[i % len(cl)],edgecolors='white',linewidths=0.3,s=20,label=self.ad[i].index.name)
@@ -377,10 +381,15 @@ class DistRM(IVScatterPlot):
         for i in self.ad:
             if(self.dataset_cb[i].isChecked() | (len(self.ad) == 1)):
 
-                if not self.plot_selection == 'Voc*Isc':
-                    se = pd.DataFrame(self.ad[i][self.plot_selection])
+                if (self.plot_selection == 'Voc*Isc'):
+                    se = pd.DataFrame(self.ad[i]['Uoc'] * self.ad[i]['Isc'])
+                elif (self.plot_selection == 'RserLfDfIEC'):
+                    se = pd.DataFrame(1000*self.ad[i][self.plot_selection])
+                elif (self.plot_selection == 'Rsh'):
+                    se = pd.DataFrame(0.001*self.ad[i][self.plot_selection])                    
                 else:
-                    se = pd.DataFrame(self.ad[i]['Uoc'] * self.ad[i]['Isc'])                
+                    se = pd.DataFrame(self.ad[i][self.plot_selection])
+                    
                 se.index = (se.index+1)/len(se)
                 rm = pd.rolling_mean(se, np.floor(len(se)*.1) if len(se) > 100 else 1,center=True) # rolling mean
                 self.axes.plot(rm.index, rm,c=cl[i % len(cl)],lw=3,label=self.ad[i].index.name)
@@ -420,10 +429,15 @@ class IVBoxPlot(IVMainPlot):
         labels = []
         for i in self.ad:
             if(self.dataset_cb[i].isChecked() | (len(self.ad) == 1)):
-                if not self.plot_selection == 'Voc*Isc':
-                    data.append(self.ad[i][str(self.plot_selection)])
+                if (self.plot_selection == 'Voc*Isc'):
+                    data.append(self.ad[i]['Uoc'] * self.ad[i]['Isc'])                    
+                elif (self.plot_selection == 'RserLfDfIEC'):
+                    data.append(1000*self.ad[i][str(self.plot_selection)])
+                elif (self.plot_selection == 'Rsh'):
+                    data.append(0.001*self.ad[i][str(self.plot_selection)])                    
                 else:
-                    data.append(self.ad[i]['Uoc'] * self.ad[i]['Isc'])
+                    data.append(self.ad[i][str(self.plot_selection)])
+                    
                 labels.append(self.ad[i].index.name)
         self.axes.set_xticklabels(labels, rotation=0)
         bp = self.axes.boxplot(data,0,'')
