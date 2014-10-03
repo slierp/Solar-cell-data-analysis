@@ -1,6 +1,10 @@
 Changelog
 ========================
 
+20141003
+- Updated Chinese translation
+- Adding plotting feature for Irev, Rshunt and Rseries
+
 20140916
 - Updated Korean translation
 - Bugfix for translations in IVMainPlot
