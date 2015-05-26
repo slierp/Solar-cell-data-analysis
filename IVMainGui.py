@@ -33,7 +33,8 @@ class IVMainGui(QtGui.QMainWindow):
         self.label_formats = {}
         self.label_formats[0] = ['Uoc','Isc','RserLfDfIEC','Rsh','FF','Eta','IRev1']
         self.label_formats[1] = ['Uoc0','Isc0','Rseries_multi_level','Rshunt_SC','Fill0','Eff0','Ireverse_2']
-        self.label_formats[2] = ['Uoc','Isc','RserIEC891','RshuntDfDr','FF','Eta','IRev1']        
+        self.label_formats[2] = ['Uoc','Isc','RserIEC891','RshuntDfDr','FF','Eta','IRev1']
+        self.label_formats[3] = ['Uoc','Isc','Rs','Rsh','FF','NCell','Irev2']        
         self.label_format = 0
         self.yl = [] # yield loss
         self.smr = [] # summaries                     
@@ -86,6 +87,8 @@ class IVMainGui(QtGui.QMainWindow):
             if self.label_format == 1:
                 self.ad[num].loc[:,'Eta'] *= 100
                 self.ad[num].loc[:,'FF'] *= 100
+            elif self.label_format == 3:
+                self.ad[num].loc[:,'Eta'] *= 100
 
             self.prev_dir_path = ntpath.dirname(str(filename))
             
@@ -500,6 +503,9 @@ class IVMainGui(QtGui.QMainWindow):
     def set_data_format2(self):
         self.label_format = 2
 
+    def set_data_format3(self):
+        self.label_format = 3
+
     def langKor(self):
         if self.translator:
             QtGui.QApplication.removeTranslator(self.translator)
@@ -754,6 +760,13 @@ class IVMainGui(QtGui.QMainWindow):
         format_action2.setToolTip(tip)
         format_action2.setStatusTip(tip)
 
+        tip = "Uoc,Isc,Rs,Rsh,FF,NCell*100,Irev2"
+        format_action3 = QtGui.QAction(self.tr("Custom labels"), self)
+        format_action3.setIcon(QtGui.QIcon(":label.png"))
+        format_action3.triggered.connect(self.set_data_format3) 
+        format_action3.setToolTip(tip)
+        format_action3.setStatusTip(tip)
+
         tip = "Uoc,Isc,RserLfDfIEC,Rsh,FF,Eta,IRev1"
         format_action0 = QtGui.QAction(self.tr("Custom labels"), self)
         format_action0.setIcon(QtGui.QIcon(":label.png"))
@@ -763,6 +776,7 @@ class IVMainGui(QtGui.QMainWindow):
         
         self.edit_menu.addAction(format_action1)
         self.edit_menu.addAction(format_action2)
+        self.edit_menu.addAction(format_action3)        
         self.edit_menu.addAction(format_action0)
 
         self.lang_menu = self.menuBar().addMenu(self.tr("Language"))
