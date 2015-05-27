@@ -1,7 +1,7 @@
 from __future__ import division
 import numpy as np
 import pandas as pd
-import matplotlib
+import matplotlib, Tkinter, FileDialog
 import matplotlib.pyplot as plt
 from PyQt4 import QtGui
 from matplotlib.backends.backend_qt4agg import FigureCanvasQTAgg as FigureCanvas
