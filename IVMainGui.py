@@ -66,9 +66,11 @@ class IVMainGui(QtGui.QMainWindow):
             # Enter new data set names into ad and series list
 
             # Check for non-ASCII filenames, give warning and skip loading such files
-            if not os.path.isfile(filename.encode('ascii', 'ignore')):
-                non_ascii_warning = True
-                continue
+            # Removed because on linux filename becomes unicode; on windows it remains qstring
+            # unicode requires encode command; qstring requires toAscii or now toLatin1 command
+            #if not os.path.isfile(filename.toAscii()): #encode('ascii', 'ignore')):
+            #    non_ascii_warning = True
+            #    continue
 
             # Set working directory so that user can remain where they are
             self.prev_dir_path = ntpath.dirname(str(filename))
