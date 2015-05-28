@@ -1,6 +1,12 @@
 Changelog
 ========================
 
+20150528
+- Added semicolon support for CSV files
+- Fixed deprecated use of toAscii statement
+- Added letters to distinguish data labels in menu
+- Added a data label
+
 20141003
 - Updated Chinese translation
 - Adding plotting feature for Irev, Rshunt and Rseries

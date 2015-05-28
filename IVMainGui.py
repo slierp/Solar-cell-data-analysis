@@ -65,32 +65,46 @@ class IVMainGui(QtGui.QMainWindow):
             # Purge rows with empty or negative elements
             # Enter new data set names into ad and series list
 
-            if not os.path.isfile(filename.toAscii()):
+            # Check for non-ASCII filenames, give warning and skip loading such files
+            if not os.path.isfile(filename.encode('ascii', 'ignore')):
                 non_ascii_warning = True
                 continue
-            
+
+            # Set working directory so that user can remain where they are
+            self.prev_dir_path = ntpath.dirname(str(filename))
+
+            # Try to load file and give error message if label format is not recognized
             try:
                 self.ad[num] = pd.read_csv(str(filename))[self.label_formats[self.label_format]].dropna()
             except KeyError:
-                msg = self.tr("Error while reading data files.\n\nData labels were perhaps not recognized.")
-                QtGui.QMessageBox.about(self, self.tr("Warning"), msg)  
-                
-            self.ad[num].columns = self.label_formats[0]
+                try:
+                    self.ad[num] = pd.read_csv(str(filename),sep=';')[self.label_formats[self.label_format]].dropna()
+                except KeyError:
+                    msg = self.tr("Error while reading data files.\n\nData labels were perhaps not recognized.")
+                    QtGui.QMessageBox.about(self, self.tr("Warning"), msg) 
+
+            # Try to apply default labels to columns; skip current file if unsuccessful
+            try:
+                self.ad[num].columns = self.label_formats[0]
+            except KeyError:
+                continue
+            
+            # Convert to numeric values if needed, reset size of ad
             self.ad[num] = self.ad[num].convert_objects(convert_numeric=True)
             self.ad[num] = self.ad[num][self.ad[num] > 0]
             
+            # If data set is empty give warning and remove from ad
             if self.ad[num].empty:
                 empty_data_warning = True
                 self.ad.pop(num)
                 continue                
 
+            # Apply conversion to number sets
             if self.label_format == 1:
                 self.ad[num].loc[:,'Eta'] *= 100
                 self.ad[num].loc[:,'FF'] *= 100
             elif self.label_format == 3:
                 self.ad[num].loc[:,'Eta'] *= 100
-
-            self.prev_dir_path = ntpath.dirname(str(filename))
             
             ### add list view item ###
             str_a = ntpath.basename(str(filename)[0:-4])            
@@ -747,28 +761,28 @@ class IVMainGui(QtGui.QMainWindow):
         self.edit_menu = self.menuBar().addMenu(self.tr("Data labels"))
         
         tip = "Uoc0,Isc0,Rseries_multi_level,Rshunt_SC,Fill0*100,Eff0*100,Ireverse_2"
-        format_action1 = QtGui.QAction(self.tr("Custom labels"), self)
+        format_action1 = QtGui.QAction(self.tr("Custom labels") + " D", self)
         format_action1.setIcon(QtGui.QIcon(":label.png"))
-        format_action1.triggered.connect(self.set_data_format1) 
+        format_action1.triggered.connect(self.set_data_format1)
         format_action1.setToolTip(tip)
-        format_action1.setStatusTip(tip)
+        format_action1.setStatusTip(tip)      
 
         tip = "Uoc,Isc,RserIEC891,RshuntDfDr,FF,Eta,IRev1"
-        format_action2 = QtGui.QAction(self.tr("Custom labels"), self)
+        format_action2 = QtGui.QAction(self.tr("Custom labels") + " C", self)
         format_action2.setIcon(QtGui.QIcon(":label.png"))
         format_action2.triggered.connect(self.set_data_format2) 
         format_action2.setToolTip(tip)
         format_action2.setStatusTip(tip)
 
         tip = "Uoc,Isc,Rs,Rsh,FF,NCell*100,Irev2"
-        format_action3 = QtGui.QAction(self.tr("Custom labels"), self)
+        format_action3 = QtGui.QAction(self.tr("Custom labels") + " B", self)
         format_action3.setIcon(QtGui.QIcon(":label.png"))
         format_action3.triggered.connect(self.set_data_format3) 
         format_action3.setToolTip(tip)
         format_action3.setStatusTip(tip)
 
         tip = "Uoc,Isc,RserLfDfIEC,Rsh,FF,Eta,IRev1"
-        format_action0 = QtGui.QAction(self.tr("Custom labels"), self)
+        format_action0 = QtGui.QAction(self.tr("Custom labels") + " A", self)
         format_action0.setIcon(QtGui.QIcon(":label.png"))
         format_action0.triggered.connect(self.set_data_format0)         
         format_action0.setToolTip(tip)
