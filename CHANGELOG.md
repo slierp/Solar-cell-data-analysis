@@ -1,6 +1,9 @@
 Changelog
 ========================
 
+20151025
+- Added new icon
+
 20150528
 - Added semicolon support for CSV files
 - Fixed deprecated use of toAscii statement

@@ -16,7 +16,7 @@ class IVMainGui(QtGui.QMainWindow):
     def __init__(self, parent=None):
         super(IVMainGui, self).__init__(parent)
         self.setWindowTitle(self.tr("Solar cell data analysis"))
-        self.setWindowIcon(QtGui.QIcon(":Logo_Tempress.png"))
+        self.setWindowIcon(QtGui.QIcon(":ScidaPro_icon.png"))
         #self.setWindowFlags(QtCore.Qt.WindowStaysOnTopHint) # DISABLE BEFORE RELEASE
 
         self.clip = QtGui.QApplication.clipboard()
@@ -574,7 +574,7 @@ class IVMainGui(QtGui.QMainWindow):
         self.create_main_frame()
 
     def on_about(self):
-        msg = self.tr("Solar cell data analysis\n\n- Author: Ronald Naber (rnaber@tempress.nl)\n- License: Public domain")
+        msg = self.tr("Solar cell data analysis\nAuthor: Ronald Naber\nContact: rnaber (AT) tempress (DOT) nl\nLicense: Public domain")
         QtGui.QMessageBox.about(self, self.tr("About the application"), msg)
     
     def create_main_frame(self):
