@@ -3,6 +3,7 @@ Changelog
 
 20151025
 - Added new icon
+- Changed default window and font size
 
 20150528
 - Added semicolon support for CSV files

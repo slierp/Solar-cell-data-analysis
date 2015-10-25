@@ -19,6 +19,16 @@ class IVMainGui(QtGui.QMainWindow):
         self.setWindowIcon(QtGui.QIcon(":ScidaPro_icon.png"))
         #self.setWindowFlags(QtCore.Qt.WindowStaysOnTopHint) # DISABLE BEFORE RELEASE
 
+        ### Set initial geometry and center the window on the screen ###
+        self.resize(1024, 576)
+        frameGm = self.frameGeometry()
+        centerPoint = QtGui.QDesktopWidget().availableGeometry().center()
+        frameGm.moveCenter(centerPoint)
+        self.move(frameGm.topLeft()) 
+
+        ### Set default font size ###
+        self.setStyleSheet('font-size: 12pt;')  
+
         self.clip = QtGui.QApplication.clipboard()
         self.series_list_model = QtGui.QStandardItemModel()
         self.filter_table_widget = QtGui.QTableWidget()
