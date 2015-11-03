@@ -3,6 +3,7 @@ from __future__ import division
 import numpy as np
 import pandas as pd
 import os, ntpath, pickle
+from HelpDialog import HelpDialog
 from PyQt4 import QtCore, QtGui
 from IVMainPlot import CorrVocIsc, CorrEtaFF, CorrRshFF, DistLtoH, DensEta, DistWT, DistRM, IVBoxPlot, IVHistPlot, IVHistDenPlot      
 
@@ -48,7 +49,7 @@ class IVMainGui(QtGui.QMainWindow):
         self.label_format = 0
         self.yl = [] # yield loss
         self.smr = [] # summaries                     
-        self.smrindex = ['Best cell','Median','Average','Standard deviation']
+        self.smrindex = ['Best cell','Median','Average','Std.dev.']
         self.smrcolumns = ['Voc [V]','Isc [A]','Rser [mOhm*cm2]','Rshunt [kOhm]','FF [%]','Eta [%]','Irev [A]']      
         self.ct = [] # correlation table
         self.reportname = ''
@@ -583,6 +584,11 @@ class IVMainGui(QtGui.QMainWindow):
         self.main_frame.deleteLater()        
         self.create_main_frame()
 
+    def open_help_dialog(self):
+        help_dialog = HelpDialog(self)
+        help_dialog.setModal(True)
+        help_dialog.show()
+
     def on_about(self):
         msg = self.tr("Solar cell data analysis\nAuthor: Ronald Naber\nContact: rnaber (AT) tempress (DOT) nl\nLicense: Public domain")
         QtGui.QMessageBox.about(self, self.tr("About the application"), msg)
@@ -845,6 +851,14 @@ class IVMainGui(QtGui.QMainWindow):
 
         self.help_menu = self.menuBar().addMenu(self.tr("Help"))
 
+        tip = self.tr("Help information")        
+        help_action = QtGui.QAction(self.tr("Help..."), self)
+        help_action.setIcon(QtGui.QIcon(":help.png"))
+        help_action.triggered.connect(self.open_help_dialog)         
+        help_action.setToolTip(tip)
+        help_action.setStatusTip(tip)
+        help_action.setShortcut('H')
+
         tip = self.tr("About the application")
         about_action = QtGui.QAction(self.tr("About..."), self)
         about_action.setIcon(QtGui.QIcon(":info.png"))
@@ -853,4 +867,5 @@ class IVMainGui(QtGui.QMainWindow):
         about_action.setStatusTip(tip)
         about_action.setShortcut('F1')
 
+        self.help_menu.addAction(help_action)
         self.help_menu.addAction(about_action)
