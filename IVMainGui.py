@@ -562,19 +562,6 @@ class IVMainGui(QtGui.QMainWindow):
         self.main_frame.deleteLater()       
         self.create_main_frame()
 
-    def langDutch(self):
-        if self.translator:
-            QtGui.QApplication.removeTranslator(self.translator)
-        
-        self.translator = QtCore.QTranslator()
-        self.translator.load(":IVMain_nl.qm")
-        QtGui.QApplication.installTranslator(self.translator)
-
-        self.menuBar().clear()
-        self.create_menu()        
-        self.main_frame.deleteLater()       
-        self.create_main_frame()
-
     def langEngl(self):
         if self.translator:
             QtGui.QApplication.removeTranslator(self.translator)
@@ -828,14 +815,7 @@ class IVMainGui(QtGui.QMainWindow):
         kr_action.setIcon(QtGui.QIcon(":lang.png"))
         kr_action.triggered.connect(self.langKor)
         kr_action.setToolTip(tip)
-        kr_action.setStatusTip(tip) 
-
-        tip = self.tr("Switch to Dutch language")
-        nl_action = QtGui.QAction(self.tr("Dutch"), self)
-        nl_action.setIcon(QtGui.QIcon(":lang.png"))
-        nl_action.triggered.connect(self.langDutch)
-        nl_action.setToolTip(tip)
-        nl_action.setStatusTip(tip) 
+        kr_action.setStatusTip(tip)  
 
         tip = self.tr("Switch to English language")
         en_action = QtGui.QAction(self.tr("English"), self)
@@ -846,7 +826,6 @@ class IVMainGui(QtGui.QMainWindow):
 
         self.lang_menu.addAction(cn_action)
         self.lang_menu.addAction(kr_action)
-        self.lang_menu.addAction(nl_action)
         self.lang_menu.addAction(en_action)
 
         self.help_menu = self.menuBar().addMenu(self.tr("Help"))
