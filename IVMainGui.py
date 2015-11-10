@@ -16,7 +16,7 @@ from IVMainPlot import CorrVocIsc, CorrEtaFF, CorrRshFF, DistLtoH, DensEta, Dist
 class IVMainGui(QtGui.QMainWindow):
     def __init__(self, parent=None):
         super(IVMainGui, self).__init__(parent)
-        self.setWindowTitle(self.tr("Solar cell data analysis"))
+        self.setWindowTitle(self.tr("SCiDA Pro"))
         self.setWindowIcon(QtGui.QIcon(":ScidaPro_icon.png"))
         #self.setWindowFlags(QtCore.Qt.WindowStaysOnTopHint) # DISABLE BEFORE RELEASE
 

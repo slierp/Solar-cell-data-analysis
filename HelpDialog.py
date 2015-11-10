@@ -6,7 +6,7 @@ help_text = """
 <html>
 <head><head/>
 <body>
-<h1>ScidaPro</h1>
+<h1>SCiDA Pro</h1>
 
 <ul>
 <li><a href="#general">Introduction</a></li>
@@ -18,7 +18,7 @@ help_text = """
 
 <p><h2><a name="general">Introduction</a></h2></p>
 <p>
-The purpose of the ScidaPro program is to help with processing solar cell production data.
+The purpose of the SCiDA Pro program is to help with processing solar cell production data.
 It has the following features:
 <ul>
 <li>Able to handle large data sets in a fast way (e.g. plotting 100k cell data takes a few seconds)</li>
@@ -34,9 +34,9 @@ It has the following features:
 <p>
 The program currently accepts CSV (comma separated values) files as input.
 If your data is in Excel format then you can use the 'Save as' function inside Excel to save your data as a CSV file.
-Excel supports a number of different CSV formats but they are all compatible with ScidaPro.
+Excel supports a number of different CSV formats but they are all compatible with SCiDA Pro.
 The filename of your CSV file will be the name of your data set inside the program.
-When reading the CSV file the ScidaPro program will try to recognize the data labels of the columns, which need to be in the first row of each column.
+When reading the CSV file the SCiDA Pro program will try to recognize the data labels of the columns, which need to be in the first row of each column.
 It will use only the data in the columns that it recognizes and ignores any others.
 An appropriate set of data labels could be as follows: Uoc; Isc; RserLfDfIEC; Rsh; FF; Eta; IRev1.
 Other data label sets can be selected in the 'Data labels' menu.
@@ -44,7 +44,7 @@ Upon reading the input files these alternative data labels will be converted to 
 If the data labels in your files are different than any of the provided sets you can change them in your files and/or contact the program author to add another data label set.
 </p>
 <p>
-While reading the data ScidaPro will already apply some data filtering.
+While reading the data SCiDA Pro will already apply some data filtering.
 Any cells that do not contain a positive number in one of 7 data set columns will be ignored.
 The reason for filtering the data in this way is that such inconsistent data values usually indicate a measurement issue.
 </p>
