@@ -7,12 +7,6 @@ from HelpDialog import HelpDialog
 from PyQt4 import QtCore, QtGui
 from IVMainPlot import CorrVocIsc, CorrEtaFF, CorrRshFF, DistLtoH, DensEta, DistWT, DistRM, IVBoxPlot, IVHistPlot, IVHistDenPlot      
 
-        # To be implemented
-        #for i in self.ad:
-            # Export all filtered IV data to existing csv files - THIS WILL OVERWRITE YOUR EXISTING FILES
-        #    filename = self.ad[i].index.name + '.csv'
-        #    self.ad[i].to_csv(filename, index=False)
-
 class IVMainGui(QtGui.QMainWindow):
     def __init__(self, parent=None):
         super(IVMainGui, self).__init__(parent)
@@ -145,6 +139,30 @@ class IVMainGui(QtGui.QMainWindow):
         else:
             self.statusBar().showMessage(self.tr("Please load data files"))
 
+    def save_files(self):        
+        dest_dir = QtGui.QFileDialog.getExistingDirectory(None, self.tr('Open directory'), self.prev_dir_path, QtGui.QFileDialog.ShowDirsOnly) 
+        
+        for i in self.ad:
+            # Export all filtered IV data to existing csv files - THIS WILL OVERWRITE YOUR EXISTING FILES
+            filename = self.ad[i].index.name + '.csv'
+            
+            if os.name == 'nt': # if windows
+                if os.path.isfile(dest_dir + '\\' + filename): # if file exists, check if overwrite is oke
+                    reply = QtGui.QMessageBox.question(self, 'Message', "Overwrite " + filename + "?", QtGui.QMessageBox.Yes | QtGui.QMessageBox.No, QtGui.QMessageBox.No)
+
+                    if reply == QtGui.QMessageBox.Yes:                    
+                        self.ad[i].to_csv(dest_dir + '\\' + filename, index=False)
+                else:
+                    self.ad[i].to_csv(dest_dir + '\\' + filename, index=False)
+            else: # if not windows
+                if os.path.isfile(dest_dir + '\/' + filename): # if file exists, check if overwrite is oke
+                    reply = QtGui.QMessageBox.question(self, 'Message', "Overwrite " + filename + "?", QtGui.QMessageBox.Yes | QtGui.QMessageBox.No, QtGui.QMessageBox.No)
+
+                    if reply == QtGui.QMessageBox.Yes:                    
+                        self.ad[i].to_csv(dest_dir + '\/' + filename, index=False)
+                else:
+                    self.ad[i].to_csv(dest_dir + '\/' + filename, index=False)
+                   
     def combine_datasets(self):
 
         if len(self.ad) > 1:
@@ -599,19 +617,18 @@ class IVMainGui(QtGui.QMainWindow):
         open_files_button.setToolTip(self.tr("Load files"))
         open_files_button.setStatusTip(self.tr("Load files"))
 
-        # To be implemented
-        #save_files_button = QtGui.QPushButton()
-        #self.connect(save_files_button, QtCore.SIGNAL('clicked()'), self.load_file)
-        #save_files_button.setIcon(QtGui.QIcon(":save.png"))
-        #save_files_button.setToolTip(self.tr("Save files"))
-        #save_files_button.setStatusTip(self.tr("Save files"))
+        save_files_button = QtGui.QPushButton()
+        save_files_button.clicked.connect(self.save_files)        
+        save_files_button.setIcon(QtGui.QIcon(":save.png"))
+        save_files_button.setToolTip(self.tr("Save files"))
+        save_files_button.setStatusTip(self.tr("Save files"))
         
         combine_data_button = QtGui.QPushButton()
         self.connect(combine_data_button, QtCore.SIGNAL('clicked()'), self.combine_datasets)
         combine_data_button.clicked.connect(self.combine_datasets)
         combine_data_button.setIcon(QtGui.QIcon(":combine.png"))
         combine_data_button.setToolTip(self.tr("Combine data sets"))
-        combine_data_button.setStatusTip(self.tr("Combine data sets"))        
+        combine_data_button.setStatusTip(self.tr("Combine data sets"))
 
         clear_data_button = QtGui.QPushButton()
         clear_data_button.clicked.connect(self.clear_data)
@@ -621,7 +638,7 @@ class IVMainGui(QtGui.QMainWindow):
 
         buttonbox0 = QtGui.QDialogButtonBox()
         buttonbox0.addButton(open_files_button, QtGui.QDialogButtonBox.ActionRole)
-        #buttonbox0.addButton(save_files_button, QtGui.QDialogButtonBox.ActionRole)
+        buttonbox0.addButton(save_files_button, QtGui.QDialogButtonBox.ActionRole)
         buttonbox0.addButton(combine_data_button, QtGui.QDialogButtonBox.ActionRole)
         buttonbox0.addButton(clear_data_button, QtGui.QDialogButtonBox.ActionRole)
 
