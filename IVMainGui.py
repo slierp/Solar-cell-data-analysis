@@ -42,6 +42,7 @@ class IVMainGui(QtGui.QMainWindow):
         self.label_formats[2] = ['Uoc','Isc','RserIEC891','RshuntDfDr','FF','Eta','IRev1']
         self.label_formats[3] = ['Uoc','Isc','Rs','Rsh','FF','NCell','Irev2']        
         self.label_format = 0
+        self.label_text = QtGui.QLabel("Data label set A")        
         self.yl = [] # yield loss
         self.smr = [] # summaries                     
         self.smrindex = ['Best cell','Median','Average','Std.dev.']
@@ -549,15 +550,31 @@ class IVMainGui(QtGui.QMainWindow):
     # defining one function with a numerical argument does not work, strangely
     # it sets the parameter prematurely
         self.label_format = 0
+        
+        self.statusBar().removeWidget(self.label_text)
+        self.label_text = QtGui.QLabel("Data label set A")
+        self.statusBar().addPermanentWidget(self.label_text)        
 
     def set_data_format1(self):
         self.label_format = 1
 
+        self.statusBar().removeWidget(self.label_text)        
+        self.label_text = QtGui.QLabel("Data label set B")      
+        self.statusBar().addPermanentWidget(self.label_text)        
+
     def set_data_format2(self):
         self.label_format = 2
 
+        self.statusBar().removeWidget(self.label_text)        
+        self.label_text = QtGui.QLabel("Data label set C")  
+        self.statusBar().addPermanentWidget(self.label_text)        
+
     def set_data_format3(self):
         self.label_format = 3
+
+        self.statusBar().removeWidget(self.label_text)        
+        self.label_text = QtGui.QLabel("Data label set D") 
+        self.statusBar().addPermanentWidget(self.label_text)        
 
     def langKor(self):
         if self.translator:
@@ -763,6 +780,8 @@ class IVMainGui(QtGui.QMainWindow):
 
         self.status_text = QtGui.QLabel("")        
         self.statusBar().addWidget(self.status_text,1)
+        self.label_text = QtGui.QLabel("Data label set A") 
+        self.statusBar().addPermanentWidget(self.label_text)
         self.statusBar().showMessage(self.tr("Please load data files"))
 
     def create_menu(self):
@@ -788,9 +807,16 @@ class IVMainGui(QtGui.QMainWindow):
         self.file_menu.addAction(quit_action)
 
         self.edit_menu = self.menuBar().addMenu(self.tr("Data labels"))
+
+        tip = "Uoc,Isc,RserLfDfIEC,Rsh,FF,Eta,IRev1"
+        format_action0 = QtGui.QAction(self.tr("Custom labels") + " A", self)
+        format_action0.setIcon(QtGui.QIcon(":label.png"))
+        format_action0.triggered.connect(self.set_data_format0)         
+        format_action0.setToolTip(tip)
+        format_action0.setStatusTip(tip)
         
         tip = "Uoc0,Isc0,Rseries_multi_level,Rshunt_SC,Fill0*100,Eff0*100,Ireverse_2"
-        format_action1 = QtGui.QAction(self.tr("Custom labels") + " D", self)
+        format_action1 = QtGui.QAction(self.tr("Custom labels") + " B", self)
         format_action1.setIcon(QtGui.QIcon(":label.png"))
         format_action1.triggered.connect(self.set_data_format1)
         format_action1.setToolTip(tip)
@@ -804,23 +830,16 @@ class IVMainGui(QtGui.QMainWindow):
         format_action2.setStatusTip(tip)
 
         tip = "Uoc,Isc,Rs,Rsh,FF,NCell*100,Irev2"
-        format_action3 = QtGui.QAction(self.tr("Custom labels") + " B", self)
+        format_action3 = QtGui.QAction(self.tr("Custom labels") + " D", self)
         format_action3.setIcon(QtGui.QIcon(":label.png"))
         format_action3.triggered.connect(self.set_data_format3) 
         format_action3.setToolTip(tip)
         format_action3.setStatusTip(tip)
 
-        tip = "Uoc,Isc,RserLfDfIEC,Rsh,FF,Eta,IRev1"
-        format_action0 = QtGui.QAction(self.tr("Custom labels") + " A", self)
-        format_action0.setIcon(QtGui.QIcon(":label.png"))
-        format_action0.triggered.connect(self.set_data_format0)         
-        format_action0.setToolTip(tip)
-        format_action0.setStatusTip(tip)
-        
+        self.edit_menu.addAction(format_action0)        
         self.edit_menu.addAction(format_action1)
         self.edit_menu.addAction(format_action2)
         self.edit_menu.addAction(format_action3)        
-        self.edit_menu.addAction(format_action0)
 
         self.lang_menu = self.menuBar().addMenu(self.tr("Language"))
         
