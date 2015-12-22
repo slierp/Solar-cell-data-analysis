@@ -54,6 +54,7 @@ The reason for filtering the data in this way is that such inconsistent data val
 The left panel of the main screen is used for loading and managing data sets.
 With the three available icons the user can select input files, combine the current data sets into one data set and remove all the currently loaded data sets.
 Before loading a data set it may be necessary to select the correct data label set used in the input files in the 'Data labels' menu.
+It is possible to rename datasets by double-clicking on an item in the list.
 </p>
 <p>
 When there are data sets available then the right panel can be used to apply data filtering.

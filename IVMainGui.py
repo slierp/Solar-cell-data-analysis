@@ -26,6 +26,7 @@ class IVMainGui(QtGui.QMainWindow):
 
         self.clip = QtGui.QApplication.clipboard()
         self.series_list_model = QtGui.QStandardItemModel()
+        self.series_list_model.itemChanged.connect(self.rename_dataset)
         self.filter_table_widget = QtGui.QTableWidget()
         self.default_filters = [
             ["IRev1",">",3],["FF","<",70],["Eta","<",16],
@@ -57,6 +58,10 @@ class IVMainGui(QtGui.QMainWindow):
         self.create_menu()
         self.create_main_frame()
         self.set_default_filters()      
+
+    @QtCore.pyqtSlot(QtGui.QStandardItem)
+    def rename_dataset(self,item):
+        self.ad[self.series_list_model.indexFromItem(item).row()].index.name = item.text()
 
     def load_file(self, filename=None):   
 
@@ -608,7 +613,6 @@ class IVMainGui(QtGui.QMainWindow):
         self.series_list_model.setHorizontalHeaderLabels([self.tr('Data series')])
         self.series_list_view.setRootIsDecorated(False)
         self.series_list_view.setDragDropMode(QtGui.QAbstractItemView.NoDragDrop)
-        self.series_list_view.setEditTriggers(QtGui.QAbstractItemView.NoEditTriggers)
         self.series_list_view.setSelectionMode(QtGui.QAbstractItemView.NoSelection)
 
         open_files_button = QtGui.QPushButton()
