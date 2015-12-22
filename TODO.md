@@ -1,7 +1,5 @@
 TODO
 ====
 
-- Add Excel file read functionality
-- Add data save feature
-- Change barwidth functionality
-- Change dotsize functionality
+- Add parameter selection for plot function
+- Add changing barwidth/dotsize functionality
