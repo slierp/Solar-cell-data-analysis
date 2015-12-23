@@ -36,13 +36,18 @@ class IVMainGui(QtGui.QMainWindow):
         self.user_filters_plain_format = []
         self.ad = {} # all data
         self.adindex = ['Uoc','Isc','RserLfDfIEC','Rsh','FF','Eta','IRev1']
+        
         self.label_formats = {}
         self.label_formats[0] = ['Uoc','Isc','RserLfDfIEC','Rsh','FF','Eta','IRev1']
         self.label_formats[1] = ['Uoc0','Isc0','Rseries_multi_level','Rshunt_SC','Fill0','Eff0','Ireverse_2']
         self.label_formats[2] = ['Uoc','Isc','RserIEC891','RshuntDfDr','FF','Eta','IRev1']
         self.label_formats[3] = ['Uoc','Isc','Rs','Rsh','FF','NCell','Irev2']        
         self.label_format = 0
-        self.label_text = QtGui.QLabel("Data label set A")        
+        self.label_text = QtGui.QLabel("Data label set A")
+        self.first_run = True
+
+        self.status_text = QtGui.QLabel("")
+
         self.yl = [] # yield loss
         self.smr = [] # summaries                     
         self.smrindex = ['Best cell','Median','Average','Std.dev.']
@@ -52,7 +57,21 @@ class IVMainGui(QtGui.QMainWindow):
         self.yloutput = []
         self.translator = None
         self.plot_selection_list = ['Uoc','Isc','Voc*Isc','FF','Eta','RserLfDfIEC','Rsh','IRev1']
-        self.plot_selection_combo_list = []       
+        self.plot_selection_combo_list = []
+        self.plot_selection_combo_list.append(self.tr('Boxplot'))
+        self.plot_selection_combo_list.append(self.tr('Walk-through'))
+        self.plot_selection_combo_list.append(self.tr('Rolling mean'))
+        self.plot_selection_combo_list.append(self.tr('Low to high'))
+        self.plot_selection_combo_list.append(self.tr('Histogram'))
+        self.plot_selection_combo_list.append(self.tr('Density'))
+        self.plot_selection_combo_list.append(self.tr('Histogram + density'))
+        self.plot_selection_combo_list.append(self.tr('Voc-Isc'))
+        self.plot_selection_combo_list.append(self.tr('Eta-FF'))
+        self.plot_selection_combo_list.append(self.tr('Rsh-FF'))     
+        self.param_one_combo = QtGui.QComboBox(self)
+        self.plot_selection_combo = QtGui.QComboBox(self)
+        self.plot_selection_combo.currentIndexChanged.connect(self.plot_selection_changed)        
+        
         self.prev_dir_path = ""
         self.wid = None
         
@@ -60,6 +79,17 @@ class IVMainGui(QtGui.QMainWindow):
         self.create_main_frame()
         self.set_default_filters()      
 
+    @QtCore.pyqtSlot(int)
+    def plot_selection_changed(self, index):
+        
+        if index < 3:
+            self.param_one_combo.setEnabled(True)
+        elif index > 2 and index < 7:
+            self.param_one_combo.setCurrentIndex(4)
+            self.param_one_combo.setDisabled(True)
+        else:
+            self.param_one_combo.setDisabled(True)
+            
     @QtCore.pyqtSlot(QtGui.QStandardItem)
     def rename_dataset(self,item):
         self.ad[self.series_list_model.indexFromItem(item).row()].index.name = item.text()
@@ -739,24 +769,10 @@ class IVMainGui(QtGui.QMainWindow):
         top_buttonbox.addButton(openreport_button, QtGui.QDialogButtonBox.ActionRole)
         top_buttonbox.addButton(plotselection_button, QtGui.QDialogButtonBox.ActionRole)
 
-        self.plot_selection_combo_list = []
-        self.plot_selection_combo_list.append(self.tr('Boxplot'))
-        self.plot_selection_combo_list.append(self.tr('Walk-through'))
-        self.plot_selection_combo_list.append(self.tr('Rolling mean'))
-        self.plot_selection_combo_list.append(self.tr('Low to high'))
-        self.plot_selection_combo_list.append(self.tr('Histogram'))
-        self.plot_selection_combo_list.append(self.tr('Density'))
-        self.plot_selection_combo_list.append(self.tr('Histogram + density'))
-        self.plot_selection_combo_list.append(self.tr('Voc-Isc'))
-        self.plot_selection_combo_list.append(self.tr('Eta-FF'))
-        self.plot_selection_combo_list.append(self.tr('Rsh-FF'))
-
-        self.param_one_combo = QtGui.QComboBox(self)
         for i in self.plot_selection_list:
             self.param_one_combo.addItem(i)               
         self.param_one_combo.setCurrentIndex(4)
 
-        self.plot_selection_combo = QtGui.QComboBox(self)
         for i in self.plot_selection_combo_list:
             self.plot_selection_combo.addItem(i)
         
@@ -777,10 +793,14 @@ class IVMainGui(QtGui.QMainWindow):
         self.main_frame.setLayout(vbox)
 
         self.setCentralWidget(self.main_frame)
-
-        self.status_text = QtGui.QLabel("")        
+        
         self.statusBar().addWidget(self.status_text,1)
-        self.label_text = QtGui.QLabel("Data label set A") 
+        
+        if self.first_run:
+            # need to remove it when changing language as this calls this function again
+            self.statusBar().removeWidget(self.label_text)
+            self.first_run = False
+            
         self.statusBar().addPermanentWidget(self.label_text)
         self.statusBar().showMessage(self.tr("Please load data files"))
 

@@ -25,6 +25,34 @@ class PlotSettingsDialog(QtGui.QDialog):
                 if i in self.parent.plot_selection:
                     self.dataset_cb[i].setChecked(True)
 
+        if self.parent.linewidth_enabled:
+            self.linewidth_sb = QtGui.QSpinBox()
+            self.linewidth_sb.setAccelerated(True)
+            self.linewidth_sb.setMaximum(999)
+            self.linewidth_sb.setMinimum(1)            
+            self.linewidth_sb.setValue(self.parent.linewidth_selection)
+            
+            hbox = QtGui.QHBoxLayout()
+            description = QtGui.QLabel(self.tr("Line width"))
+            hbox.addWidget(self.linewidth_sb)
+            hbox.addWidget(description)
+            hbox.addStretch(1)
+            vbox.addLayout(hbox)
+
+        if self.parent.dotsize_enabled:
+            self.dotsize_sb = QtGui.QSpinBox()
+            self.dotsize_sb.setAccelerated(True)
+            self.dotsize_sb.setMaximum(999)
+            self.dotsize_sb.setMinimum(1)            
+            self.dotsize_sb.setValue(self.parent.dotsize_selection)
+            
+            hbox = QtGui.QHBoxLayout()
+            description = QtGui.QLabel(self.tr("Dot size"))
+            hbox.addWidget(self.dotsize_sb)
+            hbox.addWidget(description)
+            hbox.addStretch(1)
+            vbox.addLayout(hbox)
+
         scroll_area = QtGui.QScrollArea()
         checkbox_widget = QtGui.QWidget()
         checkbox_vbox = QtGui.QVBoxLayout()
@@ -78,7 +106,13 @@ class PlotSettingsDialog(QtGui.QDialog):
 
         if self.parent.grid_enabled:             
             self.parent.grid_selection = self.grid_cb.isChecked()
-        
+
+        if self.parent.dotsize_enabled: 
+            self.parent.dotsize_selection = self.dotsize_sb.value()
+
+        if self.parent.linewidth_enabled: 
+            self.parent.linewidth_selection = self.linewidth_sb.value()
+            
         self.parent.plot_selection = []
         for i in range(len(self.dataset_cb)):
             if self.dataset_cb[i].isChecked():

@@ -112,6 +112,9 @@ class CorrVocIsc(IVMainPlot):
         self.grid_selection = True
         self.legend_enabled = True
         self.legend_selection = True
+        self.dotsize_enabled = True
+        self.dotsize_selection = 20
+        self.linewidth_enabled = False
         
         IVMainPlot.create_menu(self)
         IVMainPlot.create_main_frame(self)          
@@ -127,7 +130,7 @@ class CorrVocIsc(IVMainPlot):
         self.axes.tick_params(pad=8)
         
         for i in self.plot_selection:
-            self.axes.scatter(self.ad[i]['Uoc'],self.ad[i]['Isc'],c=cl[i % len(cl)],edgecolors='white',linewidths=0.3,s=20,label=self.ad[i].index.name)
+            self.axes.scatter(self.ad[i]['Uoc'],self.ad[i]['Isc'],c=cl[i % len(cl)],edgecolors='white',linewidths=0.3,s=self.dotsize_selection,label=self.ad[i].index.name)
 
         if self.legend_selection:
             self.axes.legend(loc='lower left',scatterpoints=1,markerscale=3,frameon=False)
@@ -152,6 +155,9 @@ class CorrEtaFF(IVMainPlot):
         self.grid_selection = True
         self.legend_enabled = True
         self.legend_selection = True
+        self.dotsize_enabled = True
+        self.dotsize_selection = 20
+        self.linewidth_enabled = False        
         
         IVMainPlot.create_menu(self)
         IVMainPlot.create_main_frame(self)          
@@ -167,7 +173,7 @@ class CorrEtaFF(IVMainPlot):
         self.axes.tick_params(pad=8)               
         
         for i in self.plot_selection:
-            self.axes.scatter(self.ad[i]['FF'],self.ad[i]['Eta'],c=cl[i % len(cl)],edgecolors='white',linewidths=0.3,s=20,label=self.ad[i].index.name)
+            self.axes.scatter(self.ad[i]['FF'],self.ad[i]['Eta'],c=cl[i % len(cl)],edgecolors='white',linewidths=0.3,s=self.dotsize_selection,label=self.ad[i].index.name)
         
         if self.legend_selection:
             self.axes.legend(loc='lower left',scatterpoints=1,markerscale=3,frameon=False)
@@ -192,6 +198,9 @@ class CorrRshFF(IVMainPlot):
         self.grid_selection = True
         self.legend_enabled = True
         self.legend_selection = True
+        self.dotsize_enabled = True
+        self.dotsize_selection = 20
+        self.linewidth_enabled = False          
         
         IVMainPlot.create_menu(self)
         IVMainPlot.create_main_frame(self)          
@@ -208,7 +217,7 @@ class CorrRshFF(IVMainPlot):
         self.axes.tick_params(pad=8)              
         
         for i in self.plot_selection:
-            self.axes.scatter(self.ad[i]['FF'],self.ad[i]['Rsh'],c=cl[i % len(cl)],edgecolors='white',linewidths=0.3,s=20,label=self.ad[i].index.name)
+            self.axes.scatter(self.ad[i]['FF'],self.ad[i]['Rsh'],c=cl[i % len(cl)],edgecolors='white',linewidths=0.3,s=self.dotsize_selection,label=self.ad[i].index.name)
         
         if self.legend_selection:
             self.axes.legend(loc='lower left',scatterpoints=1,markerscale=3,frameon=False)
@@ -233,6 +242,9 @@ class DistLtoH(IVMainPlot):
         self.grid_selection = True
         self.legend_enabled = True
         self.legend_selection = True
+        self.dotsize_enabled = True
+        self.dotsize_selection = 200        
+        self.linewidth_enabled = False        
         
         IVMainPlot.create_menu(self)
         IVMainPlot.create_main_frame(self)          
@@ -257,7 +269,7 @@ class DistLtoH(IVMainPlot):
             if se.ix[:,0].max() >= xmax : xmax = se.ix[:,0].max()
             if np.log10(1/len(se)) < ymin : ymin = np.log10(1/len(se))
             se.index = (se.index+1)/len(se)
-            self.axes.scatter(se,se.index,c=cl[i % len(cl)],edgecolor=cl[i % len(cl)],marker=r'$\circ$',s=200,label=self.ad[i].index.name)
+            self.axes.scatter(se,se.index,c=cl[i % len(cl)],edgecolor=cl[i % len(cl)],marker=r'$\circ$',s=self.dotsize_selection,label=self.ad[i].index.name)
   
         self.axes.set_xlim((np.floor(xmin), np.ceil(xmax)))
         self.axes.semilogy(10 ** np.floor(ymin))
@@ -286,6 +298,9 @@ class DensEta(IVMainPlot):
         self.grid_selection = True
         self.legend_enabled = True
         self.legend_selection = True
+        self.dotsize_enabled = False
+        self.linewidth_enabled = True
+        self.linewidth_selection = 3
         
         IVMainPlot.create_menu(self)
         IVMainPlot.create_main_frame(self)          
@@ -302,7 +317,7 @@ class DensEta(IVMainPlot):
             se = self.ad[i]['Eta']
             if se.min() <= xmin : xmin = se.min()
             if se.max() >= xmax : xmax = se.max()
-            se.plot(kind='kde',c=cl[i % len(cl)],lw=3,label=self.ad[i].index.name,ax=self.axes)
+            se.plot(kind='kde',c=cl[i % len(cl)],lw=self.linewidth_selection,label=self.ad[i].index.name,ax=self.axes)
                 
         self.axes.set_xlabel(r'$\mathrm{\mathsf{Eta\ [\%]}}$', fontsize=24, weight='black')
         self.axes.set_ylabel(r'$\mathrm{\mathsf{Density\ [a.u.]}}$', fontsize=24, weight='black')
@@ -335,6 +350,9 @@ class DistWT(IVMainPlot):
         self.grid_selection = True
         self.legend_enabled = True
         self.legend_selection = True
+        self.dotsize_enabled = True
+        self.dotsize_selection = 20
+        self.linewidth_enabled = False        
         
         if str(param_one_combo) in plot_selection_list:
             self.param_one_combo = str(param_one_combo)        
@@ -366,7 +384,7 @@ class DistWT(IVMainPlot):
                 se = pd.DataFrame(self.ad[i][self.param_one_combo])
             
             se.index = (se.index+1)/len(se)
-            self.axes.scatter(se.index,se,c=cl[i % len(cl)],edgecolors='white',linewidths=0.3,s=20,label=self.ad[i].index.name)
+            self.axes.scatter(se.index,se,c=cl[i % len(cl)],edgecolors='white',linewidths=0.3,s=self.dotsize_selection,label=self.ad[i].index.name)
 
         self.axes.set_xlim((0, 1))
     
@@ -394,6 +412,9 @@ class DistRM(IVMainPlot):
         self.grid_selection = True
         self.legend_enabled = True
         self.legend_selection = True
+        self.dotsize_enabled = False        
+        self.linewidth_enabled = True
+        self.linewidth_selection = 3        
         
         if str(param_one_combo) in plot_selection_list:
             self.param_one_combo = str(param_one_combo)         
@@ -424,7 +445,7 @@ class DistRM(IVMainPlot):
                 
             se.index = (se.index+1)/len(se)
             rm = pd.rolling_mean(se, np.floor(len(se)*.1) if len(se) > 100 else 1,center=True) # rolling mean
-            self.axes.plot(rm.index, rm,c=cl[i % len(cl)],lw=3,label=self.ad[i].index.name)
+            self.axes.plot(rm.index, rm,c=cl[i % len(cl)],lw=self.linewidth_selection,label=self.ad[i].index.name)
     
         if self.legend_selection:
             self.axes.legend(loc='lower left',scatterpoints=1,markerscale=3,frameon=True)
@@ -448,6 +469,8 @@ class IVBoxPlot(IVMainPlot):
         self.title_enabled = False        
         self.grid_enabled = False
         self.legend_enabled = False
+        self.dotsize_enabled = False
+        self.linewidth_enabled = False        
         
         if str(param_one_combo) in plot_selection_list:
             self.param_one_combo = str(param_one_combo)
@@ -500,7 +523,9 @@ class IVHistPlot(IVMainPlot):
         self.title_selection = True
         self.single_dataset = True
         self.grid_enabled = False
-        self.legend_enabled = False        
+        self.legend_enabled = False
+        self.dotsize_enabled = False
+        self.linewidth_enabled = False
         
         IVMainPlot.create_menu(self)
         IVMainPlot.create_main_frame(self)
@@ -511,14 +536,13 @@ class IVHistPlot(IVMainPlot):
         # Clear previous and re-draw everything
         self.axes.clear()
 
-        for i in self.plot_selection:
-            se = self.ad[i]['Eta'].round(1)
-            freq = se.value_counts()
-            freq = 100*freq/len(se)
-            freq = freq.sort_index()
-            freq.plot(kind='bar',color=cl[i % len(cl)],ax=self.axes)
-            if self.title_selection:
-                self.axes.set_title(self.ad[i].index.name)
+        se = self.ad[self.plot_selection[0]]['Eta'].round(1)
+        freq = se.value_counts()
+        freq = 100*freq/len(se)
+        freq = freq.sort_index()
+        freq.plot(kind='bar',color=cl[self.plot_selection[0] % len(cl)],ax=self.axes)
+        if self.title_selection:
+            self.axes.set_title(self.ad[self.plot_selection[0]].index.name)
                 
         self.axes.set_xlabel(r'$\mathrm{\mathsf{Eta\ [\%]}}$', fontsize=24, weight='black')
         self.axes.set_ylabel(r'$\mathrm{\mathsf{Frequency\ [\%]}}$', fontsize=24, weight='black')
@@ -542,6 +566,9 @@ class IVHistDenPlot(IVMainPlot):
         self.single_dataset = True
         self.grid_enabled = False
         self.legend_enabled = False
+        self.dotsize_enabled = False        
+        self.linewidth_enabled = True
+        self.linewidth_selection = 3        
         
         IVMainPlot.create_menu(self)
         IVMainPlot.create_main_frame(self)
@@ -561,19 +588,17 @@ class IVHistDenPlot(IVMainPlot):
             if ser.min() <= xmin : xmin = ser.min()
             if ser.max() >= xmax : xmax = ser.max()
 
-        for i in self.plot_selection:
-            den = self.ad[i]['Eta']
-            bn = self.ad[i]['Eta'].round(1)
-            freq = bn.value_counts()
-            freq = 100*freq/len(bn)
-            freq = freq.sort_index()
-            #freq = freq.drop(freq.index[[np.arange(0,len(freq)-bins)]]) # if bins < no_datapoints it does not drop anything
-            self.axes.bar(freq.index, freq.values, 0.1, color=cl[i % len(cl)],align='center')
-            den.plot(kind='kde',c='white',lw=6,ax=self.axes2)
-            den.plot(kind='kde',c='black',lw=4,ax=self.axes2)
-            den.plot(kind='kde',c='r',lw=3,ax=self.axes2)
-            if self.title_selection:
-                self.axes.set_title(self.ad[i].index.name)
+        den = self.ad[self.plot_selection[0]]['Eta']
+        bn = self.ad[self.plot_selection[0]]['Eta'].round(1)
+        freq = bn.value_counts()
+        freq = 100*freq/len(bn)
+        freq = freq.sort_index()
+        self.axes.bar(freq.index, freq.values, 0.1, color=cl[self.plot_selection[0] % len(cl)],align='center')
+        den.plot(kind='kde',c='white',lw=self.linewidth_selection+3,ax=self.axes2)
+        den.plot(kind='kde',c='black',lw=self.linewidth_selection+1,ax=self.axes2)
+        den.plot(kind='kde',c='r',lw=self.linewidth_selection,ax=self.axes2)
+        if self.title_selection:
+            self.axes.set_title(self.ad[self.plot_selection[0]].index.name)
                 
         self.axes.set_xlim((np.floor(xmin), np.ceil(xmax)))
         self.axes2.set_xlim((np.floor(xmin), np.ceil(xmax)))
