@@ -97,8 +97,12 @@ class IVMainGui(QtGui.QMainWindow):
         keepcharacters = (' ','.','_')
         valid_filename = "".join(c for c in entered_name if c.isalnum() or c in keepcharacters).rstrip()
 
-        self.ad[self.series_list_model.indexFromItem(item).row()].index.name = valid_filename
-        item.setText(valid_filename)
+
+        if len(valid_filename) > 0:
+            self.ad[self.series_list_model.indexFromItem(item).row()].index.name = valid_filename
+            item.setText(valid_filename)
+        else:
+            item.setText(self.ad[self.series_list_model.indexFromItem(item).row()].index.name)
 
     def load_file(self, filename=None):   
 
