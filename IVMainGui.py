@@ -5,7 +5,7 @@ import pandas as pd
 import os, ntpath, pickle
 from HelpDialog import HelpDialog
 from PyQt4 import QtCore, QtGui
-from IVMainPlot import CorrVocIsc, CorrEtaFF, CorrRshFF, DistLtoH, DensEta, DistWT, DistRM, IVBoxPlot, IVHistPlot, IVHistDenPlot      
+from IVMainPlot import CorrVocIsc, CorrEtaFF, CorrRshFF, DistLtoH, DensEta, DistWT, DistRM, IVBoxPlot, IVHistPlot, IVHistDenPlot
 
 class IVMainGui(QtGui.QMainWindow):
     def __init__(self, parent=None):
@@ -92,7 +92,13 @@ class IVMainGui(QtGui.QMainWindow):
             
     @QtCore.pyqtSlot(QtGui.QStandardItem)
     def rename_dataset(self,item):
-        self.ad[self.series_list_model.indexFromItem(item).row()].index.name = item.text()
+        entered_name = str(item.text())
+        
+        keepcharacters = (' ','.','_')
+        valid_filename = "".join(c for c in entered_name if c.isalnum() or c in keepcharacters).rstrip()
+
+        self.ad[self.series_list_model.indexFromItem(item).row()].index.name = valid_filename
+        item.setText(valid_filename)
 
     def load_file(self, filename=None):   
 
