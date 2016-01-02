@@ -106,9 +106,11 @@ class IVMainGui(QtGui.QMainWindow):
 
     def load_file(self, filename=None):   
 
-        fileNames = QtGui.QFileDialog.getOpenFileNames(self,self.tr("Load files"), self.prev_dir_path, "Excel Files (*.csv)")
+        #fileNames = QtGui.QFileDialog.getOpenFileNames(self,self.tr("Load files"), self.prev_dir_path, "Excel Files (*.csv)")
+        fileNames = QtGui.QFileDialog.getOpenFileNames(self,self.tr("Load files"), self.prev_dir_path, "Excel Files (*.csv *.xls *.xlsx)")
         empty_data_warning = False
         non_ascii_warning = False
+        read_error_warning = False
 
         num = len(self.ad)
         for filename in fileNames:
@@ -130,15 +132,22 @@ class IVMainGui(QtGui.QMainWindow):
             self.prev_dir_path = ntpath.dirname(str(filename))
 
             # Try to load file and give error message if label format is not recognized
-            try:
-                self.ad[num] = pd.read_csv(str(filename))[self.label_formats[self.label_format]].dropna()
-            except KeyError:
+            _, file_extension = ntpath.splitext(str(filename))
+            if file_extension == ".csv":
                 try:
-                    self.ad[num] = pd.read_csv(str(filename),sep=';')[self.label_formats[self.label_format]].dropna()
+                    self.ad[num] = pd.read_csv(str(filename))[self.label_formats[self.label_format]].dropna()
                 except KeyError:
-                    msg = self.tr("Error while reading data files.\n\nData labels were perhaps not recognized.")
-                    QtGui.QMessageBox.about(self, self.tr("Warning"), msg) 
-
+                    try:
+                        self.ad[num] = pd.read_csv(str(filename),sep=';')[self.label_formats[self.label_format]].dropna()
+                    except KeyError:
+                        read_error_warning = True
+            else:
+                try:
+                    xl_file = pd.read_excel(str(filename))
+                    self.ad[num] = xl_file[self.label_formats[self.label_format]].dropna()
+                except KeyError:
+                    read_error_warning = True
+            
             # Try to apply default labels to columns; skip current file if unsuccessful
             try:
                 self.ad[num].columns = self.label_formats[0]
@@ -171,6 +180,10 @@ class IVMainGui(QtGui.QMainWindow):
             item.setFont(font)
             self.series_list_model.appendRow(item)                        
             num += 1
+
+        if read_error_warning:
+            msg = self.tr("Error while reading data files.\n\nData labels were perhaps not recognized.")
+            QtGui.QMessageBox.about(self, self.tr("Warning"), msg)
 
         if empty_data_warning:
             msg = self.tr("Empty data sets were found.\n\nThe application only accepts data entries with a value for Voc, Isc, FF, Eta, Rser, Rsh and Irev. All values also need to be non-negative.")

@@ -32,11 +32,10 @@ It has the following features:
 
 <p><h2><a name="input">Data format requirements</a></h2></p>
 <p>
-The program currently accepts CSV (comma separated values) files as input.
-If your data is in Excel format then you can use the 'Save as' function inside Excel to save your data as a CSV file.
-Excel supports a number of different CSV formats but they are all compatible with SCiDA Pro.
-The filename of your CSV file will be the name of your data set inside the program.
-When reading the CSV file the SCiDA Pro program will try to recognize the data labels of the columns, which need to be in the first row of each column.
+The program accepts Excel files and CSV (comma separated values) files as input.
+The filename will become the name of the data set inside the program.
+For Excel files with multiple sheets only the first sheet will be read.
+When reading the data the program will try to recognize the data labels of the columns, which need to be in the first row of each column.
 It will use only the data in the columns that it recognizes and ignores any others.
 An appropriate set of data labels could be as follows: Uoc; Isc; RserLfDfIEC; Rsh; FF; Eta; IRev1.
 Other data label sets can be selected in the 'Data labels' menu.
