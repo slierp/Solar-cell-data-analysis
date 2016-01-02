@@ -39,7 +39,7 @@ class IVMainPlot(QtGui.QMainWindow):
     def on_draw(self):
         pass
     
-    def create_main_frame(self):
+    def create_main_frame(self,two_axes=False):
         self.main_frame = QtGui.QWidget()
         
         # Create the mpl Figure and FigCanvas objects
@@ -49,7 +49,9 @@ class IVMainPlot(QtGui.QMainWindow):
         self.canvas.setParent(self.main_frame)
         
         self.axes = self.fig.add_subplot(111, axisbg='White')
-        self.axes2 = self.axes.twinx()        
+        
+        if two_axes:
+            self.axes2 = self.axes.twinx()        
  
         # Create the navigation toolbar, tied to the canvas
         self.mpl_toolbar = NavigationToolbar(self.canvas, self.main_frame)
@@ -481,12 +483,16 @@ class IVBoxPlot(IVMainPlot):
     def on_draw(self):
 
         # Clear previous and re-draw everything
-        self.axes.clear()           
+        self.axes.clear()
 
         for i, value in enumerate(plot_selection_list):
             if self.param_one_combo == value:
                 self.axes.set_ylabel(plot_label_list[i], fontsize=24, weight='black')
-        self.axes.tick_params(pad=8)  
+        self.axes.tick_params(pad=8)
+
+        if len(self.plot_selection) == 0:
+            self.canvas.draw()
+            return
         
         data = []
         labels = []
@@ -505,7 +511,7 @@ class IVBoxPlot(IVMainPlot):
         bp = self.axes.boxplot(data,0,'')
         plt.setp(bp['boxes'], color='black',lw=2)
         plt.setp(bp['whiskers'], color='black',lw=2,ls='-')
-        plt.setp(bp['caps'], color='black', lw=2)    
+        plt.setp(bp['caps'], color='black', lw=2)
 
         self.canvas.draw()
     
@@ -571,7 +577,7 @@ class IVHistDenPlot(IVMainPlot):
         self.linewidth_selection = 3        
         
         IVMainPlot.create_menu(self)
-        IVMainPlot.create_main_frame(self)
+        IVMainPlot.create_main_frame(self,True)
         self.on_draw()                     
         
     def on_draw(self):
