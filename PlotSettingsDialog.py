@@ -86,7 +86,7 @@ class PlotSettingsDialog(QtGui.QDialog):
         checkbox_vbox = QtGui.QVBoxLayout()
 
         for i in range(len(self.dataset_cb)):
-            self.dataset_cb[i].setMinimumWidth(200) # prevent obscured text
+            self.dataset_cb[i].setMinimumWidth(400) # prevent obscured text
             checkbox_vbox.addWidget(self.dataset_cb[i])
 
         checkbox_widget.setLayout(checkbox_vbox)

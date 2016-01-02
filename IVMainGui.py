@@ -173,8 +173,8 @@ class IVMainGui(QtGui.QMainWindow):
             
             ### add list view item ###
             str_a = ntpath.basename(str(filename)[0:-4])            
-            self.ad[num].index.name = str_a[0:19] # data set name limited to 20 characters
-            item = QtGui.QStandardItem(str_a[0:19])
+            self.ad[num].index.name = str_a[0:39] # data set name limited to 40 characters
+            item = QtGui.QStandardItem(str_a[0:39])
             font = item.font()
             font.setBold(1)
             item.setFont(font)
@@ -198,29 +198,50 @@ class IVMainGui(QtGui.QMainWindow):
         else:
             self.statusBar().showMessage(self.tr("Please load data files"))
 
-    def save_files(self):        
-        dest_dir = QtGui.QFileDialog.getExistingDirectory(None, self.tr('Open directory'), self.prev_dir_path, QtGui.QFileDialog.ShowDirsOnly) 
+    def save_files(self):
+        dest_dir = QtGui.QFileDialog.getExistingDirectory(None, self.tr('Open directory'), self.prev_dir_path, QtGui.QFileDialog.ShowDirsOnly)
+        
+        if not dest_dir:
+            return
+
+        self.prev_dir_path = dest_dir
+            
+        yes_to_all = False
         
         for i in self.ad:
-            # Export all filtered IV data to existing csv files - THIS WILL OVERWRITE YOUR EXISTING FILES
+            # Export all filtered IV data to existing csv files
             filename = self.ad[i].index.name + '.csv'
+            check_overwrite = False
+            save_path = ""
             
+            # check if file exists and then ask if overwrite is oke
             if os.name == 'nt': # if windows
-                if os.path.isfile(dest_dir + '\\' + filename): # if file exists, check if overwrite is oke
-                    reply = QtGui.QMessageBox.question(self, 'Message', "Overwrite " + filename + "?", QtGui.QMessageBox.Yes | QtGui.QMessageBox.No, QtGui.QMessageBox.No)
-
-                    if reply == QtGui.QMessageBox.Yes:                    
-                        self.ad[i].to_csv(dest_dir + '\\' + filename, index=False)
-                else:
-                    self.ad[i].to_csv(dest_dir + '\\' + filename, index=False)
+                save_path = dest_dir + '\\' + filename
+                if os.path.isfile(save_path):
+                    check_overwrite = True
             else: # if not windows
-                if os.path.isfile(dest_dir + '\/' + filename): # if file exists, check if overwrite is oke
-                    reply = QtGui.QMessageBox.question(self, 'Message', "Overwrite " + filename + "?", QtGui.QMessageBox.Yes | QtGui.QMessageBox.No, QtGui.QMessageBox.No)
+                save_path = dest_dir + '\/' + filename
+                if os.path.isfile(save_path):
+                    check_overwrite = True
 
-                    if reply == QtGui.QMessageBox.Yes:                    
-                        self.ad[i].to_csv(dest_dir + '\/' + filename, index=False)
-                else:
-                    self.ad[i].to_csv(dest_dir + '\/' + filename, index=False)
+            if check_overwrite and not yes_to_all:
+                reply = QtGui.QMessageBox.question(self, self.tr("Message"), "Overwrite \'" + filename + "\'?", QtGui.QMessageBox.YesToAll | QtGui.QMessageBox.Yes | QtGui.QMessageBox.No | QtGui.QMessageBox.Cancel, QtGui.QMessageBox.No)
+
+                if reply == QtGui.QMessageBox.No:                    
+                    save_path = QtGui.QFileDialog.getSaveFileName(self,self.tr("Save file"), dest_dir, "CSV File (*.csv)")
+                    
+                    if not save_path:
+                        continue
+
+                if reply == QtGui.QMessageBox.YesToAll:
+                    yes_to_all = True
+                    
+                if reply == QtGui.QMessageBox.Cancel:
+                    return
+                           
+            self.ad[i].to_csv(save_path, index=False)
+        
+        self.statusBar().showMessage(self.tr("Files saved")) 
                    
     def combine_datasets(self):
 
