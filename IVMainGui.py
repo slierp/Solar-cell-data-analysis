@@ -172,7 +172,7 @@ class IVMainGui(QtGui.QMainWindow):
                 self.ad[num].loc[:,'Eta'] *= 100
             
             ### add list view item ###
-            str_a = ntpath.basename(str(filename)[0:-4])            
+            str_a = ntpath.splitext(ntpath.basename(str(filename)))[0]
             self.ad[num].index.name = str_a[0:39] # data set name limited to 40 characters
             item = QtGui.QStandardItem(str_a[0:39])
             font = item.font()

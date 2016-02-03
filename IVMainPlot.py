@@ -507,8 +507,9 @@ class IVBoxPlot(IVMainPlot):
                 data.append(self.ad[i][str(self.param_one_combo)])
                 
             labels.append(self.ad[i].index.name)
-        self.axes.set_xticklabels(labels, rotation=0)
+        
         bp = self.axes.boxplot(data,0,'')
+        self.axes.set_xticklabels(labels, rotation=0)
         plt.setp(bp['boxes'], color='black',lw=2)
         plt.setp(bp['whiskers'], color='black',lw=2,ls='-')
         plt.setp(bp['caps'], color='black', lw=2)
