@@ -1,2 +1,2 @@
-python IVMain.py
+python scida-pro/IVMain.py
 pause
