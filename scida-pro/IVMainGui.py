@@ -691,7 +691,7 @@ class IVMainGui(QtGui.QMainWindow):
         help_dialog.show()
 
     def on_about(self):
-        msg = self.tr("Solar cell data analysis\nAuthor: Ronald Naber\nContact: rnaber (AT) tempress (DOT) nl\nLicense: Public domain")
+        msg = self.tr("Solar cell data analysis\nAuthor: Ronald Naber\nLicense: Public domain")
         QtGui.QMessageBox.about(self, self.tr("About the application"), msg)
     
     def create_main_frame(self):
