@@ -1,11 +1,11 @@
 from __future__ import division
 import numpy as np
 import pandas as pd
-import matplotlib, Tkinter, FileDialog
+import matplotlib #, Tkinter, FileDialog
 import matplotlib.pyplot as plt
-from PyQt4 import QtGui
-from matplotlib.backends.backend_qt4agg import FigureCanvasQTAgg as FigureCanvas
-from matplotlib.backends.backend_qt4agg import NavigationToolbar2QT as NavigationToolbar
+from PyQt5 import QtGui, QtWidgets
+from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
+from matplotlib.backends.backend_qt5agg import NavigationToolbar2QT as NavigationToolbar
 from matplotlib.figure import Figure
 from matplotlib import rcParams
 from PlotSettingsDialog import PlotSettingsDialog
@@ -31,7 +31,7 @@ plot_label_list = [voc_axis_label, isc_axis_label, vocisc_axis_label, ff_axis_la
 
 ########## Main class - only for inheriting ##########
 
-class IVMainPlot(QtGui.QMainWindow):  
+class IVMainPlot(QtWidgets.QMainWindow):  
     
     def __init__(self, parent=None):
         pass          
@@ -40,7 +40,7 @@ class IVMainPlot(QtGui.QMainWindow):
         pass
     
     def create_main_frame(self,two_axes=False):
-        self.main_frame = QtGui.QWidget()
+        self.main_frame = QtWidgets.QWidget()
         
         # Create the mpl Figure and FigCanvas objects
         self.dpi = 100
@@ -48,7 +48,7 @@ class IVMainPlot(QtGui.QMainWindow):
         self.canvas = FigureCanvas(self.fig)
         self.canvas.setParent(self.main_frame)
         
-        self.axes = self.fig.add_subplot(111, axisbg='White')
+        self.axes = self.fig.add_subplot(111, facecolor='White')
         
         if two_axes:
             self.axes2 = self.axes.twinx()        
@@ -57,32 +57,32 @@ class IVMainPlot(QtGui.QMainWindow):
         self.mpl_toolbar = NavigationToolbar(self.canvas, self.main_frame)
         
         # Other GUI controls               
-        show_button = QtGui.QPushButton()
+        show_button = QtWidgets.QPushButton()
         show_button.clicked.connect(self.plot_settings_view)
         show_button.setIcon(QtGui.QIcon(":gear.png"))
         show_button.setToolTip(self.tr("Plot settings"))
         show_button.setStatusTip(self.tr("Plot settings"))
 
-        buttonbox0 = QtGui.QDialogButtonBox()
-        buttonbox0.addButton(show_button, QtGui.QDialogButtonBox.ActionRole)               
+        buttonbox0 = QtWidgets.QDialogButtonBox()
+        buttonbox0.addButton(show_button, QtWidgets.QDialogButtonBox.ActionRole)               
 
         self.mpl_toolbar.addWidget(show_button)                      
                                 
-        vbox = QtGui.QVBoxLayout()        
+        vbox = QtWidgets.QVBoxLayout()        
         vbox.addWidget(self.mpl_toolbar)
         vbox.addWidget(self.canvas)
         
         self.main_frame.setLayout(vbox)
         self.setCentralWidget(self.main_frame)
         
-        self.status_text = QtGui.QLabel("")        
+        self.status_text = QtWidgets.QLabel("")        
         self.statusBar().addWidget(self.status_text,1) 
         
     def create_menu(self):
 
         self.file_menu = self.menuBar().addMenu(self.tr("File"))
         tip = self.tr("Quit")
-        quit_action = QtGui.QAction(tip, self)
+        quit_action = QtWidgets.QAction(tip, self)
         quit_action.setIcon(QtGui.QIcon(":quit.png"))
         quit_action.triggered.connect(self.close) 
         quit_action.setToolTip(tip)
@@ -100,7 +100,7 @@ class IVMainPlot(QtGui.QMainWindow):
 
 class CorrVocIsc(IVMainPlot):
     def __init__(self, parent):
-        QtGui.QMainWindow.__init__(self, parent)
+        QtWidgets.QMainWindow.__init__(self, parent)
         self.setWindowTitle(self.tr("Correlation"))
         
         self.ad = parent.ad
@@ -143,7 +143,7 @@ class CorrVocIsc(IVMainPlot):
 
 class CorrEtaFF(IVMainPlot):
     def __init__(self, parent):
-        QtGui.QMainWindow.__init__(self, parent)
+        QtWidgets.QMainWindow.__init__(self, parent)
         self.setWindowTitle(self.tr("Correlation"))
         
         self.ad = parent.ad
@@ -186,7 +186,7 @@ class CorrEtaFF(IVMainPlot):
 
 class CorrRshFF(IVMainPlot):
     def __init__(self, parent):
-        QtGui.QMainWindow.__init__(self, parent)
+        QtWidgets.QMainWindow.__init__(self, parent)
         self.setWindowTitle(self.tr("Correlation"))
         
         self.ad = parent.ad
@@ -230,7 +230,7 @@ class CorrRshFF(IVMainPlot):
 
 class DistLtoH(IVMainPlot):
     def __init__(self, parent):
-        QtGui.QMainWindow.__init__(self, parent)
+        QtWidgets.QMainWindow.__init__(self, parent)
         self.setWindowTitle(self.tr("Distribution"))
         
         self.ad = parent.ad
@@ -286,7 +286,7 @@ class DistLtoH(IVMainPlot):
 
 class DensEta(IVMainPlot):
     def __init__(self, parent):
-        QtGui.QMainWindow.__init__(self, parent)
+        QtWidgets.QMainWindow.__init__(self, parent)
         self.setWindowTitle(self.tr("Density"))
         
         self.ad = parent.ad
@@ -337,7 +337,7 @@ class DensEta(IVMainPlot):
 
 class DistWT(IVMainPlot):
     def __init__(self, parent, param_one_combo):
-        QtGui.QMainWindow.__init__(self, parent)
+        QtWidgets.QMainWindow.__init__(self, parent)
         self.setWindowTitle(self.tr("Walkthrough"))
         
         self.ad = parent.ad
@@ -399,7 +399,7 @@ class DistWT(IVMainPlot):
 
 class DistRM(IVMainPlot):
     def __init__(self, parent, param_one_combo):
-        QtGui.QMainWindow.__init__(self, parent)
+        QtWidgets.QMainWindow.__init__(self, parent)
         self.setWindowTitle(self.tr("Rolling mean"))
        
         self.ad = parent.ad
@@ -458,7 +458,7 @@ class DistRM(IVMainPlot):
        
 class IVBoxPlot(IVMainPlot):
     def __init__(self, parent, param_one_combo):
-        QtGui.QMainWindow.__init__(self, parent)
+        QtWidgets.QMainWindow.__init__(self, parent)
         self.setWindowTitle(self.tr("Boxplot"))
 
         self.ad = parent.ad
@@ -509,18 +509,79 @@ class IVBoxPlot(IVMainPlot):
             labels.append(self.ad[i].index.name)
         
         bp = self.axes.boxplot(data,0,'')
+        self.axes.set_xticks([y+1 for y in range(len(labels))])       
         self.axes.set_xticklabels(labels, rotation=0)
         plt.setp(bp['boxes'], color='black',lw=2)
         plt.setp(bp['whiskers'], color='black',lw=2,ls='-')
         plt.setp(bp['caps'], color='black', lw=2)
 
         self.canvas.draw()
-    
+
+########## IVMainPlot sub class - Violinplot ##########
+       
+class ViolinPlot(IVMainPlot):
+    def __init__(self, parent, param_one_combo):
+        QtWidgets.QMainWindow.__init__(self, parent)
+        self.setWindowTitle(self.tr("Violinplot"))
+
+        self.ad = parent.ad
+        
+        self.plot_selection = []
+        for i in range(len(self.ad)):
+            self.plot_selection.append(i)
+
+        self.single_dataset = False
+        self.title_enabled = False        
+        self.grid_enabled = False
+        self.legend_enabled = False
+        self.dotsize_enabled = False
+        self.linewidth_enabled = False        
+        
+        if str(param_one_combo) in plot_selection_list:
+            self.param_one_combo = str(param_one_combo)
+        IVMainPlot.create_menu(self)
+        IVMainPlot.create_main_frame(self)
+        self.on_draw()                     
+        
+    def on_draw(self):
+
+        # Clear previous and re-draw everything
+        self.axes.clear()
+
+        for i, value in enumerate(plot_selection_list):
+            if self.param_one_combo == value:
+                self.axes.set_ylabel(plot_label_list[i], fontsize=24, weight='black')
+        self.axes.tick_params(pad=8)
+
+        if len(self.plot_selection) == 0:
+            self.canvas.draw()
+            return
+        
+        data = []
+        labels = []
+        for i in self.plot_selection:
+            if (self.param_one_combo == 'Voc*Isc'):
+                data.append(self.ad[i]['Uoc'] * self.ad[i]['Isc'])                    
+            elif (self.param_one_combo == 'RserLfDfIEC'):
+                data.append(1000*self.ad[i][str(self.param_one_combo)])
+            elif (self.param_one_combo == 'Rsh'):
+                data.append(0.001*self.ad[i][str(self.param_one_combo)])                    
+            else:
+                data.append(self.ad[i][str(self.param_one_combo)])
+            
+            labels.append(self.ad[i].index.name)
+
+        self.axes.violinplot(data,showmeans=False,showmedians=True)
+        self.axes.set_xticks([y+1 for y in range(len(labels))])
+        self.axes.set_xticklabels(labels, rotation=0)
+            
+        self.canvas.draw()
+
 ########## IVMainPlot sub class - Histogram ##########
        
 class IVHistPlot(IVMainPlot):
     def __init__(self, parent):
-        QtGui.QMainWindow.__init__(self, parent)
+        QtWidgets.QMainWindow.__init__(self, parent)
         self.setWindowTitle(self.tr("Histogram"))
         
         self.ad = parent.ad
@@ -562,7 +623,7 @@ class IVHistPlot(IVMainPlot):
        
 class IVHistDenPlot(IVMainPlot):
     def __init__(self, parent):
-        QtGui.QMainWindow.__init__(self, parent)
+        QtWidgets.QMainWindow.__init__(self, parent)
         self.setWindowTitle(self.tr("Histogram and density"))
         
         self.ad = parent.ad

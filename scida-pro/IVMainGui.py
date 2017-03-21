@@ -1,13 +1,12 @@
 # -*- coding: utf-8 -*-
-from __future__ import division
 import numpy as np
 import pandas as pd
 import os, ntpath, pickle
 from HelpDialog import HelpDialog
-from PyQt4 import QtCore, QtGui
-from IVMainPlot import CorrVocIsc, CorrEtaFF, CorrRshFF, DistLtoH, DensEta, DistWT, DistRM, IVBoxPlot, IVHistPlot, IVHistDenPlot
+from PyQt5 import QtCore, QtGui, QtWidgets
+from IVMainPlot import CorrVocIsc, CorrEtaFF, CorrRshFF, DistLtoH, DensEta, DistWT, DistRM, IVBoxPlot, IVHistPlot, IVHistDenPlot, ViolinPlot
 
-class IVMainGui(QtGui.QMainWindow):
+class IVMainGui(QtWidgets.QMainWindow):
     def __init__(self, parent=None):
         super(IVMainGui, self).__init__(parent)
         self.setWindowTitle(self.tr("SCiDA Pro"))
@@ -17,17 +16,17 @@ class IVMainGui(QtGui.QMainWindow):
         ### Set initial geometry and center the window on the screen ###
         self.resize(1024, 576)
         frameGm = self.frameGeometry()
-        centerPoint = QtGui.QDesktopWidget().availableGeometry().center()
+        centerPoint = QtWidgets.QDesktopWidget().availableGeometry().center()
         frameGm.moveCenter(centerPoint)
         self.move(frameGm.topLeft()) 
 
         ### Set default font size ###
         self.setStyleSheet('font-size: 12pt;')  
 
-        self.clip = QtGui.QApplication.clipboard()
+        self.clip = QtWidgets.QApplication.clipboard()
         self.series_list_model = QtGui.QStandardItemModel()
         self.series_list_model.itemChanged.connect(self.rename_dataset)
-        self.filter_table_widget = QtGui.QTableWidget()
+        self.filter_table_widget = QtWidgets.QTableWidget()
         self.default_filters = [
             ["IRev1",">",3],["FF","<",70],["Eta","<",16],
             ["FF","<",75],["Rsh","<",20],["Eta","<",18]
@@ -43,10 +42,10 @@ class IVMainGui(QtGui.QMainWindow):
         self.label_formats[2] = ['Uoc','Isc','RserIEC891','RshuntDfDr','FF','Eta','IRev1']
         self.label_formats[3] = ['Uoc','Isc','Rs','Rsh','FF','NCell','Irev2']        
         self.label_format = 0
-        self.label_text = QtGui.QLabel("Data label set A")
+        self.label_text = QtWidgets.QLabel("Data label set A")
         self.first_run = True
 
-        self.status_text = QtGui.QLabel("")
+        self.status_text = QtWidgets.QLabel("")
 
         self.yl = [] # yield loss
         self.smr = [] # summaries                     
@@ -59,6 +58,7 @@ class IVMainGui(QtGui.QMainWindow):
         self.plot_selection_list = ['Uoc','Isc','Voc*Isc','FF','Eta','RserLfDfIEC','Rsh','IRev1']
         self.plot_selection_combo_list = []
         self.plot_selection_combo_list.append(self.tr('Boxplot'))
+        self.plot_selection_combo_list.append(self.tr('Violinplot'))
         self.plot_selection_combo_list.append(self.tr('Walk-through'))
         self.plot_selection_combo_list.append(self.tr('Rolling mean'))
         self.plot_selection_combo_list.append(self.tr('Low to high'))
@@ -68,8 +68,8 @@ class IVMainGui(QtGui.QMainWindow):
         self.plot_selection_combo_list.append(self.tr('Voc-Isc'))
         self.plot_selection_combo_list.append(self.tr('Eta-FF'))
         self.plot_selection_combo_list.append(self.tr('Rsh-FF'))     
-        self.param_one_combo = QtGui.QComboBox(self)
-        self.plot_selection_combo = QtGui.QComboBox(self)
+        self.param_one_combo = QtWidgets.QComboBox(self)
+        self.plot_selection_combo = QtWidgets.QComboBox(self)
         self.plot_selection_combo.currentIndexChanged.connect(self.plot_selection_changed)        
         
         self.prev_dir_path = ""
@@ -106,44 +106,47 @@ class IVMainGui(QtGui.QMainWindow):
 
     def load_file(self, filename=None):   
 
-        #fileNames = QtGui.QFileDialog.getOpenFileNames(self,self.tr("Load files"), self.prev_dir_path, "Excel Files (*.csv)")
-        fileNames = QtGui.QFileDialog.getOpenFileNames(self,self.tr("Load files"), self.prev_dir_path, "Excel Files (*.csv *.xls *.xlsx)")
+        #fileNames = QtWidgets.QFileDialog.getOpenFileNames(self,self.tr("Load files"), self.prev_dir_path, "Excel Files (*.csv)")
+        fileNames = QtWidgets.QFileDialog.getOpenFileNames(self,self.tr("Load files"), self.prev_dir_path, "Excel Files (*.csv *.xls *.xlsx)")
+        fileNames = fileNames[0]
+        
+        if (not fileNames):
+            return        
+        
         empty_data_warning = False
         non_ascii_warning = False
         read_error_warning = False
 
         num = len(self.ad)
+
         for filename in fileNames:
             # Read all .csv files and insert selected columns into ad
             # Purge rows with empty or negative elements
             # Enter new data set names into ad and series list
 
             # Check for non-ASCII filenames, give warning and skip loading such files
-            try: # try qstring first (windows)
-                if not os.path.isfile(filename.toLatin1()):
-                    non_ascii_warning = True
-                    continue
-            except AttributeError: # try unicode second (linux)
-                if not os.path.isfile(filename.encode('ascii', 'ignore')):
-                    non_ascii_warning = True
-                    continue
-
+            try:
+                filename.encode('ascii')
+            except:
+                non_ascii_warning = True
+                continue
+        
             # Set working directory so that user can remain where they are
-            self.prev_dir_path = ntpath.dirname(str(filename))
+            self.prev_dir_path = ntpath.dirname(filename)
 
             # Try to load file and give error message if label format is not recognized
-            _, file_extension = ntpath.splitext(str(filename))
+            _, file_extension = ntpath.splitext(filename)
             if file_extension == ".csv":
                 try:
-                    self.ad[num] = pd.read_csv(str(filename))[self.label_formats[self.label_format]].dropna()
+                    self.ad[num] = pd.read_csv(filename)[self.label_formats[self.label_format]].dropna()
                 except KeyError:
                     try:
-                        self.ad[num] = pd.read_csv(str(filename),sep=';')[self.label_formats[self.label_format]].dropna()
+                        self.ad[num] = pd.read_csv(filename,sep=';')[self.label_formats[self.label_format]].dropna()
                     except KeyError:
                         read_error_warning = True
             else:
                 try:
-                    xl_file = pd.read_excel(str(filename))
+                    xl_file = pd.read_excel(filename)
                     self.ad[num] = xl_file[self.label_formats[self.label_format]].dropna()
                 except KeyError:
                     read_error_warning = True
@@ -153,11 +156,11 @@ class IVMainGui(QtGui.QMainWindow):
                 self.ad[num].columns = self.label_formats[0]
             except KeyError:
                 continue
-            
-            # Convert to numeric values if needed, reset size of ad
-            self.ad[num] = self.ad[num].convert_objects(convert_numeric=True)
+          
+            # Convert to numeric values if needed, reset size of ad            
+            self.ad[num].apply(pd.to_numeric) #= self.ad[num].convert_objects(convert_numeric=True)
             self.ad[num] = self.ad[num][self.ad[num] > 0]
-            
+           
             # If data set is empty give warning and remove from ad
             if self.ad[num].empty:
                 empty_data_warning = True
@@ -172,7 +175,7 @@ class IVMainGui(QtGui.QMainWindow):
                 self.ad[num].loc[:,'Eta'] *= 100
             
             ### add list view item ###
-            str_a = ntpath.splitext(ntpath.basename(str(filename)))[0]
+            str_a = ntpath.splitext(ntpath.basename(filename))[0]
             self.ad[num].index.name = str_a[0:39] # data set name limited to 40 characters
             item = QtGui.QStandardItem(str_a[0:39])
             font = item.font()
@@ -180,18 +183,18 @@ class IVMainGui(QtGui.QMainWindow):
             item.setFont(font)
             self.series_list_model.appendRow(item)                        
             num += 1
-
+            
         if read_error_warning:
             msg = self.tr("Error while reading data files.\n\nData labels were perhaps not recognized.")
-            QtGui.QMessageBox.about(self, self.tr("Warning"), msg)
+            QtWidgets.QMessageBox.about(self, self.tr("Warning"), msg)
 
         if empty_data_warning:
             msg = self.tr("Empty data sets were found.\n\nThe application only accepts data entries with a value for Voc, Isc, FF, Eta, Rser, Rsh and Irev. All values also need to be non-negative.")
-            QtGui.QMessageBox.about(self, self.tr("Warning"), msg)
+            QtWidgets.QMessageBox.about(self, self.tr("Warning"), msg)
             
         if non_ascii_warning:
             msg = self.tr("Filenames with non-ASCII characters were found.\n\nThe application currently only supports ASCII filenames.")
-            QtGui.QMessageBox.about(self, self.tr("Warning"), msg)            
+            QtWidgets.QMessageBox.about(self, self.tr("Warning"), msg)            
                               
         if self.ad:
             self.statusBar().showMessage(self.tr("Ready"))
@@ -199,9 +202,13 @@ class IVMainGui(QtGui.QMainWindow):
             self.statusBar().showMessage(self.tr("Please load data files"))
 
     def save_files(self):
-        dest_dir = QtGui.QFileDialog.getExistingDirectory(None, self.tr('Open directory'), self.prev_dir_path, QtGui.QFileDialog.ShowDirsOnly)
+        dest_dir = QtWidgets.QFileDialog.getExistingDirectory(None, self.tr('Open directory'), self.prev_dir_path, QtWidgets.QFileDialog.ShowDirsOnly)
         
         if not dest_dir:
+            return
+        
+        if len(self.ad) == 0:
+            self.statusBar().showMessage(self.tr("Please load data files"))
             return
 
         self.prev_dir_path = dest_dir
@@ -225,18 +232,18 @@ class IVMainGui(QtGui.QMainWindow):
                     check_overwrite = True
 
             if check_overwrite and not yes_to_all:
-                reply = QtGui.QMessageBox.question(self, self.tr("Message"), "Overwrite \'" + filename + "\'?", QtGui.QMessageBox.YesToAll | QtGui.QMessageBox.Yes | QtGui.QMessageBox.No | QtGui.QMessageBox.Cancel, QtGui.QMessageBox.No)
+                reply = QtWidgets.QMessageBox.question(self, self.tr("Message"), "Overwrite \'" + filename + "\'?", QtWidgets.QMessageBox.YesToAll | QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No | QtWidgets.QMessageBox.Cancel, QtWidgets.QMessageBox.No)
 
-                if reply == QtGui.QMessageBox.No:                    
-                    save_path = QtGui.QFileDialog.getSaveFileName(self,self.tr("Save file"), dest_dir, "CSV File (*.csv)")
+                if reply == QtWidgets.QMessageBox.No:                    
+                    save_path = QtWidgets.QFileDialog.getSaveFileName(self,self.tr("Save file"), dest_dir, "CSV File (*.csv)")
                     
                     if not save_path:
                         continue
 
-                if reply == QtGui.QMessageBox.YesToAll:
+                if reply == QtWidgets.QMessageBox.YesToAll:
                     yes_to_all = True
                     
-                if reply == QtGui.QMessageBox.Cancel:
+                if reply == QtWidgets.QMessageBox.Cancel:
                     return
                            
             self.ad[i].to_csv(save_path, index=False)
@@ -327,13 +334,26 @@ class IVMainGui(QtGui.QMainWindow):
     def make_report(self):
 
         if self.ad:
-            self.reportname = QtGui.QFileDialog.getSaveFileName(self,self.tr("Save file"), self.prev_dir_path, "Excel Files (*.xlsx)")
+            self.reportname = QtWidgets.QFileDialog.getSaveFileName(self,self.tr("Save file"), self.prev_dir_path, "Excel Files (*.xlsx)")
+            self.reportname = self.reportname[0]
+            
+            if not self.reportname:
+                return
+
             if self.reportname:
                 self.statusBar().showMessage(self.tr("Making an Excel report..."))
             else:
                 return
         else:
             self.statusBar().showMessage(self.tr("Please load data files"))
+            return
+
+        try:
+            self.reportname.encode('ascii')
+        except:
+            msg = self.tr("Filenames with non-ASCII characters were found.\n\nThe application currently only supports ASCII filenames.")
+            QtWidgets.QMessageBox.about(self, self.tr("Warning"), msg) 
+            self.reportname = None
             return
                         
         ########## Generate summary tables ##########   
@@ -358,14 +378,15 @@ class IVMainGui(QtGui.QMainWindow):
                 else:
                     self.smr[i1].ix[3,i2] = np.nan
 
-            self.smr[i1] = self.smr[i1].convert_objects(convert_numeric=True)
+            self.smr[i1].apply(pd.to_numeric) # = self.smr[i1].convert_objects(convert_numeric=True)
+
             self.smr[i1].iloc[:,2] = self.smr[i1].iloc[:,2]*1000
             self.smr[i1].iloc[:,3] = self.smr[i1].iloc[:,3]/1000
+
     
-            roundinglist = [3,2,2,2,1,2,2]
-    
+            roundinglist = [3,2,2,2,1,2,2]            
             for i3, value in enumerate(roundinglist):
-                self.smr[i1].iloc[:,i3] = np.round(self.smr[i1].iloc[:,i3],decimals=value)                                                                                                                                                 
+                self.smr[i1].iloc[:,i3] = np.round(self.smr[i1].iloc[:,i3].astype(np.double),decimals=value)
 
         ########## Generate yield loss tables for output ##########
 
@@ -385,7 +406,7 @@ class IVMainGui(QtGui.QMainWindow):
                     self.yloutput[i].ix[2,j] = np.round(100 * self.yloutput[i].ix[1,j] / self.yloutput[i].index.name,decimals=2)
                     
             self.yloutput[i] = self.yloutput[i].dropna(1,'all') # drop completely empty filter columns in output
-
+            
             self.yloutput[i]['Data set'] = self.ad[i].index.name + ' (' + repr(self.yloutput[i].index.name) + ' cells)'
             self.yloutput[i].index.name = 'Data property'
             self.yloutput[i] = self.yloutput[i].set_index('Data set', append=True).swaplevel(0,1)
@@ -407,8 +428,8 @@ class IVMainGui(QtGui.QMainWindow):
    
         ########## Export all summary and yield loss data to an Excel file ##########
 
-        writer = pd.ExcelWriter(str(self.reportname), engine='xlsxwriter')
-            
+        writer = pd.ExcelWriter(self.reportname, engine='xlsxwriter')
+        
         if self.smr: # make sure tables are not empty to avoid any exceptions
             output1 = pd.concat(self.smr)
             output1.to_excel(writer,str(self.tr('Summary'))) # str() because xlsxwriter does not accept QString
@@ -422,19 +443,20 @@ class IVMainGui(QtGui.QMainWindow):
             output3.to_excel(writer,str(self.tr('Correlation')))
                 
         writer.save()       
-        
+      
         self.statusBar().showMessage(self.tr("Ready"))
 
     def open_report(self):
         
-        if len(str(self.reportname)):
+        if len(self.reportname):
             self.statusBar().showMessage(self.tr("Opening report..."))
-            if str(self.reportname)[0] != '/': # windows
-                str_a = 'file:///' + str(self.reportname)
+            if self.reportname[0] != '/': # windows
+                str_a = 'file:///' + self.reportname
             else: # linux
-                str_a = 'file://' + str(self.reportname)
+                str_a = 'file://' + self.reportname
             
-            QtGui.QDesktopServices.openUrl(QtCore.QUrl(str_a, QtCore.QUrl.StrictMode)) # Strict mode necessary for linux compatibility (spaces > %20) 
+            QtGui.QDesktopServices.openUrl(QtCore.QUrl(str_a, QtCore.QUrl.StrictMode)) # Strict mode necessary for linux compatibility (spaces > %20)                 
+
             self.statusBar().showMessage(self.tr("Ready"))
         else:
             self.statusBar().showMessage(self.tr("Please make report"))
@@ -456,29 +478,30 @@ class IVMainGui(QtGui.QMainWindow):
         else:
             self.statusBar().showMessage(self.tr("Please load data files"))
             return
-        
+
         selected_plot_combo = 0
         for i, value in enumerate(self.plot_selection_combo_list):
             if (self.plot_selection_combo.currentText() == self.plot_selection_combo_list[i]):
                 selected_plot_combo = i        
-        
+
         if (self.wid):
             if (self.wid.isWindow()):
                 # close previous instances of child windows to save system memory                
                 self.wid.close()                
 
         if (selected_plot_combo == 0): self.wid = IVBoxPlot(self,self.param_one_combo.currentText())
-        elif (selected_plot_combo == 1): self.wid = DistWT(self,self.param_one_combo.currentText())
-        elif (selected_plot_combo == 2): self.wid = DistRM(self,self.param_one_combo.currentText())
-        elif (selected_plot_combo == 3): self.wid = DistLtoH(self)
-        elif (selected_plot_combo == 4): self.wid = IVHistPlot(self) 
-        elif (selected_plot_combo == 5): self.wid = DensEta(self) 
-        elif (selected_plot_combo == 6): self.wid = IVHistDenPlot(self) 
-        elif (selected_plot_combo == 7): self.wid = CorrVocIsc(self)
-        elif (selected_plot_combo == 8): self.wid = CorrEtaFF(self)
-        elif (selected_plot_combo == 9): self.wid = CorrRshFF(self)
+        elif (selected_plot_combo == 1): self.wid = ViolinPlot(self,self.param_one_combo.currentText())
+        elif (selected_plot_combo == 2): self.wid = DistWT(self,self.param_one_combo.currentText())
+        elif (selected_plot_combo == 3): self.wid = DistRM(self,self.param_one_combo.currentText())
+        elif (selected_plot_combo == 4): self.wid = DistLtoH(self)
+        elif (selected_plot_combo == 5): self.wid = IVHistPlot(self) 
+        elif (selected_plot_combo == 6): self.wid = DensEta(self) 
+        elif (selected_plot_combo == 7): self.wid = IVHistDenPlot(self) 
+        elif (selected_plot_combo == 8): self.wid = CorrVocIsc(self)
+        elif (selected_plot_combo == 9): self.wid = CorrEtaFF(self)
+        elif (selected_plot_combo == 10): self.wid = CorrRshFF(self)
         else: return
-                        
+
         self.wid.show() 
         
         self.statusBar().showMessage(self.tr("Ready"))
@@ -489,7 +512,7 @@ class IVMainGui(QtGui.QMainWindow):
 
         for i, row in enumerate(self.default_filters):
             for j, column in enumerate(self.default_filters[i]):
-                item = QtGui.QTableWidgetItem(str(column))
+                item = QtWidgets.QTableWidgetItem(str(column))
                 self.filter_table_widget.setItem(i, j, item)
 
     def set_user_filters(self):
@@ -498,25 +521,33 @@ class IVMainGui(QtGui.QMainWindow):
 
         for i, row in enumerate(self.user_filters_plain_format):
             for j, column in enumerate(self.user_filters_plain_format[i]):
-                item = QtGui.QTableWidgetItem(str(column))
+                item = QtWidgets.QTableWidgetItem(str(column))
                 self.filter_table_widget.setItem(i, j, item)
 
     def load_filter_settings(self):
 
-        filename = QtGui.QFileDialog.getOpenFileName(self,self.tr("Open file"), self.prev_dir_path, "Filter Settings Files (*.scda)")
+        filename = QtWidgets.QFileDialog.getOpenFileName(self,self.tr("Open file"), self.prev_dir_path, "Filter Settings Files (*.scda)")
+        filename = filename[0]
         
         if (not filename):
             return
 
-        if (not os.path.isfile(filename.toAscii())):
+        try:
+            filename.encode('ascii')
+        except:
             msg = self.tr("Filenames with non-ASCII characters were found.\n\nThe application currently only supports ASCII filenames.")
-            QtGui.QMessageBox.about(self, self.tr("Warning"), msg) 
+            QtWidgets.QMessageBox.about(self, self.tr("Warning"), msg) 
             return
         
-        self.prev_dir_path = ntpath.dirname(str(filename))
-        
-        with open(str(filename)) as f:
-            self.user_filters_plain_format = pickle.load(f)
+        self.prev_dir_path = ntpath.dirname(filename)
+
+        try:
+            with open(filename,'rb') as f:
+                self.user_filters_plain_format = pickle.load(f)
+        except:
+            msg = self.tr("Could not read file \"" + ntpath.basename(filename) + "\"")
+            QtWidgets.QMessageBox.about(self, self.tr("Warning"), msg) 
+            return
 
         self.set_user_filters()
             
@@ -527,17 +558,28 @@ class IVMainGui(QtGui.QMainWindow):
         self.read_filter_table()
         self.convert_user_filters()
 
-        filename = QtGui.QFileDialog.getSaveFileName(self,self.tr("Save file"), self.prev_dir_path, "Description Files (*.scda)")
+        filename = QtWidgets.QFileDialog.getSaveFileName(self,self.tr("Save file"), self.prev_dir_path, "Description Files (*.scda)")
+        filename = filename[0]
         
         if (not filename):
             return
 
-        # Check for non-ASCII here does not seem to work
+        try:
+            filename.encode('ascii')
+        except:
+            msg = self.tr("Filenames with non-ASCII characters were found.\n\nThe application currently only supports ASCII filenames.")
+            QtWidgets.QMessageBox.about(self, self.tr("Warning"), msg) 
+            return
         
-        self.prev_dir_path = ntpath.dirname(str(filename))
-        
-        with open(str(filename), 'w') as f:
-            pickle.dump(self.user_filters_plain_format, f)
+        self.prev_dir_path = ntpath.dirname(filename)
+
+        try:        
+            with open(filename, 'wb') as f:
+                pickle.dump(self.user_filters_plain_format, f)
+        except:
+            msg = self.tr("Could not save file \"" + ntpath.basename(filename) + "\"")
+            QtWidgets.QMessageBox.about(self, self.tr("Warning"), msg) 
+            return            
             
         self.statusBar().showMessage(self.tr("File saved"))  
 
@@ -561,10 +603,10 @@ class IVMainGui(QtGui.QMainWindow):
         for i in np.arange(0,12):
             for j in np.arange(0,3):
                 if i < len(self.user_filters):
-                    item = QtGui.QTableWidgetItem(str(self.user_filters[i][j]))
+                    item = QtWidgets.QTableWidgetItem(str(self.user_filters[i][j]))
                     self.filter_table_widget.setItem(i, j, item)
                 else:
-                    item = QtGui.QTableWidgetItem("")
+                    item = QtWidgets.QTableWidgetItem("")
                     self.filter_table_widget.setItem(i, j, item)
 
         self.statusBar().showMessage(self.tr("Ready"))
@@ -607,12 +649,12 @@ class IVMainGui(QtGui.QMainWindow):
                 for r, row in enumerate(self.clip.text().split('\n')):
                     for c, text in enumerate(row.split('\t')):
                         if len(text): # fixes bug where elements below pasted element are deleted
-                            self.filter_table_widget.setItem(first_row+r, first_col+c, QtGui.QTableWidgetItem(text))
+                            self.filter_table_widget.setItem(first_row+r, first_col+c, QtWidgets.QTableWidgetItem(text))
  
             elif e.key() == QtCore.Qt.Key_C: # Copy
                 s = ""
-                for r in xrange(selected[0].topRow(),selected[0].bottomRow()+1):
-                    for c in xrange(selected[0].leftColumn(),selected[0].rightColumn()+1):
+                for r in range(selected[0].topRow(),selected[0].bottomRow()+1):
+                    for c in range(selected[0].leftColumn(),selected[0].rightColumn()+1):
                         try:
                             s += str(self.filter_table_widget.item(r,c).text()) + "\t"
                         except AttributeError:
@@ -626,37 +668,37 @@ class IVMainGui(QtGui.QMainWindow):
         self.label_format = 0
         
         self.statusBar().removeWidget(self.label_text)
-        self.label_text = QtGui.QLabel("Data label set A")
+        self.label_text = QtWidgets.QLabel("Data label set A")
         self.statusBar().addPermanentWidget(self.label_text)        
 
     def set_data_format1(self):
         self.label_format = 1
 
         self.statusBar().removeWidget(self.label_text)        
-        self.label_text = QtGui.QLabel("Data label set B")      
+        self.label_text = QtWidgets.QLabel("Data label set B")      
         self.statusBar().addPermanentWidget(self.label_text)        
 
     def set_data_format2(self):
         self.label_format = 2
 
         self.statusBar().removeWidget(self.label_text)        
-        self.label_text = QtGui.QLabel("Data label set C")  
+        self.label_text = QtWidgets.QLabel("Data label set C")  
         self.statusBar().addPermanentWidget(self.label_text)        
 
     def set_data_format3(self):
         self.label_format = 3
 
         self.statusBar().removeWidget(self.label_text)        
-        self.label_text = QtGui.QLabel("Data label set D") 
+        self.label_text = QtWidgets.QLabel("Data label set D") 
         self.statusBar().addPermanentWidget(self.label_text)        
 
     def langKor(self):
         if self.translator:
-            QtGui.QApplication.removeTranslator(self.translator)
+            QtWidgets.QApplication.removeTranslator(self.translator)
         
         self.translator = QtCore.QTranslator()
         self.translator.load(":IVMain_kr.qm")
-        QtGui.QApplication.installTranslator(self.translator)
+        QtWidgets.QApplication.installTranslator(self.translator)
 
         self.menuBar().clear()
         self.create_menu()        
@@ -665,11 +707,11 @@ class IVMainGui(QtGui.QMainWindow):
 
     def langChin(self):
         if self.translator:
-            QtGui.QApplication.removeTranslator(self.translator)
+            QtWidgets.QApplication.removeTranslator(self.translator)
         
         self.translator = QtCore.QTranslator()
         self.translator.load(":IVMain_cn.qm")
-        QtGui.QApplication.installTranslator(self.translator)
+        QtWidgets.QApplication.installTranslator(self.translator)
 
         self.menuBar().clear()
         self.create_menu()        
@@ -678,7 +720,7 @@ class IVMainGui(QtGui.QMainWindow):
 
     def langEngl(self):
         if self.translator:
-            QtGui.QApplication.removeTranslator(self.translator)
+            QtWidgets.QApplication.removeTranslator(self.translator)
 
         self.menuBar().clear()
         self.create_menu()        
@@ -692,52 +734,52 @@ class IVMainGui(QtGui.QMainWindow):
 
     def on_about(self):
         msg = self.tr("Solar cell data analysis\nAuthor: Ronald Naber\nLicense: Public domain")
-        QtGui.QMessageBox.about(self, self.tr("About the application"), msg)
+        QtWidgets.QMessageBox.about(self, self.tr("About the application"), msg)
     
     def create_main_frame(self):
         self.setWindowTitle(self.tr("Solar cell data analysis")) # do this again so that translator can catch it
-        self.main_frame = QtGui.QWidget()        
+        self.main_frame = QtWidgets.QWidget()        
 
         ##### left vbox #####     
-        self.series_list_view = QtGui.QTreeView()
+        self.series_list_view = QtWidgets.QTreeView()
         self.series_list_view.setModel(self.series_list_model)
         self.series_list_model.setHorizontalHeaderLabels([self.tr('Data series')])
         self.series_list_view.setRootIsDecorated(False)
-        self.series_list_view.setDragDropMode(QtGui.QAbstractItemView.NoDragDrop)
-        self.series_list_view.setSelectionMode(QtGui.QAbstractItemView.NoSelection)
+        self.series_list_view.setDragDropMode(QtWidgets.QAbstractItemView.NoDragDrop)
+        self.series_list_view.setSelectionMode(QtWidgets.QAbstractItemView.NoSelection)
 
-        open_files_button = QtGui.QPushButton()
+        open_files_button = QtWidgets.QPushButton()
         open_files_button.clicked.connect(self.load_file)
         open_files_button.setIcon(QtGui.QIcon(":open.png"))
         open_files_button.setToolTip(self.tr("Load files"))
         open_files_button.setStatusTip(self.tr("Load files"))
 
-        save_files_button = QtGui.QPushButton()
+        save_files_button = QtWidgets.QPushButton()
         save_files_button.clicked.connect(self.save_files)        
         save_files_button.setIcon(QtGui.QIcon(":save.png"))
         save_files_button.setToolTip(self.tr("Save files"))
         save_files_button.setStatusTip(self.tr("Save files"))
         
-        combine_data_button = QtGui.QPushButton()
-        self.connect(combine_data_button, QtCore.SIGNAL('clicked()'), self.combine_datasets)
+        combine_data_button = QtWidgets.QPushButton()
+        #self.connect(combine_data_button, QtCore.SIGNAL('clicked()'), self.combine_datasets)
         combine_data_button.clicked.connect(self.combine_datasets)
         combine_data_button.setIcon(QtGui.QIcon(":combine.png"))
         combine_data_button.setToolTip(self.tr("Combine data sets"))
         combine_data_button.setStatusTip(self.tr("Combine data sets"))
 
-        clear_data_button = QtGui.QPushButton()
+        clear_data_button = QtWidgets.QPushButton()
         clear_data_button.clicked.connect(self.clear_data)
         clear_data_button.setIcon(QtGui.QIcon(":erase.png"))
         clear_data_button.setToolTip(self.tr("Remove all data sets"))
         clear_data_button.setStatusTip(self.tr("Remove all data sets"))
 
-        buttonbox0 = QtGui.QDialogButtonBox()
-        buttonbox0.addButton(open_files_button, QtGui.QDialogButtonBox.ActionRole)
-        buttonbox0.addButton(save_files_button, QtGui.QDialogButtonBox.ActionRole)
-        buttonbox0.addButton(combine_data_button, QtGui.QDialogButtonBox.ActionRole)
-        buttonbox0.addButton(clear_data_button, QtGui.QDialogButtonBox.ActionRole)
+        buttonbox0 = QtWidgets.QDialogButtonBox()
+        buttonbox0.addButton(open_files_button, QtWidgets.QDialogButtonBox.ActionRole)
+        buttonbox0.addButton(save_files_button, QtWidgets.QDialogButtonBox.ActionRole)
+        buttonbox0.addButton(combine_data_button, QtWidgets.QDialogButtonBox.ActionRole)
+        buttonbox0.addButton(clear_data_button, QtWidgets.QDialogButtonBox.ActionRole)
 
-        left_vbox = QtGui.QVBoxLayout()
+        left_vbox = QtWidgets.QVBoxLayout()
         left_vbox.addWidget(self.series_list_view)
         left_vbox.addWidget(buttonbox0)
 
@@ -745,73 +787,73 @@ class IVMainGui(QtGui.QMainWindow):
         self.filter_table_widget.setRowCount(12)
         self.filter_table_widget.setColumnCount(3)
         self.filter_table_widget.setHorizontalHeaderLabels((self.tr('Parameter'),self.tr('< or >'),self.tr('Number')))
-        self.filter_table_widget.horizontalHeader().setResizeMode(QtGui.QHeaderView.Stretch)
-        self.filter_table_widget.verticalHeader().setResizeMode(QtGui.QHeaderView.Stretch)       
+        self.filter_table_widget.horizontalHeader().setSectionResizeMode(QtWidgets.QHeaderView.Stretch)
+        self.filter_table_widget.verticalHeader().setSectionResizeMode(QtWidgets.QHeaderView.Stretch)       
         
-        open_filters_button = QtGui.QPushButton()
+        open_filters_button = QtWidgets.QPushButton()
         open_filters_button.clicked.connect(self.load_filter_settings)
         open_filters_button.setIcon(QtGui.QIcon(":open.png"))
         open_filters_button.setToolTip(self.tr("Load filter settings"))
         open_filters_button.setStatusTip(self.tr("Load filter settings"))
 
-        save_filters_button = QtGui.QPushButton()
+        save_filters_button = QtWidgets.QPushButton()
         save_filters_button.clicked.connect(self.save_filter_settings)        
         save_filters_button.setIcon(QtGui.QIcon(":save.png"))
         save_filters_button.setToolTip(self.tr("Save filter settings"))
         save_filters_button.setStatusTip(self.tr("Save filter settings"))        
 
-        check_filters_button = QtGui.QPushButton()
+        check_filters_button = QtWidgets.QPushButton()
         check_filters_button.clicked.connect(self.read_filter_table) 
         check_filters_button.setIcon(QtGui.QIcon(":check.png"))
         check_filters_button.setToolTip(self.tr("Check filters"))
         check_filters_button.setStatusTip(self.tr("Check filters"))
         
-        execute_filters_button = QtGui.QPushButton()
+        execute_filters_button = QtWidgets.QPushButton()
         execute_filters_button.clicked.connect(self.filter_data) 
         execute_filters_button.setIcon(QtGui.QIcon(":filter.png"))
         execute_filters_button.setToolTip(self.tr("Execute filters"))
         execute_filters_button.setStatusTip(self.tr("Execute filters"))
 
-        default_filters_button = QtGui.QPushButton()
+        default_filters_button = QtWidgets.QPushButton()
         default_filters_button.clicked.connect(self.set_default_filters)
         default_filters_button.setIcon(QtGui.QIcon(":revert.png"))
         default_filters_button.setToolTip(self.tr("Reload default filters"))
         default_filters_button.setStatusTip(self.tr("Reload default filters"))
 
-        buttonbox1 = QtGui.QDialogButtonBox()
-        buttonbox1.addButton(open_filters_button, QtGui.QDialogButtonBox.ActionRole)
-        buttonbox1.addButton(save_filters_button, QtGui.QDialogButtonBox.ActionRole)
-        buttonbox1.addButton(check_filters_button, QtGui.QDialogButtonBox.ActionRole)
-        buttonbox1.addButton(execute_filters_button, QtGui.QDialogButtonBox.ActionRole)
-        buttonbox1.addButton(default_filters_button, QtGui.QDialogButtonBox.ActionRole)
+        buttonbox1 = QtWidgets.QDialogButtonBox()
+        buttonbox1.addButton(open_filters_button, QtWidgets.QDialogButtonBox.ActionRole)
+        buttonbox1.addButton(save_filters_button, QtWidgets.QDialogButtonBox.ActionRole)
+        buttonbox1.addButton(check_filters_button, QtWidgets.QDialogButtonBox.ActionRole)
+        buttonbox1.addButton(execute_filters_button, QtWidgets.QDialogButtonBox.ActionRole)
+        buttonbox1.addButton(default_filters_button, QtWidgets.QDialogButtonBox.ActionRole)
 
-        mid_vbox = QtGui.QVBoxLayout()
+        mid_vbox = QtWidgets.QVBoxLayout()
         mid_vbox.addWidget(self.filter_table_widget)                                                                                                                                                                                                           
         mid_vbox.addWidget(buttonbox1) 
         
         ##### top buttonbox #####
-        report_button = QtGui.QPushButton()
+        report_button = QtWidgets.QPushButton()
         report_button.clicked.connect(self.make_report)
         report_button.setIcon(QtGui.QIcon(":report.png"))
         report_button.setToolTip(self.tr("Make report"))
         report_button.setStatusTip(self.tr("Make report"))
 
-        openreport_button = QtGui.QPushButton()
+        openreport_button = QtWidgets.QPushButton()
         openreport_button.clicked.connect(self.open_report)
         openreport_button.setIcon(QtGui.QIcon(":link.png"))
         openreport_button.setToolTip(self.tr("Open report"))
         openreport_button.setStatusTip(self.tr("Open report"))
 
-        plotselection_button = QtGui.QPushButton()
+        plotselection_button = QtWidgets.QPushButton()
         plotselection_button.clicked.connect(self.open_plot_selection)
         plotselection_button.setIcon(QtGui.QIcon(":chart.png"))
         plotselection_button.setToolTip(self.tr("Plot selection"))
         plotselection_button.setStatusTip(self.tr("Plot selection"))
 
-        top_buttonbox = QtGui.QDialogButtonBox()
-        top_buttonbox.addButton(report_button, QtGui.QDialogButtonBox.ActionRole)
-        top_buttonbox.addButton(openreport_button, QtGui.QDialogButtonBox.ActionRole)
-        top_buttonbox.addButton(plotselection_button, QtGui.QDialogButtonBox.ActionRole)
+        top_buttonbox = QtWidgets.QDialogButtonBox()
+        top_buttonbox.addButton(report_button, QtWidgets.QDialogButtonBox.ActionRole)
+        top_buttonbox.addButton(openreport_button, QtWidgets.QDialogButtonBox.ActionRole)
+        top_buttonbox.addButton(plotselection_button, QtWidgets.QDialogButtonBox.ActionRole)
 
         for i in self.plot_selection_list:
             self.param_one_combo.addItem(i)               
@@ -820,17 +862,17 @@ class IVMainGui(QtGui.QMainWindow):
         for i in self.plot_selection_combo_list:
             self.plot_selection_combo.addItem(i)
         
-        toolbar_hbox = QtGui.QHBoxLayout()
+        toolbar_hbox = QtWidgets.QHBoxLayout()
         toolbar_hbox.addWidget(top_buttonbox)
         toolbar_hbox.addWidget(self.param_one_combo) 
         toolbar_hbox.addWidget(self.plot_selection_combo)
 
         ##### main layout settings #####
-        top_hbox = QtGui.QHBoxLayout()
+        top_hbox = QtWidgets.QHBoxLayout()
         top_hbox.addLayout(left_vbox)
         top_hbox.addLayout(mid_vbox)
   
-        vbox = QtGui.QVBoxLayout()
+        vbox = QtWidgets.QVBoxLayout()
         vbox.addLayout(toolbar_hbox) 
         vbox.addLayout(top_hbox)           
                                        
@@ -852,7 +894,7 @@ class IVMainGui(QtGui.QMainWindow):
         self.file_menu = self.menuBar().addMenu(self.tr("File"))
 
         tip = self.tr("Open file")        
-        load_action = QtGui.QAction(self.tr("Open..."), self)
+        load_action = QtWidgets.QAction(self.tr("Open..."), self)
         load_action.setIcon(QtGui.QIcon(":open.png"))
         load_action.triggered.connect(self.load_file) 
         load_action.setToolTip(tip)
@@ -860,7 +902,7 @@ class IVMainGui(QtGui.QMainWindow):
         load_action.setShortcut('Ctrl+O')    
 
         tip = self.tr("Quit")        
-        quit_action = QtGui.QAction(self.tr("Quit"), self)
+        quit_action = QtWidgets.QAction(self.tr("Quit"), self)
         quit_action.setIcon(QtGui.QIcon(":quit.png"))
         quit_action.triggered.connect(self.close) 
         quit_action.setToolTip(tip)
@@ -873,28 +915,28 @@ class IVMainGui(QtGui.QMainWindow):
         self.edit_menu = self.menuBar().addMenu(self.tr("Data labels"))
 
         tip = "Uoc,Isc,RserLfDfIEC,Rsh,FF,Eta,IRev1"
-        format_action0 = QtGui.QAction(self.tr("Custom labels") + " A", self)
+        format_action0 = QtWidgets.QAction(self.tr("Custom labels") + " A", self)
         format_action0.setIcon(QtGui.QIcon(":label.png"))
         format_action0.triggered.connect(self.set_data_format0)         
         format_action0.setToolTip(tip)
         format_action0.setStatusTip(tip)
         
         tip = "Uoc0,Isc0,Rseries_multi_level,Rshunt_SC,Fill0*100,Eff0*100,Ireverse_2"
-        format_action1 = QtGui.QAction(self.tr("Custom labels") + " B", self)
+        format_action1 = QtWidgets.QAction(self.tr("Custom labels") + " B", self)
         format_action1.setIcon(QtGui.QIcon(":label.png"))
         format_action1.triggered.connect(self.set_data_format1)
         format_action1.setToolTip(tip)
         format_action1.setStatusTip(tip)      
 
         tip = "Uoc,Isc,RserIEC891,RshuntDfDr,FF,Eta,IRev1"
-        format_action2 = QtGui.QAction(self.tr("Custom labels") + " C", self)
+        format_action2 = QtWidgets.QAction(self.tr("Custom labels") + " C", self)
         format_action2.setIcon(QtGui.QIcon(":label.png"))
         format_action2.triggered.connect(self.set_data_format2) 
         format_action2.setToolTip(tip)
         format_action2.setStatusTip(tip)
 
         tip = "Uoc,Isc,Rs,Rsh,FF,NCell*100,Irev2"
-        format_action3 = QtGui.QAction(self.tr("Custom labels") + " D", self)
+        format_action3 = QtWidgets.QAction(self.tr("Custom labels") + " D", self)
         format_action3.setIcon(QtGui.QIcon(":label.png"))
         format_action3.triggered.connect(self.set_data_format3) 
         format_action3.setToolTip(tip)
@@ -908,21 +950,21 @@ class IVMainGui(QtGui.QMainWindow):
         self.lang_menu = self.menuBar().addMenu(self.tr("Language"))
         
         tip = self.tr("Switch to Chinese language")
-        cn_action = QtGui.QAction(self.tr("Chinese"), self)
+        cn_action = QtWidgets.QAction(self.tr("Chinese"), self)
         cn_action.setIcon(QtGui.QIcon(":lang.png"))
         cn_action.triggered.connect(self.langChin)        
         cn_action.setToolTip(tip)
         cn_action.setStatusTip(tip)       
 
         tip = self.tr("Switch to Korean language")
-        kr_action = QtGui.QAction(self.tr("Korean"), self)
+        kr_action = QtWidgets.QAction(self.tr("Korean"), self)
         kr_action.setIcon(QtGui.QIcon(":lang.png"))
         kr_action.triggered.connect(self.langKor)
         kr_action.setToolTip(tip)
         kr_action.setStatusTip(tip)  
 
         tip = self.tr("Switch to English language")
-        en_action = QtGui.QAction(self.tr("English"), self)
+        en_action = QtWidgets.QAction(self.tr("English"), self)
         en_action.setIcon(QtGui.QIcon(":lang.png"))
         en_action.triggered.connect(self.langEngl)
         en_action.setToolTip(tip)
@@ -935,7 +977,7 @@ class IVMainGui(QtGui.QMainWindow):
         self.help_menu = self.menuBar().addMenu(self.tr("Help"))
 
         tip = self.tr("Help information")        
-        help_action = QtGui.QAction(self.tr("Help..."), self)
+        help_action = QtWidgets.QAction(self.tr("Help..."), self)
         help_action.setIcon(QtGui.QIcon(":help.png"))
         help_action.triggered.connect(self.open_help_dialog)         
         help_action.setToolTip(tip)
@@ -943,7 +985,7 @@ class IVMainGui(QtGui.QMainWindow):
         help_action.setShortcut('H')
 
         tip = self.tr("About the application")
-        about_action = QtGui.QAction(self.tr("About..."), self)
+        about_action = QtWidgets.QAction(self.tr("About..."), self)
         about_action.setIcon(QtGui.QIcon(":info.png"))
         about_action.triggered.connect(self.on_about)
         about_action.setToolTip(tip)

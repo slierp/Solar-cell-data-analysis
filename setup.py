@@ -3,7 +3,7 @@
 from setuptools import setup
 
 setup(name='scida-pro',
-      version='1.5.1',
+      version='1.5.2',
       description='Solar cell data analysis using python modules pandas, matplotlib and pyqt',
       url='https://github.com/slierp/Solar-cell-data-analysis',
       author='Ronald Naber',
