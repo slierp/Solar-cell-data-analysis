@@ -889,7 +889,6 @@ class IVMainGui(QtWidgets.QMainWindow):
             self.first_run = False
             
         self.statusBar().addPermanentWidget(self.label_text)
-        self.statusBar().showMessage(self.tr("Please load data files"))
 
     def create_menu(self):
         self.file_menu = self.menuBar().addMenu(self.tr("File"))
