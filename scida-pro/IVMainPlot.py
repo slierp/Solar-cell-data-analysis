@@ -464,9 +464,11 @@ class DistRM(IVMainPlot):
             self.param_one_combo = str(param_one_combo)         
         IVMainPlot.create_menu(self)
         IVMainPlot.create_main_frame(self)
+                
         self.on_draw()
         
     def on_draw(self):
+
         # Clear previous and re-draw everything
         self.axes.clear()   
         self.axes.grid(self.grid_selection)        
@@ -476,7 +478,7 @@ class DistRM(IVMainPlot):
             if self.param_one_combo == value:
                 self.axes.set_ylabel(plot_label_list[i], fontsize=24, weight='black')        
         self.axes.tick_params(pad=8) 
-        
+       
         for i in self.plot_selection:
             if (self.param_one_combo == 'Voc*Isc'):
                 se = pd.DataFrame(self.ad[i]['Uoc'] * self.ad[i]['Isc'])
@@ -486,11 +488,11 @@ class DistRM(IVMainPlot):
                 se = pd.DataFrame(0.001*self.ad[i][self.param_one_combo])                    
             else:
                 se = pd.DataFrame(self.ad[i][self.param_one_combo])
-                
+
             se.index = (se.index+1)/len(se)
-            rm = pd.rolling_mean(se, np.floor(len(se)*.1) if len(se) > 100 else 1,center=True) # rolling mean
+            rm = se.rolling(center=True,window=int(np.floor(len(se)*.1) if len(se) > 100 else 1)).mean()
             self.axes.plot(rm.index, rm,c=cl[i % len(cl)],lw=self.linewidth_selection,label=self.ad[i].index.name)
-    
+  
         if self.legend_selection:
             self.axes.legend(loc='lower left',scatterpoints=1,markerscale=3,frameon=True)
 
