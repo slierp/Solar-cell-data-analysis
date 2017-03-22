@@ -76,7 +76,7 @@ class IVMainPlot(QtWidgets.QMainWindow):
         self.setCentralWidget(self.main_frame)
         
         self.status_text = QtWidgets.QLabel("")        
-        self.statusBar().addWidget(self.status_text,1) 
+        self.statusBar().addWidget(self.status_text,1)       
         
     def create_menu(self):
 
@@ -102,6 +102,12 @@ class CorrVocIsc(IVMainPlot):
     def __init__(self, parent):
         QtWidgets.QMainWindow.__init__(self, parent)
         self.setWindowTitle(self.tr("Correlation"))
+
+        self.resize(1020, 752)
+        frameGm = self.frameGeometry()
+        centerPoint = QtWidgets.QDesktopWidget().availableGeometry().center()
+        frameGm.moveCenter(centerPoint)
+        self.move(frameGm.topLeft())
         
         self.ad = parent.ad
         self.plot_selection = []
@@ -145,6 +151,12 @@ class CorrEtaFF(IVMainPlot):
     def __init__(self, parent):
         QtWidgets.QMainWindow.__init__(self, parent)
         self.setWindowTitle(self.tr("Correlation"))
+
+        self.resize(1020, 752)
+        frameGm = self.frameGeometry()
+        centerPoint = QtWidgets.QDesktopWidget().availableGeometry().center()
+        frameGm.moveCenter(centerPoint)
+        self.move(frameGm.topLeft())
         
         self.ad = parent.ad
         self.plot_selection = []
@@ -188,6 +200,12 @@ class CorrRshFF(IVMainPlot):
     def __init__(self, parent):
         QtWidgets.QMainWindow.__init__(self, parent)
         self.setWindowTitle(self.tr("Correlation"))
+
+        self.resize(1020, 752)
+        frameGm = self.frameGeometry()
+        centerPoint = QtWidgets.QDesktopWidget().availableGeometry().center()
+        frameGm.moveCenter(centerPoint)
+        self.move(frameGm.topLeft())
         
         self.ad = parent.ad
         self.plot_selection = []
@@ -232,6 +250,12 @@ class DistLtoH(IVMainPlot):
     def __init__(self, parent):
         QtWidgets.QMainWindow.__init__(self, parent)
         self.setWindowTitle(self.tr("Distribution"))
+
+        self.resize(1020, 752)
+        frameGm = self.frameGeometry()
+        centerPoint = QtWidgets.QDesktopWidget().availableGeometry().center()
+        frameGm.moveCenter(centerPoint)
+        self.move(frameGm.topLeft())
         
         self.ad = parent.ad
         self.plot_selection = []
@@ -288,6 +312,12 @@ class DensEta(IVMainPlot):
     def __init__(self, parent):
         QtWidgets.QMainWindow.__init__(self, parent)
         self.setWindowTitle(self.tr("Density"))
+
+        self.resize(1020, 752)
+        frameGm = self.frameGeometry()
+        centerPoint = QtWidgets.QDesktopWidget().availableGeometry().center()
+        frameGm.moveCenter(centerPoint)
+        self.move(frameGm.topLeft())
         
         self.ad = parent.ad
         self.plot_selection = []
@@ -339,6 +369,12 @@ class DistWT(IVMainPlot):
     def __init__(self, parent, param_one_combo):
         QtWidgets.QMainWindow.__init__(self, parent)
         self.setWindowTitle(self.tr("Walkthrough"))
+
+        self.resize(1020, 752)
+        frameGm = self.frameGeometry()
+        centerPoint = QtWidgets.QDesktopWidget().availableGeometry().center()
+        frameGm.moveCenter(centerPoint)
+        self.move(frameGm.topLeft())
         
         self.ad = parent.ad
 
@@ -401,6 +437,12 @@ class DistRM(IVMainPlot):
     def __init__(self, parent, param_one_combo):
         QtWidgets.QMainWindow.__init__(self, parent)
         self.setWindowTitle(self.tr("Rolling mean"))
+
+        self.resize(1020, 752)
+        frameGm = self.frameGeometry()
+        centerPoint = QtWidgets.QDesktopWidget().availableGeometry().center()
+        frameGm.moveCenter(centerPoint)
+        self.move(frameGm.topLeft())
        
         self.ad = parent.ad
         
@@ -461,6 +503,12 @@ class IVBoxPlot(IVMainPlot):
         QtWidgets.QMainWindow.__init__(self, parent)
         self.setWindowTitle(self.tr("Boxplot"))
 
+        self.resize(1020, 752)
+        frameGm = self.frameGeometry()
+        centerPoint = QtWidgets.QDesktopWidget().availableGeometry().center()
+        frameGm.moveCenter(centerPoint)
+        self.move(frameGm.topLeft())
+
         self.ad = parent.ad
         
         self.plot_selection = []
@@ -478,7 +526,7 @@ class IVBoxPlot(IVMainPlot):
             self.param_one_combo = str(param_one_combo)
         IVMainPlot.create_menu(self)
         IVMainPlot.create_main_frame(self)
-        self.on_draw()                     
+        self.on_draw()               
         
     def on_draw(self):
 
@@ -508,7 +556,7 @@ class IVBoxPlot(IVMainPlot):
                 
             labels.append(self.ad[i].index.name)
         
-        bp = self.axes.boxplot(data,0,'')
+        bp = self.axes.boxplot(data,0,'')     
         self.axes.set_xticks([y+1 for y in range(len(labels))])       
         self.axes.set_xticklabels(labels, rotation=0)
         plt.setp(bp['boxes'], color='black',lw=2)
@@ -523,6 +571,12 @@ class ViolinPlot(IVMainPlot):
     def __init__(self, parent, param_one_combo):
         QtWidgets.QMainWindow.__init__(self, parent)
         self.setWindowTitle(self.tr("Violinplot"))
+
+        self.resize(1020, 752)
+        frameGm = self.frameGeometry()
+        centerPoint = QtWidgets.QDesktopWidget().availableGeometry().center()
+        frameGm.moveCenter(centerPoint)
+        self.move(frameGm.topLeft())
 
         self.ad = parent.ad
         
@@ -583,6 +637,12 @@ class IVHistPlot(IVMainPlot):
     def __init__(self, parent):
         QtWidgets.QMainWindow.__init__(self, parent)
         self.setWindowTitle(self.tr("Histogram"))
+
+        self.resize(1020, 752)
+        frameGm = self.frameGeometry()
+        centerPoint = QtWidgets.QDesktopWidget().availableGeometry().center()
+        frameGm.moveCenter(centerPoint)
+        self.move(frameGm.topLeft())
         
         self.ad = parent.ad
 
@@ -604,16 +664,27 @@ class IVHistPlot(IVMainPlot):
         # Clear previous and re-draw everything
         self.axes.clear()
 
+        xmin = 1e4
+        xmax = 0
+
+        for i in self.ad: 
+            ser = self.ad[i]['Eta']
+            if ser.min() <= xmin : xmin = ser.min()
+            if ser.max() >= xmax : xmax = ser.max()
+
         se = self.ad[self.plot_selection[0]]['Eta'].round(1)
         freq = se.value_counts()
         freq = 100*freq/len(se)
         freq = freq.sort_index()
-        freq.plot(kind='bar',color=cl[self.plot_selection[0] % len(cl)],ax=self.axes)
+        self.axes.bar(freq.index, freq.values, 0.1, color=cl[self.plot_selection[0] % len(cl)],align='center',edgecolor='0')
+        
         if self.title_selection:
             self.axes.set_title(self.ad[self.plot_selection[0]].index.name)
+
+        self.axes.set_xlim((np.floor(xmin), np.ceil(xmax)))
                 
         self.axes.set_xlabel(r'$\mathrm{\mathsf{Eta\ [\%]}}$', fontsize=24, weight='black')
-        self.axes.set_ylabel(r'$\mathrm{\mathsf{Frequency\ [\%]}}$', fontsize=24, weight='black')
+        self.axes.set_ylabel(r'$\mathrm{\mathsf{Frequency\ [\%]}}$', fontsize=24, weight='black')        
         self.axes.tick_params(pad=8)
         self.axes.grid(False)            
 
@@ -625,6 +696,12 @@ class IVHistDenPlot(IVMainPlot):
     def __init__(self, parent):
         QtWidgets.QMainWindow.__init__(self, parent)
         self.setWindowTitle(self.tr("Histogram and density"))
+
+        self.resize(1020, 752)
+        frameGm = self.frameGeometry()
+        centerPoint = QtWidgets.QDesktopWidget().availableGeometry().center()
+        frameGm.moveCenter(centerPoint)
+        self.move(frameGm.topLeft())
         
         self.ad = parent.ad
         
@@ -661,7 +738,7 @@ class IVHistDenPlot(IVMainPlot):
         freq = bn.value_counts()
         freq = 100*freq/len(bn)
         freq = freq.sort_index()
-        self.axes.bar(freq.index, freq.values, 0.1, color=cl[self.plot_selection[0] % len(cl)],align='center')
+        self.axes.bar(freq.index, freq.values, 0.1, color=cl[self.plot_selection[0] % len(cl)],align='center',edgecolor='0')
         den.plot(kind='kde',c='white',lw=self.linewidth_selection+3,ax=self.axes2)
         den.plot(kind='kde',c='black',lw=self.linewidth_selection+1,ax=self.axes2)
         den.plot(kind='kde',c='r',lw=self.linewidth_selection,ax=self.axes2)

@@ -158,7 +158,7 @@ class IVMainGui(QtWidgets.QMainWindow):
                 continue
           
             # Convert to numeric values if needed, reset size of ad            
-            self.ad[num].apply(pd.to_numeric) #= self.ad[num].convert_objects(convert_numeric=True)
+            self.ad[num].apply(pd.to_numeric)
             self.ad[num] = self.ad[num][self.ad[num] > 0]
            
             # If data set is empty give warning and remove from ad
@@ -378,7 +378,7 @@ class IVMainGui(QtWidgets.QMainWindow):
                 else:
                     self.smr[i1].ix[3,i2] = np.nan
 
-            self.smr[i1].apply(pd.to_numeric) # = self.smr[i1].convert_objects(convert_numeric=True)
+            self.smr[i1].apply(pd.to_numeric)
 
             self.smr[i1].iloc[:,2] = self.smr[i1].iloc[:,2]*1000
             self.smr[i1].iloc[:,3] = self.smr[i1].iloc[:,3]/1000
@@ -407,8 +407,9 @@ class IVMainGui(QtWidgets.QMainWindow):
                     
             self.yloutput[i] = self.yloutput[i].dropna(1,'all') # drop completely empty filter columns in output
             
-            self.yloutput[i]['Data set'] = self.ad[i].index.name + ' (' + repr(self.yloutput[i].index.name) + ' cells)'
+            # Bugfix; pandas recommends using .loc here
             self.yloutput[i].index.name = 'Data property'
+            self.yloutput[i]['Data set'] = self.ad[i].index.name + ' (' + repr(self.yloutput[i].index.name) + ' cells)'
             self.yloutput[i] = self.yloutput[i].set_index('Data set', append=True).swaplevel(0,1)
                            
         ########## Generate correlation tables ##########
@@ -455,7 +456,8 @@ class IVMainGui(QtWidgets.QMainWindow):
             else: # linux
                 str_a = 'file://' + self.reportname
             
-            QtGui.QDesktopServices.openUrl(QtCore.QUrl(str_a, QtCore.QUrl.StrictMode)) # Strict mode necessary for linux compatibility (spaces > %20)                 
+            # Strict mode necessary for linux compatibility (spaces > %20)
+            QtGui.QDesktopServices.openUrl(QtCore.QUrl(str_a, QtCore.QUrl.StrictMode)) 
 
             self.statusBar().showMessage(self.tr("Ready"))
         else:
@@ -761,7 +763,6 @@ class IVMainGui(QtWidgets.QMainWindow):
         save_files_button.setStatusTip(self.tr("Save files"))
         
         combine_data_button = QtWidgets.QPushButton()
-        #self.connect(combine_data_button, QtCore.SIGNAL('clicked()'), self.combine_datasets)
         combine_data_button.clicked.connect(self.combine_datasets)
         combine_data_button.setIcon(QtGui.QIcon(":combine.png"))
         combine_data_button.setToolTip(self.tr("Combine data sets"))
