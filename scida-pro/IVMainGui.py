@@ -264,7 +264,7 @@ class IVMainGui(QtWidgets.QMainWindow):
         self.yloutput = []
         self.smr = [] 
         self.series_list_model.clear()
-        self.series_list_model.setHorizontalHeaderLabels(['Data series'])
+        self.series_list_model.setHorizontalHeaderLabels([self.tr('Data series')])
 
         num = len(self.ad)
         if num > 1:
@@ -322,13 +322,19 @@ class IVMainGui(QtWidgets.QMainWindow):
 
             name = self.ad[j].index.name
             self.ad[j] = self.ad[j].reset_index(drop=True) # renumber index due to removed yield loss cells
-            self.ad[j].index.name = name                              
+            self.ad[j].index.name = name
 
-        for i in self.ad: # number of series_list items is same as for self.ad, but not nice
-            item = self.series_list_model.item(i)
-            font = item.font()
-            font.setBold(0)
-            item.setFont(font)
+        null_data = [-1,-1,-1,-1,-1,-1,-1]
+        for i in self.ad:
+            if len(self.ad[i]) == 0: 
+                self.ad[i].loc[0] = null_data
+
+        self.series_list_model.clear()
+        self.series_list_model.setHorizontalHeaderLabels([self.tr('Data series')])
+
+        for i in self.ad:
+            item = QtGui.QStandardItem(self.ad[i].index.name)
+            self.series_list_model.appendRow(item)            
 
         self.statusBar().showMessage(self.tr("Ready"))                                    
 
@@ -418,6 +424,9 @@ class IVMainGui(QtWidgets.QMainWindow):
         self.ct = [] # empty any existing table
         
         for i in self.ad:
+            if not len(self.ad[i]) > 1:
+                continue
+            
             self.ct.append(np.round(self.ad[i].corr(), decimals=2))
             self.ct[i].iloc[:,2:4] = np.nan
             self.ct[i].iloc[2:4,:] = np.nan
@@ -470,7 +479,7 @@ class IVMainGui(QtWidgets.QMainWindow):
         self.yloutput = []
         self.smr = [] 
         self.series_list_model.clear()
-        self.series_list_model.setHorizontalHeaderLabels(['Data series'])
+        self.series_list_model.setHorizontalHeaderLabels([self.tr('Data series')])
         self.reportname = ''
         self.statusBar().showMessage(self.tr("All data has been cleared"))           
 
