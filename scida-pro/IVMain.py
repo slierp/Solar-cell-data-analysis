@@ -11,7 +11,7 @@ if __name__ == "__main__":
         # if no other PyQt program is running (such as the IDE) create a new instance
         app = QtWidgets.QApplication(sys.argv)
     
-    app.setStyle("windows")       
+    app.setStyle("Fusion")      
     window = IVMainGui()        
     window.show()
     app.exec_()

@@ -4,7 +4,7 @@ import pandas as pd
 import os, ntpath, pickle
 from HelpDialog import HelpDialog
 from PyQt5 import QtCore, QtGui, QtWidgets
-from IVMainPlot import CorrVocIsc, CorrEtaFF, CorrRshFF, DistLtoH, DensEta, DistWT, DistRM, IVBoxPlot, IVHistPlot, IVHistDenPlot, ViolinPlot
+from IVMainPlot import CorrVocIsc, CorrEtaFF, CorrRshFF, DistLtoH, DensEta, DistWT, DistRM, IVBoxPlot, IVHistPlot, IVHistDenPlot, ViolinPlot, CategoryScatter
 
 class IVMainGui(QtWidgets.QMainWindow):
     def __init__(self, parent=None):
@@ -59,6 +59,7 @@ class IVMainGui(QtWidgets.QMainWindow):
         self.plot_selection_combo_list = []
         self.plot_selection_combo_list.append(self.tr('Boxplot'))
         self.plot_selection_combo_list.append(self.tr('Violinplot'))
+        self.plot_selection_combo_list.append(self.tr('Category scatter'))
         self.plot_selection_combo_list.append(self.tr('Walk-through'))
         self.plot_selection_combo_list.append(self.tr('Rolling mean'))
         self.plot_selection_combo_list.append(self.tr('Low to high'))
@@ -493,15 +494,16 @@ class IVMainGui(QtWidgets.QMainWindow):
 
         if (selected_plot_combo == 0): self.wid = IVBoxPlot(self,self.param_one_combo.currentText())
         elif (selected_plot_combo == 1): self.wid = ViolinPlot(self,self.param_one_combo.currentText())
-        elif (selected_plot_combo == 2): self.wid = DistWT(self,self.param_one_combo.currentText())
-        elif (selected_plot_combo == 3): self.wid = DistRM(self,self.param_one_combo.currentText())
-        elif (selected_plot_combo == 4): self.wid = DistLtoH(self)
-        elif (selected_plot_combo == 5): self.wid = IVHistPlot(self) 
-        elif (selected_plot_combo == 6): self.wid = DensEta(self) 
-        elif (selected_plot_combo == 7): self.wid = IVHistDenPlot(self) 
-        elif (selected_plot_combo == 8): self.wid = CorrVocIsc(self)
-        elif (selected_plot_combo == 9): self.wid = CorrEtaFF(self)
-        elif (selected_plot_combo == 10): self.wid = CorrRshFF(self)
+        elif (selected_plot_combo == 2): self.wid = CategoryScatter(self,self.param_one_combo.currentText())
+        elif (selected_plot_combo == 3): self.wid = DistWT(self,self.param_one_combo.currentText())
+        elif (selected_plot_combo == 4): self.wid = DistRM(self,self.param_one_combo.currentText())
+        elif (selected_plot_combo == 5): self.wid = DistLtoH(self)
+        elif (selected_plot_combo == 6): self.wid = IVHistPlot(self) 
+        elif (selected_plot_combo == 7): self.wid = DensEta(self) 
+        elif (selected_plot_combo == 8): self.wid = IVHistDenPlot(self) 
+        elif (selected_plot_combo == 9): self.wid = CorrVocIsc(self)
+        elif (selected_plot_combo == 10): self.wid = CorrEtaFF(self)
+        elif (selected_plot_combo == 11): self.wid = CorrRshFF(self)
         else: return
 
         self.wid.show() 

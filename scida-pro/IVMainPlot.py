@@ -633,6 +633,82 @@ class ViolinPlot(IVMainPlot):
             
         self.canvas.draw()
 
+########## IVMainPlot sub class - Category scatter ##########
+       
+class CategoryScatter(IVMainPlot):
+    def __init__(self, parent, param_one_combo):
+        QtWidgets.QMainWindow.__init__(self, parent)
+        self.setWindowTitle(self.tr("Category scatter"))
+
+        self.resize(1020, 752)
+        frameGm = self.frameGeometry()
+        centerPoint = QtWidgets.QDesktopWidget().availableGeometry().center()
+        frameGm.moveCenter(centerPoint)
+        self.move(frameGm.topLeft())
+
+        self.ad = parent.ad
+        
+        self.plot_selection = []
+        for i in range(len(self.ad)):
+            self.plot_selection.append(i)
+
+        self.single_dataset = False
+        self.title_enabled = False        
+        self.grid_enabled = False
+        self.legend_enabled = False
+        self.dotsize_enabled = True
+        self.dotsize_selection = 20
+        self.linewidth_enabled = False        
+        
+        if str(param_one_combo) in plot_selection_list:
+            self.param_one_combo = str(param_one_combo)
+        IVMainPlot.create_menu(self)
+        IVMainPlot.create_main_frame(self)
+        self.on_draw()                     
+        
+    def on_draw(self):
+
+        # Clear previous and re-draw everything
+        self.axes.clear()
+
+        for i, value in enumerate(plot_selection_list):
+            if self.param_one_combo == value:
+                self.axes.set_ylabel(plot_label_list[i], fontsize=24, weight='black')
+        self.axes.tick_params(pad=8)
+
+        if len(self.plot_selection) == 0:
+            self.canvas.draw()
+            return
+
+        self.xticks = []
+        self.xticklabels = []
+
+        for i in self.plot_selection:
+            data = []            
+            xvalues_list = []
+            n = len(self.ad[i]['Uoc'])
+            scatter = 0.5
+            xvalues_list.append(scatter*np.random.uniform( size=n ) - scatter*0.5 + i)
+            
+            if (self.param_one_combo == 'Voc*Isc'):
+                data.append(pd.DataFrame(self.ad[i]['Uoc'] * self.ad[i]['Isc']).values.flatten().tolist())
+            elif (self.param_one_combo == 'RserLfDfIEC'):
+                data.append(pd.DataFrame(1000*self.ad[i][self.param_one_combo]).values.flatten().tolist())
+            elif (self.param_one_combo == 'Rsh'):
+                data.append(pd.DataFrame(0.001*self.ad[i][self.param_one_combo]).values.flatten().tolist())
+            else:
+                data.append(pd.DataFrame(self.ad[i][self.param_one_combo]).values.flatten().tolist())
+
+            self.axes.scatter(xvalues_list,data,c=cl[i % len(cl)],edgecolors='white',s=self.dotsize_selection)
+
+            self.xticks.append(i)
+            self.xticklabels.append(self.ad[i].index.name)
+
+        self.axes.set_xticks( self.xticks )
+        self.axes.set_xticklabels( self.xticklabels )
+            
+        self.canvas.draw()
+
 ########## IVMainPlot sub class - Histogram ##########
        
 class IVHistPlot(IVMainPlot):
