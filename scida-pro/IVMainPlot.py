@@ -123,6 +123,7 @@ class CorrVocIsc(IVMainPlot):
         self.dotsize_enabled = True
         self.dotsize_selection = 20
         self.linewidth_enabled = False
+        self.scatter_enabled = False
         
         IVMainPlot.create_menu(self)
         IVMainPlot.create_main_frame(self)          
@@ -171,7 +172,8 @@ class CorrEtaFF(IVMainPlot):
         self.legend_selection = True
         self.dotsize_enabled = True
         self.dotsize_selection = 20
-        self.linewidth_enabled = False        
+        self.linewidth_enabled = False
+        self.scatter_enabled = False        
         
         IVMainPlot.create_menu(self)
         IVMainPlot.create_main_frame(self)          
@@ -220,7 +222,8 @@ class CorrRshFF(IVMainPlot):
         self.legend_selection = True
         self.dotsize_enabled = True
         self.dotsize_selection = 20
-        self.linewidth_enabled = False          
+        self.linewidth_enabled = False
+        self.scatter_enabled = False         
         
         IVMainPlot.create_menu(self)
         IVMainPlot.create_main_frame(self)          
@@ -270,7 +273,8 @@ class DistLtoH(IVMainPlot):
         self.legend_selection = True
         self.dotsize_enabled = True
         self.dotsize_selection = 200        
-        self.linewidth_enabled = False        
+        self.linewidth_enabled = False
+        self.scatter_enabled = False
         
         IVMainPlot.create_menu(self)
         IVMainPlot.create_main_frame(self)          
@@ -333,6 +337,7 @@ class DensEta(IVMainPlot):
         self.dotsize_enabled = False
         self.linewidth_enabled = True
         self.linewidth_selection = 3
+        self.scatter_enabled = False
         
         IVMainPlot.create_menu(self)
         IVMainPlot.create_main_frame(self)          
@@ -390,7 +395,8 @@ class DistWT(IVMainPlot):
         self.legend_selection = True
         self.dotsize_enabled = True
         self.dotsize_selection = 20
-        self.linewidth_enabled = False        
+        self.linewidth_enabled = False
+        self.scatter_enabled = False        
         
         if str(param_one_combo) in plot_selection_list:
             self.param_one_combo = str(param_one_combo)        
@@ -458,7 +464,8 @@ class DistRM(IVMainPlot):
         self.legend_selection = True
         self.dotsize_enabled = False        
         self.linewidth_enabled = True
-        self.linewidth_selection = 3        
+        self.linewidth_selection = 3
+        self.scatter_enabled = False        
         
         if str(param_one_combo) in plot_selection_list:
             self.param_one_combo = str(param_one_combo)         
@@ -522,7 +529,8 @@ class IVBoxPlot(IVMainPlot):
         self.grid_enabled = False
         self.legend_enabled = False
         self.dotsize_enabled = False
-        self.linewidth_enabled = False        
+        self.linewidth_enabled = False
+        self.scatter_enabled = False        
         
         if str(param_one_combo) in plot_selection_list:
             self.param_one_combo = str(param_one_combo)
@@ -591,7 +599,8 @@ class ViolinPlot(IVMainPlot):
         self.grid_enabled = False
         self.legend_enabled = False
         self.dotsize_enabled = False
-        self.linewidth_enabled = False        
+        self.linewidth_enabled = False
+        self.scatter_enabled = False        
         
         if str(param_one_combo) in plot_selection_list:
             self.param_one_combo = str(param_one_combo)
@@ -658,7 +667,9 @@ class CategoryScatter(IVMainPlot):
         self.legend_enabled = False
         self.dotsize_enabled = True
         self.dotsize_selection = 20
-        self.linewidth_enabled = False        
+        self.linewidth_enabled = False
+        self.scatter_enabled = True
+        self.scatter_selection = 0.5
         
         if str(param_one_combo) in plot_selection_list:
             self.param_one_combo = str(param_one_combo)
@@ -680,6 +691,7 @@ class CategoryScatter(IVMainPlot):
             self.canvas.draw()
             return
 
+        scatter = self.scatter_selection
         self.xticks = []
         self.xticklabels = []
 
@@ -687,7 +699,6 @@ class CategoryScatter(IVMainPlot):
             data = []            
             xvalues_list = []
             n = len(self.ad[i]['Uoc'])
-            scatter = 0.5
             xvalues_list.append(scatter*np.random.uniform( size=n ) - scatter*0.5 + i)
             
             if (self.param_one_combo == 'Voc*Isc'):
@@ -732,6 +743,7 @@ class IVHistPlot(IVMainPlot):
         self.legend_enabled = False
         self.dotsize_enabled = False
         self.linewidth_enabled = False
+        self.scatter_enabled = False
         
         IVMainPlot.create_menu(self)
         IVMainPlot.create_main_frame(self)
@@ -791,7 +803,8 @@ class IVHistDenPlot(IVMainPlot):
         self.legend_enabled = False
         self.dotsize_enabled = False        
         self.linewidth_enabled = True
-        self.linewidth_selection = 3        
+        self.linewidth_selection = 3
+        self.scatter_enabled = False
         
         IVMainPlot.create_menu(self)
         IVMainPlot.create_main_frame(self,True)

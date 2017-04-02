@@ -57,6 +57,22 @@ class PlotSettingsDialog(QtWidgets.QDialog):
             hbox.addStretch(1)
             group_vbox.addLayout(hbox)
 
+        if self.parent.scatter_enabled:       
+            self.scatter_sb = QtWidgets.QDoubleSpinBox()
+            self.scatter_sb.setAccelerated(True)
+            self.scatter_sb.setMaximum(0.5)
+            self.scatter_sb.setMinimum(0)
+            self.scatter_sb.setSingleStep(0.01)
+            self.scatter_sb.setDecimals(2)            
+            self.scatter_sb.setValue(self.parent.scatter_selection)
+            
+            hbox = QtWidgets.QHBoxLayout()
+            description = QtWidgets.QLabel(self.tr("Scatter amount"))
+            hbox.addWidget(self.scatter_sb)
+            hbox.addWidget(description)
+            hbox.addStretch(1)
+            group_vbox.addLayout(hbox)
+
         if self.parent.title_enabled:
             self.title_cb = QtWidgets.QCheckBox(self.tr("Title"))
             if self.parent.title_selection:
@@ -78,7 +94,7 @@ class PlotSettingsDialog(QtWidgets.QDialog):
         group_area.setLayout(group_vbox)
         
         if self.parent.grid_enabled or self.parent.legend_enabled or self.parent.title_enabled or\
-                self.parent.dotsize_enabled or self.parent.linewidth_enabled:
+                self.parent.dotsize_enabled or self.parent.linewidth_enabled or self.parent.scatter_enabled:
             vbox.addWidget(group_area)
 
         scroll_area = QtWidgets.QScrollArea()
@@ -122,6 +138,9 @@ class PlotSettingsDialog(QtWidgets.QDialog):
 
         if self.parent.linewidth_enabled: 
             self.parent.linewidth_selection = self.linewidth_sb.value()
+
+        if self.parent.scatter_enabled: 
+            self.parent.scatter_selection = self.scatter_sb.value()
             
         self.parent.plot_selection = []
         for i in range(len(self.dataset_cb)):

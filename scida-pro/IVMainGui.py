@@ -57,18 +57,18 @@ class IVMainGui(QtWidgets.QMainWindow):
         self.translator = None
         self.plot_selection_list = ['Uoc','Isc','Voc*Isc','FF','Eta','RserLfDfIEC','Rsh','IRev1']
         self.plot_selection_combo_list = []
-        self.plot_selection_combo_list.append(self.tr('Boxplot'))
-        self.plot_selection_combo_list.append(self.tr('Violinplot'))
-        self.plot_selection_combo_list.append(self.tr('Category scatter'))
-        self.plot_selection_combo_list.append(self.tr('Walk-through'))
-        self.plot_selection_combo_list.append(self.tr('Rolling mean'))
-        self.plot_selection_combo_list.append(self.tr('Low to high'))
-        self.plot_selection_combo_list.append(self.tr('Histogram'))
-        self.plot_selection_combo_list.append(self.tr('Density'))
-        self.plot_selection_combo_list.append(self.tr('Histogram + density'))
-        self.plot_selection_combo_list.append(self.tr('Voc-Isc'))
-        self.plot_selection_combo_list.append(self.tr('Eta-FF'))
-        self.plot_selection_combo_list.append(self.tr('Rsh-FF'))     
+        self.plot_selection_combo_list.append('Boxplot')
+        self.plot_selection_combo_list.append('Violinplot')
+        self.plot_selection_combo_list.append('Category scatter')
+        self.plot_selection_combo_list.append('Walk-through')
+        self.plot_selection_combo_list.append('Rolling mean')
+        self.plot_selection_combo_list.append('Low to high')
+        self.plot_selection_combo_list.append('Histogram')
+        self.plot_selection_combo_list.append('Density')
+        self.plot_selection_combo_list.append('Histogram + density')
+        self.plot_selection_combo_list.append('Voc-Isc')
+        self.plot_selection_combo_list.append('Eta-FF')
+        self.plot_selection_combo_list.append('Rsh-FF')
         self.param_one_combo = QtWidgets.QComboBox(self)
         self.plot_selection_combo = QtWidgets.QComboBox(self)
         self.plot_selection_combo.currentIndexChanged.connect(self.plot_selection_changed)        
@@ -198,9 +198,9 @@ class IVMainGui(QtWidgets.QMainWindow):
             QtWidgets.QMessageBox.about(self, self.tr("Warning"), msg)            
                               
         if self.ad:
-            self.statusBar().showMessage(self.tr("Ready"))
+            self.statusBar().showMessage(self.tr("Ready"),3000)
         else:
-            self.statusBar().showMessage(self.tr("Please load data files"))
+            self.statusBar().showMessage(self.tr("Please load data files"),3000)
 
     def save_files(self):
         dest_dir = QtWidgets.QFileDialog.getExistingDirectory(None, self.tr('Open directory'), self.prev_dir_path, QtWidgets.QFileDialog.ShowDirsOnly)
@@ -209,7 +209,7 @@ class IVMainGui(QtWidgets.QMainWindow):
             return
         
         if len(self.ad) == 0:
-            self.statusBar().showMessage(self.tr("Please load data files"))
+            self.statusBar().showMessage(self.tr("Please load data files"),3000)
             return
 
         self.prev_dir_path = dest_dir
@@ -249,14 +249,14 @@ class IVMainGui(QtWidgets.QMainWindow):
                            
             self.ad[i].to_csv(save_path, index=False)
         
-        self.statusBar().showMessage(self.tr("Files saved")) 
+        self.statusBar().showMessage(self.tr("Files saved"),3000) 
                    
     def combine_datasets(self):
 
         if len(self.ad) > 1:
-            self.statusBar().showMessage(self.tr("Combining data sets..."))
+            self.statusBar().showMessage(self.tr("Combining data sets..."),3000)
         else:
-            self.statusBar().showMessage(self.tr("Please load data files"))
+            self.statusBar().showMessage(self.tr("Please load data files"),3000)
             return     
 
         # Clearing associated data sets
@@ -283,14 +283,14 @@ class IVMainGui(QtWidgets.QMainWindow):
         item.setFont(font)
         self.series_list_model.appendRow(item) 
                 
-        self.statusBar().showMessage(self.tr("Ready"))
+        self.statusBar().showMessage(self.tr("Ready"),3000)
 
     def filter_data(self):
 
         if self.ad:
-            self.statusBar().showMessage(self.tr("Filtering data..."))
+            self.statusBar().showMessage(self.tr("Filtering data..."),3000)
         else:
-            self.statusBar().showMessage(self.tr("Please load data files"))
+            self.statusBar().showMessage(self.tr("Please load data files"),3000)
             return            
 
         self.read_filter_table()
@@ -336,7 +336,7 @@ class IVMainGui(QtWidgets.QMainWindow):
             item = QtGui.QStandardItem(self.ad[i].index.name)
             self.series_list_model.appendRow(item)            
 
-        self.statusBar().showMessage(self.tr("Ready"))                                    
+        self.statusBar().showMessage(self.tr("Ready"),3000)                                    
 
     def make_report(self):
 
@@ -348,11 +348,11 @@ class IVMainGui(QtWidgets.QMainWindow):
                 return
 
             if self.reportname:
-                self.statusBar().showMessage(self.tr("Making an Excel report..."))
+                self.statusBar().showMessage(self.tr("Making an Excel report..."),3000)
             else:
                 return
         else:
-            self.statusBar().showMessage(self.tr("Please load data files"))
+            self.statusBar().showMessage(self.tr("Please load data files"),3000)
             return
 
         try:
@@ -455,12 +455,12 @@ class IVMainGui(QtWidgets.QMainWindow):
                 
         writer.save()       
       
-        self.statusBar().showMessage(self.tr("Ready"))
+        self.statusBar().showMessage(self.tr("Ready"),3000)
 
     def open_report(self):
         
         if len(self.reportname):
-            self.statusBar().showMessage(self.tr("Opening report..."))
+            self.statusBar().showMessage(self.tr("Opening report..."),3000)
             if self.reportname[0] != '/': # windows
                 str_a = 'file:///' + self.reportname
             else: # linux
@@ -469,9 +469,9 @@ class IVMainGui(QtWidgets.QMainWindow):
             # Strict mode necessary for linux compatibility (spaces > %20)
             QtGui.QDesktopServices.openUrl(QtCore.QUrl(str_a, QtCore.QUrl.StrictMode)) 
 
-            self.statusBar().showMessage(self.tr("Ready"))
+            self.statusBar().showMessage(self.tr("Ready"),3000)
         else:
-            self.statusBar().showMessage(self.tr("Please make report"))
+            self.statusBar().showMessage(self.tr("Please make report"),3000)
                                     
     def clear_data(self):        
         self.ad = {}
@@ -481,14 +481,14 @@ class IVMainGui(QtWidgets.QMainWindow):
         self.series_list_model.clear()
         self.series_list_model.setHorizontalHeaderLabels([self.tr('Data series')])
         self.reportname = ''
-        self.statusBar().showMessage(self.tr("All data has been cleared"))           
+        self.statusBar().showMessage(self.tr("All data has been cleared"),3000)           
 
     def open_plot_selection(self):
         
         if self.ad:
-             self.statusBar().showMessage(self.tr("Creating plot window..."))
+             self.statusBar().showMessage(self.tr("Creating plot window..."),3000)
         else:
-            self.statusBar().showMessage(self.tr("Please load data files"))
+            self.statusBar().showMessage(self.tr("Please load data files"),3000)
             return
 
         selected_plot_combo = 0
@@ -517,7 +517,7 @@ class IVMainGui(QtWidgets.QMainWindow):
 
         self.wid.show() 
         
-        self.statusBar().showMessage(self.tr("Ready"))
+        self.statusBar().showMessage(self.tr("Ready"),3000)
         
     def set_default_filters(self):
 
@@ -564,7 +564,7 @@ class IVMainGui(QtWidgets.QMainWindow):
 
         self.set_user_filters()
             
-        self.statusBar().showMessage(self.tr("New filter settings loaded"))
+        self.statusBar().showMessage(self.tr("New filter settings loaded"),3000)
 
     def save_filter_settings(self):
 
@@ -594,11 +594,11 @@ class IVMainGui(QtWidgets.QMainWindow):
             QtWidgets.QMessageBox.about(self, self.tr("Warning"), msg) 
             return            
             
-        self.statusBar().showMessage(self.tr("File saved"))  
+        self.statusBar().showMessage(self.tr("File saved"),3000)  
 
     def read_filter_table(self):
         
-        self.statusBar().showMessage(self.tr("Checking filters..."))
+        self.statusBar().showMessage(self.tr("Checking filters..."),3000)
         self.user_filters = []       
         
         for i in np.arange(0,12):
@@ -622,7 +622,7 @@ class IVMainGui(QtWidgets.QMainWindow):
                     item = QtWidgets.QTableWidgetItem("")
                     self.filter_table_widget.setItem(i, j, item)
 
-        self.statusBar().showMessage(self.tr("Ready"))
+        self.statusBar().showMessage(self.tr("Ready"),3000)
 
     def convert_user_filters(self):
         self.user_filters_plain_format = []
@@ -714,7 +714,9 @@ class IVMainGui(QtWidgets.QMainWindow):
         QtWidgets.QApplication.installTranslator(self.translator)
 
         self.menuBar().clear()
-        self.create_menu()        
+        self.create_menu()
+        self.param_one_combo.clear()
+        self.plot_selection_combo.clear()        
         self.main_frame.deleteLater()       
         self.create_main_frame()
 
@@ -727,7 +729,9 @@ class IVMainGui(QtWidgets.QMainWindow):
         QtWidgets.QApplication.installTranslator(self.translator)
 
         self.menuBar().clear()
-        self.create_menu()        
+        self.create_menu()
+        self.param_one_combo.clear()
+        self.plot_selection_combo.clear()   
         self.main_frame.deleteLater()       
         self.create_main_frame()
 
@@ -736,7 +740,9 @@ class IVMainGui(QtWidgets.QMainWindow):
             QtWidgets.QApplication.removeTranslator(self.translator)
 
         self.menuBar().clear()
-        self.create_menu()        
+        self.create_menu()
+        self.param_one_combo.clear()
+        self.plot_selection_combo.clear()        
         self.main_frame.deleteLater()        
         self.create_main_frame()
 
