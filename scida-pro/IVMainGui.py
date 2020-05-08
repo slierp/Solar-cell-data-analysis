@@ -40,7 +40,8 @@ class IVMainGui(QtWidgets.QMainWindow):
         self.label_formats[0] = ['Uoc','Isc','RserLfDfIEC','Rsh','FF','Eta','IRev1']
         self.label_formats[1] = ['Uoc0','Isc0','Rseries_multi_level','Rshunt_SC','Fill0','Eff0','Ireverse_2']
         self.label_formats[2] = ['Uoc','Isc','RserIEC891','RshuntDfDr','FF','Eta','IRev1']
-        self.label_formats[3] = ['Uoc','Isc','Rs','Rsh','FF','NCell','Irev2']        
+        self.label_formats[3] = ['Uoc','Isc','Rs','Rsh','FF','NCell','Irev2']
+        self.label_formats[4] = ['Uoc','Isc','RserLfDfIEC','Rsh','FF','Eta','IRev1']         
         self.label_format = 0
         self.label_text = QtWidgets.QLabel("Data label set A")
         self.first_run = True
@@ -311,13 +312,13 @@ class IVMainGui(QtWidgets.QMainWindow):
                     filter_part1 = str(self.filter_table_widget.item(i,0).text())
                     filter_part2 = str(self.filter_table_widget.item(i,1).text())
                     filter_part3 = str(self.filter_table_widget.item(i,2).text())
-                    self.yl[j].ix[0,i] = filter_part1 + filter_part2 + filter_part3 # insert filter information
+                    self.yl[j].iloc[0,i] = filter_part1 + filter_part2 + filter_part3 # insert filter information
                 
                     if filter_part2 == ">":
-                        self.yl[j].ix[1,i] = (self.ad[j][filter_part1] > float(filter_part3)).sum() # count yield loss cells
+                        self.yl[j].iloc[1,i] = (self.ad[j][filter_part1] > float(filter_part3)).sum() # count yield loss cells
                         self.ad[j] = self.ad[j][self.ad[j][filter_part1] <= float(filter_part3)]
                     elif filter_part2 == "<":
-                        self.yl[j].ix[1,i] = (self.ad[j][filter_part1] < float(filter_part3)).sum()
+                        self.yl[j].iloc[1,i] = (self.ad[j][filter_part1] < float(filter_part3)).sum()
                         self.ad[j] = self.ad[j][self.ad[j][filter_part1] >= float(filter_part3)]
 
             name = self.ad[j].index.name
@@ -375,15 +376,15 @@ class IVMainGui(QtWidgets.QMainWindow):
 
         for i1 in self.ad:
             for i2, value in enumerate(self.ad[i1].max()):
-                self.smr[i1].ix[0,i2] = self.ad[i1].ix[self.ad[i1].idxmax()[5]][i2]
-                self.smr[i1].ix[1,i2] = self.ad[i1].median()[i2]
-                self.smr[i1].ix[2,i2] = self.ad[i1].mean()[i2]            
+                self.smr[i1].iloc[0,i2] = self.ad[i1].iloc[self.ad[i1].idxmax()[5]][i2]
+                self.smr[i1].iloc[1,i2] = self.ad[i1].median()[i2]
+                self.smr[i1].iloc[2,i2] = self.ad[i1].mean()[i2]            
         
                 paramlist = [0,1,4,5]
                 if i2 in paramlist:
-                    self.smr[i1].ix[3,i2] = self.ad[i1].std()[i2]
+                    self.smr[i1].iloc[3,i2] = self.ad[i1].std()[i2]
                 else:
-                    self.smr[i1].ix[3,i2] = np.nan
+                    self.smr[i1].iloc[3,i2] = np.nan
 
             self.smr[i1].apply(pd.to_numeric)
 
@@ -402,21 +403,21 @@ class IVMainGui(QtWidgets.QMainWindow):
         for i, value in enumerate(self.yloutput):
             # enter total columns with total counts           
             self.yloutput[i]['Total'] = np.nan
-            self.yloutput[i].ix[1,12] = self.yloutput[i].ix[1,:].sum()
+            self.yloutput[i].iloc[1,12] = self.yloutput[i].iloc[1,:].sum()
 
         for i, value in enumerate(self.yloutput):             
             # add percentages row
             self.yloutput[i].loc['Loss %'] = np.nan 
             
             for j in np.arange(0,len(self.yloutput[i].columns)):
-                if not self.yloutput[i].ix[1,j] == np.nan:
-                    self.yloutput[i].ix[2,j] = np.round(100 * self.yloutput[i].ix[1,j] / self.yloutput[i].index.name,decimals=2)
+                if not self.yloutput[i].iloc[1,j] == np.nan:
+                    self.yloutput[i].iloc[2,j] = np.round(100 * self.yloutput[i].iloc[1,j] / self.yloutput[i].index.name,decimals=2)
                     
             self.yloutput[i] = self.yloutput[i].dropna(1,'all') # drop completely empty filter columns in output
             
             # Bugfix; pandas recommends using .loc here
             self.yloutput[i].index.name = 'Data property'
-            self.yloutput[i]['Data set'] = self.ad[i].index.name + ' (' + repr(self.yloutput[i].index.name) + ' cells)'
+            self.yloutput[i]['Data set'] = self.ad[i].index.name + ' (' + repr(self.yloutput[i].index.name) + ' cells)'           
             self.yloutput[i] = self.yloutput[i].set_index('Data set', append=True).swaplevel(0,1)
                            
         ########## Generate correlation tables ##########
@@ -705,6 +706,45 @@ class IVMainGui(QtWidgets.QMainWindow):
         self.label_text = QtWidgets.QLabel("Data label set D") 
         self.statusBar().addPermanentWidget(self.label_text)        
 
+    def set_data_format4(self):
+
+        filename = QtWidgets.QFileDialog.getOpenFileName(self,self.tr("Open file"), self.prev_dir_path, "Label Settings File (*.csv)")
+        filename = filename[0]
+        
+        if (not filename):
+            return
+
+        try:
+            filename.encode('ascii')
+        except:
+            msg = self.tr("Filenames with non-ASCII characters were found.\n\nThe application currently only supports ASCII filenames.")
+            QtWidgets.QMessageBox.about(self, self.tr("Warning"), msg) 
+            return
+        
+        self.prev_dir_path = ntpath.dirname(filename)
+
+        try:
+            with open(filename,'rb') as f:
+                first_line = f.readline()
+        except:
+            msg = self.tr("Could not read file \"" + ntpath.basename(filename) + "\"")
+            QtWidgets.QMessageBox.about(self, self.tr("Warning"), msg) 
+            return
+
+        first_line = first_line.decode("utf-8")
+        first_line = "".join(first_line.split())      
+        self.label_formats[4] = first_line.split(",")
+        self.label_format = 4
+
+        msg = self.tr('Data series') + ": " + str(self.label_formats[4])
+        QtWidgets.QMessageBox.about(self, self.tr("Warning"), msg) 
+
+        self.statusBar().showMessage(self.tr("Ready"),3000)   
+
+        self.statusBar().removeWidget(self.label_text)        
+        self.label_text = QtWidgets.QLabel("Custom label set") 
+        self.statusBar().addPermanentWidget(self.label_text)        
+
     def langKor(self):
         if self.translator:
             QtWidgets.QApplication.removeTranslator(self.translator)
@@ -959,10 +999,18 @@ class IVMainGui(QtWidgets.QMainWindow):
         format_action3.setToolTip(tip)
         format_action3.setStatusTip(tip)
 
+        tip = self.tr("Custom labels")
+        format_action4 = QtWidgets.QAction(self.tr("Custom labels"), self)
+        format_action4.setIcon(QtGui.QIcon(":label.png"))
+        format_action4.triggered.connect(self.set_data_format4) 
+        format_action4.setToolTip(tip)
+        format_action4.setStatusTip(tip)
+
         self.edit_menu.addAction(format_action0)        
         self.edit_menu.addAction(format_action1)
         self.edit_menu.addAction(format_action2)
         self.edit_menu.addAction(format_action3)        
+        self.edit_menu.addAction(format_action4) 
 
         self.lang_menu = self.menuBar().addMenu(self.tr("Language"))
         
