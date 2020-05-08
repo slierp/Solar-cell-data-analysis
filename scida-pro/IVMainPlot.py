@@ -295,8 +295,8 @@ class DistLtoH(IVMainPlot):
         
         for i in self.plot_selection:
             se = pd.DataFrame(np.sort(self.ad[i]['Eta'])) # Sorted Eta
-            if se.ix[:,0].min() <= xmin : xmin = se.ix[:,0].min()
-            if se.ix[:,0].max() >= xmax : xmax = se.ix[:,0].max()
+            if se.iloc[:,0].min() <= xmin : xmin = se.iloc[:,0].min()
+            if se.iloc[:,0].max() >= xmax : xmax = se.iloc[:,0].max()
             if np.log10(1/len(se)) < ymin : ymin = np.log10(1/len(se))
             se.index = (se.index+1)/len(se)
             self.axes.scatter(se,se.index,c=cl[i % len(cl)],edgecolor=cl[i % len(cl)],marker=r'$\circ$',s=self.dotsize_selection,label=self.ad[i].index.name)
